@@ -1,0 +1,218 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Charging Schedule API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Charging Schedule
+paths:
+  /v1/vehicles/{vehicle_id}/departure-times:
+    get:
+      tags:
+      - Vehicle Charging Schedule
+      summary: List Vehicle Departure Times
+      description: 'Retrieve a list of departure times for the provided vehicle.
+
+
+        Departure times determine when the vehicle needs to charge by, working with the target state of charge,
+
+        which determines the charging behavior. So for example, if the target state of charge is 80%,
+
+        the departure time is 10:00, the vehicle is at 70%, and the rate of charge is 10% per hour,
+
+        the vehicle might start charging at 9:00 to reach 80% by 10:00.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR'
+      operationId: list_vehicle_departure_times_v1_vehicles__vehicle_id__departure_times_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:charging_history
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleDepartureTimes'
+  /v1/vehicles/{vehicle_id}/charging-windows:
+    get:
+      tags:
+      - Vehicle Charging Schedule
+      summary: List Charging Windows
+      description: 'Retrieve a list of charging windows for the provided vehicle.
+
+
+        Charging windows determine the start and stop times for the vehicle to charge, for example so that
+
+        the vehicle can be set to charge during electricity off-peak times.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR'
+      operationId: list_charging_windows_v1_vehicles__vehicle_id__charging_windows_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:charging_history
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleChargingWindows'
+components:
+  schemas:
+    LatLngValue:
+      properties:
+        longitude:
+          type: number
+          title: Longitude
+        latitude:
+          type: number
+          title: Latitude
+      type: object
+      required:
+      - longitude
+      - latitude
+      title: LatLngValue
+    VehicleDepartureTimes:
+      properties:
+        departureTimes:
+          items:
+            $ref: '#/components/schemas/DepartureTime'
+          type: array
+          title: Departuretimes
+      type: object
+      required:
+      - departureTimes
+      title: VehicleDepartureTimes
+    ChargingWindow:
+      properties:
+        startHour:
+          type: integer
+          title: Starthour
+        startMinute:
+          type: integer
+          title: Startminute
+        endHour:
+          type: integer
+          title: Endhour
+        endMinute:
+          type: integer
+          title: Endminute
+        daysOfWeek:
+          items:
+            $ref: '#/components/schemas/Weekdays'
+          type: array
+          title: Daysofweek
+          description: The days of the week that the charging window is valid for. If no values in the array, the charging window is valid for all days of the week.
+        localTimeOffset:
+          type: integer
+          title: Localtimeoffset
+          description: The local time offset (vs. UTC) of the start and end times, in minutes. For example, if the vehicle was in UTC+1, this would be 60.
+        windowLocation:
+          anyOf:
+          - $ref: '#/components/schemas/LatLngValue'
+          - type: 'null'
+      type: object
+      required:
+      - startHour
+      - startMinute
+      - endHour
+      - endMinute
+      - daysOfWeek
+      - localTimeOffset
+      title: ChargingWindow
+    Weekdays:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+      title: Weekdays
+    VehicleChargingWindows:
+      properties:
+        chargingWindows:
+          items:
+            $ref: '#/components/schemas/ChargingWindow'
+          type: array
+          title: Chargingwindows
+      type: object
+      required:
+      - chargingWindows
+      title: VehicleChargingWindows
+    DepartureTime:
+      properties:
+        hour:
+          type: integer
+          title: Hour
+        minute:
+          type: integer
+          title: Minute
+        daysOfWeek:
+          items:
+            $ref: '#/components/schemas/Weekdays'
+          type: array
+          title: Daysofweek
+          description: The days of the week that the departure time is valid for. If no values in the array, the departure time is valid for all days of the week.
+        localTimeOffset:
+          type: integer
+          title: Localtimeoffset
+          description: The local time offset (vs. UTC) of the start and end times, in minutes. For example, if the vehicle was in UTC+1, this would be 60.
+      type: object
+      required:
+      - hour
+      - minute
+      - daysOfWeek
+      - localTimeOffset
+      title: DepartureTime
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

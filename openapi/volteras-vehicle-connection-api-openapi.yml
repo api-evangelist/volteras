@@ -1,0 +1,582 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Connection API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Connection
+paths:
+  /v1/vehicles/{vehicle_id}:
+    delete:
+      tags:
+      - Vehicle Connection
+      summary: Action Disconnect
+      description: 'This endpoint allows you to disconnect a specific vehicle from your organization, ceasing the synchronization of its data.
+
+        After disconnection, the vehicle will no longer be accessible through your organization''s account.
+
+        Note that it can take a few minutes for the disconnection to be processed.
+
+
+        **Note:**
+
+        - Disconnecting a vehicle is an irreversible action, and the vehicle''s data will no longer be synchronized with your organization.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: action_disconnect_v1_vehicles__vehicle_id__delete
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '202':
+          description: Accepted
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/connect:
+    post:
+      tags:
+      - Vehicle Connection
+      summary: Bulk Vin Connect
+      description: 'Connect multiple VINs to the current organization.
+
+        By default this endpoint is not enabled for organizations, please contact us to get access.
+
+        Limited to 100 VINs per request.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - DEVICE_LIMIT_REACHED
+
+        - NOT_PERMITTED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: Bulk_VIN_connect_v1_vehicles_connect_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkConnectVehicleRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkConnectVehicleResponse'
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      x-list-error-codes:
+      - NOT_PERMITTED
+      - RESOURCE_NOT_FOUND
+      - DEVICE_LIMIT_REACHED
+      - REQUEST_VALIDATION_ERROR
+  /v1/vehicles/connect/{id}:
+    get:
+      tags:
+      - Vehicle Connection
+      summary: Bulk Vehicle Connect Group Status
+      description: 'This returns the overall status of the connection request for all VINs.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: bulk_vehicle_connect_group_status_v1_vehicles_connect__id__get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkConnectStatusResponse'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/connect/{id}/results:
+    get:
+      tags:
+      - Vehicle Connection
+      summary: Bulk Vehicle Connect Vin Results
+      description: 'Get details of individual VINs that were sent in the connection request.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: bulk_vehicle_connect_vin_results_v1_vehicles_connect__id__results_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: currentPage
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Current page
+          description: Current page
+        description: Current page
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResults_VehicleInputResponse_'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    BulkConnectStatusResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkConnectStatusResponse
+      description: Response for /connect/results/{id} endpoint
+    VehicleInputResponseError:
+      properties:
+        code:
+          type: string
+          enum:
+          - OEM_INCORRECT_REGION
+          - OEM_VEHICLE_OFFLINE
+          - OEM_VEHICLE_REMOTE_ACCESS_DISABLED
+          - OEM_VEHICLE_DATA_SHARING_DISABLED
+          - FLEET_CONSENT_MISSING
+          - OEM_AUTH_DRIVER_IS_NOT_PRIMARY_USER
+          - OEM_DEVICE_NOT_FOUND
+          - OEM_VEHICLE_NOT_COMPATIBLE
+          - OEM_VEHICLE_UPDATE_REQUIRED
+          - DEVICE_LIMIT_REACHED
+          - NOT_PERMITTED
+          - VIN_UPLOAD_INVALID_FORMAT
+          - INVALID_VIN
+          - VIN_CHECK_NOT_SUPPORTED
+          - VEHICLE_ALREADY_ADDED_TO_ORGANIZATION
+          - VEHICLE_ALREADY_ADDED_CONNECTION_REQUIRED
+          - VEHICLE_ALREADY_ADDED_INCOMPATIBLE
+          - VEHICLE_ALREADY_ADDED_PENDING_CONNECTION
+          - VIN_UPLOAD_NOT_SUPPORTED
+          - VIN_BLACKLISTED
+          - SUBJECTS_NOT_ASSIGNABLE
+          title: Code
+          description: Error code
+        message:
+          type: string
+          title: Message
+          description: Error message
+        actionCategory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Actioncategory
+          description: 'Category indicating who must act on this error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW'
+      type: object
+      required:
+      - code
+      - message
+      title: VehicleInputResponseError
+    VehicleInputGroupStatusEnum:
+      type: string
+      enum:
+      - CREATED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      title: VehicleInputGroupStatusEnum
+    PageResults_VehicleInputResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleInputResponse'
+          type: array
+          title: Results
+          default: []
+        totalResults:
+          type: integer
+          title: Totalresults
+          default: 0
+      type: object
+      title: PageResults[VehicleInputResponse]
+    VehicleInputResponse:
+      properties:
+        vehicleId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vehicleid
+          description: Vehicle ID of the connected vehicle. This will only be set if the vehicle was connected successfully
+        vehicleInputId:
+          type: string
+          title: Vehicleinputid
+          description: ID of the vehicle input (IE this specific attempt for the VIN upload).
+        status:
+          $ref: '#/components/schemas/APIVehicleUploadStatus'
+          description: 'Status of the vehicle connection attempt.
+
+            - `CONNECTED`: The vehicle was successfully connected.
+
+            - `PROCESSING`: The VIN is queued and waiting to be processed by the platform.
+
+            - `PENDING`: The VIN has been ingested and is being connected. Check the message field for any required actions (e.g. vehicle must be driven to complete connection).
+
+            - `CONNECTION_REQUIRED`: The vehicle owner needs to authenticate via our consent flow to complete the connection.
+
+            - `INCOMPATIBLE`: The VIN is not compatible with the OEM''s connected vehicle platform.
+
+            - `ERROR`: The connection failed — check the errors field for details.'
+        message:
+          type: string
+          title: Message
+          description: Message for the response.
+        errors:
+          items:
+            $ref: '#/components/schemas/VehicleInputResponseError'
+          type: array
+          title: Errors
+          description: Errors for the response, if any were raised
+          default: []
+        canRetry:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Canretry
+          description: Whether the client can retry the upload on error.
+        vin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vin
+          description: The VIN
+        make:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Make
+          description: The vehicle make
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The vehicle model
+        countryCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countrycode
+          description: ISO two-character country code of the vehicle captured during upload, if provided.
+        registrationPlate:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Registrationplate
+          description: Vehicle registration plate captured during upload, if provided.
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+          description: Vehicle model year captured during upload, if provided.
+        registrationDate:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Registrationdate
+          description: Vehicle registration date captured during upload, if provided.
+        owners:
+          items:
+            type: string
+          type: array
+          title: Owners
+          description: Owner identifiers (emails or group names) captured during upload.
+        tags:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          title: Tags
+          description: Tags provided during the upload.
+        wasAlreadyConnected:
+          type: boolean
+          title: Wasalreadyconnected
+          description: True when this row landed on a vehicle that was already enrolled — i.e. a re-upload that updated existing tags/owners/etc. False for a fresh enrolment. Always false unless the row completed successfully on an existing vehicle.
+          default: false
+      type: object
+      required:
+      - vehicleInputId
+      - status
+      - message
+      title: VehicleInputResponse
+    BulkConnectVehicleRequest:
+      properties:
+        vehicles:
+          items:
+            $ref: '#/components/schemas/ConnectVehicleRequest'
+          type: array
+          maxItems: 100
+          title: Vehicles
+          description: The vehicles to connect
+      type: object
+      required:
+      - vehicles
+      title: BulkConnectVehicleRequest
+      description: Request model to connect multiple VINs
+    ConnectVehicleRequest:
+      properties:
+        vin:
+          type: string
+          title: Vin
+          description: Vehicle identification number. Unique identifier for the vehicle.
+        make:
+          type: string
+          enum:
+          - ABARTH
+          - ALFA ROMEO
+          - AUDI
+          - BMW
+          - CHRYSLER
+          - CITROEN
+          - CUPRA
+          - DODGE
+          - DS AUTOMOBILES
+          - FIAT
+          - FORD
+          - HYUNDAI
+          - JEEP
+          - KIA
+          - LANCIA
+          - LEXUS
+          - MASERATI
+          - MERCEDES BENZ
+          - MINI
+          - NISSAN
+          - OPEL
+          - PEUGEOT
+          - POLESTAR
+          - RAM
+          - RENAULT
+          - SEAT
+          - SKODA
+          - TESLA
+          - TOYOTA
+          - VAUXHALL
+          - VOLKSWAGEN
+          - VOLVO
+          title: MakeEnum
+          description: Manufacturer of the vehicle
+        countryCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countrycode
+          description: ISO two-character country code (ISO 3166-1 alpha-2, e.g. 'US', 'GB', 'FR') of the vehicle, used for retrieving vehicle specifications data. If not populated, will use the default setting (if set).
+        registrationPlate:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Registrationplate
+          description: Vehicle registration plate
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Vehicle model
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+          description: Vehicle model year (the year the model was released, not the year of manufacture)
+        batteryCapacity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacity
+          description: Nominal (IE when manufactured) battery capacity in kWh of the vehicle
+        horsepower:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Horsepower
+          description: Vehicle horsepower
+        generation:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Generation
+          description: Vehicle generation
+        wltpRange:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Wltprange
+          description: WLTP range of the vehicle in km
+        registrationDate:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Registrationdate
+          description: Vehicle registration date (ISO 8601, day granularity). Must be on or before today. Used as the date-axis baseline for the service-interval cycle when the `DERIVED_SERVICING_REMINDER` setting is enabled for the organization.
+        tags:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Tag'
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Tags to associate with the vehicle, for example IDs you want to associate with it, that will then be returned when you fetch the vehicle and can be used to filter vehicles in the list vehicle endpoint.
+      type: object
+      required:
+      - countryCode
+      - vin
+      - make
+      title: ConnectVehicleRequest
+      description: Request model to connect a single VIN
+    APIVehicleUploadStatus:
+      type: string
+      enum:
+      - CONNECTED
+      - PROCESSING
+      - PENDING
+      - CONNECTION_REQUIRED
+      - INCOMPATIBLE
+      - ERROR
+      title: APIVehicleUploadStatus
+      description: Status of a vehicle connection attempt.
+    BulkConnectVehicleResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkConnectVehicleResponse
+      description: Response for async bulk vehicle upload endpoint on connect-api
+    Tag:
+      properties:
+        key:
+          type: string
+          maxLength: 150
+          title: Key
+        value:
+          type: string
+          maxLength: 150
+          title: Value
+      type: object
+      required:
+      - key
+      - value
+      title: Tag
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

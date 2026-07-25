@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Range API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Range
+paths:
+  /v1/vehicles/{vehicle_id}/range:
+    get:
+      tags:
+      - Vehicle Range
+      summary: Get Vehicle Range
+      description: 'Retrieves both nominal and real-world maximum range information for specified vehicles. It enables accurate vehicle
+
+        range analysis by drawing on historical data and usage patterns for the specified vehicle.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: A unique identifier for the vehicle, which must correspond to a vehicle registered in our system.
+
+
+        **Returns:**
+
+        - A vehicle range instance encapsulating detailed range information for the vehicle. The data includes both the
+
+        standard (nominal) range and the real (observed) maximum range based on data retrieved directly from the vehicle
+
+        and the specifications published by the OEMs.
+
+
+        **Raises:**
+
+        - `APIException`: Raised when the system cannot locate the vehicle''s range details, due to an invalid ''vehicle_id''
+
+        or absence of range data. This results in a 404 Not Found status code.
+
+
+        **Note:**
+
+        - The first availability of `real_max_range` depends on the first instance of data retrieved from the vehicle where
+
+        the State of Charge is above 40%. As more data is collected, the endpoint is updated on a rolling basis, always
+
+        providing the most accurate information available.
+
+        - We recommend charging the vehicle to a State of Charge greater than 40% should the endpoint not be available.
+
+        - The inclusion of `nominal_max_range` is reliant on the availability of the trim of the vehicle.
+
+        - The endpoint''s accuracy and availability depend upon the reliability of data sourced from and published by OEMs.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_range_v1_vehicles__vehicle_id__range_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:information
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect_models__schemas__vehicle__vehicle_range__VehicleRange'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    VehicleRangeStandardEnum:
+      type: string
+      enum:
+      - WLTP
+      - NEDC
+      - EPA
+      - UNKNOWN
+      title: VehicleRangeStandardEnum
+      description: Enum for standards applied to vehicle
+    connect_models__schemas__vehicle__vehicle_range__VehicleRange:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+        unit:
+          type: string
+          title: Unit
+        calculationDate:
+          type: string
+          format: date
+          title: Calculationdate
+        range:
+          $ref: '#/components/schemas/RangeDetail'
+      type: object
+      required:
+      - vehicleId
+      - unit
+      - calculationDate
+      - range
+      title: VehicleRange
+    RangeDetail:
+      properties:
+        real:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Real
+        realWarmerRange:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Realwarmerrange
+        realColderRange:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Realcolderrange
+        nominal:
+          additionalProperties:
+            anyOf:
+            - type: integer
+            - type: 'null'
+          propertyNames:
+            $ref: '#/components/schemas/VehicleRangeStandardEnum'
+          type: object
+          title: Nominal
+        score:
+          additionalProperties:
+            anyOf:
+            - type: string
+              pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            - type: 'null'
+          propertyNames:
+            $ref: '#/components/schemas/VehicleRangeStandardEnum'
+          type: object
+          title: Score
+      type: object
+      required:
+      - nominal
+      - score
+      title: RangeDetail
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

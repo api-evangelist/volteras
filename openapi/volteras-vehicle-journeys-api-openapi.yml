@@ -1,0 +1,261 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Journeys API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Journeys
+paths:
+  /v1/vehicles/{vehicle_id}/journeys:
+    get:
+      tags:
+      - Vehicle Journeys
+      summary: List Vehicle Journeys
+      description: 'Retrieve a paginated list of journeys for the provided vehicle.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve journeys for.
+
+        - Pagination parameters as query params.
+
+        - Filter parameters on any of the journey fields - see https://docs.volteras.com/overview/listing-filter-json for how to construct.
+
+
+        **Returns:**
+
+        - A paginated list of vehicle journeys.
+
+
+        This endpoint allows you to retrieve a paginated list of journeys for a specific vehicle identified by its unique `vehicle_id`.
+
+        The list is ordered by the start timestamp of each journey, with the most recent journeys appearing first.
+
+
+        **Note:**
+
+        - The `vehicle_id` should correspond to a valid and existing vehicle identifier.
+
+        - This endpoint returns the estimated total result count.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - PAGE_SIZE_TOO_LARGE
+
+        - PAGINATED_QUERY_FILTER_CHANGED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: list_vehicle_journeys_v1_vehicles__vehicle_id__journeys_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:telemetry
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page token
+          description: Page token used for pagination.
+        description: Page token used for pagination.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filter
+          description: Listing filter schema.
+        description: Listing filter schema.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageWithEstimatedTotalResults_VehicleJourneyResponse_'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - PAGINATED_QUERY_FILTER_CHANGED
+      - PAGE_SIZE_TOO_LARGE
+components:
+  schemas:
+    VehicleJourneyResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for the journey
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier for the vehicle
+        distanceTravelledKm:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Distancetravelledkm
+          description: Distance travelled in kilometers
+        odometerStart:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Odometerstart
+          description: Odometer reading at journey start in kilometers
+        odometerEnd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Odometerend
+          description: Odometer reading at journey end in kilometers
+        energyUsedKwh:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Energyusedkwh
+          description: Energy used during journey in kWh
+        energyStartKwh:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Energystartkwh
+          description: Energy remaining at journey start in kWh
+        energyEndKwh:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Energyendkwh
+          description: Energy remaining at journey end in kWh
+        socUsed:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Socused
+          description: State of charge used during journey in percent
+        socStart:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Socstart
+          description: State of charge at journey start in percent
+        socEnd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Socend
+          description: State of charge at journey end in percent
+        startTimestamp:
+          type: string
+          format: date-time
+          title: Starttimestamp
+          description: Journey start timestamp
+        stopTimestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stoptimestamp
+          description: Journey stop timestamp
+        startLatitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Startlatitude
+          description: Latitude at journey start
+        startLongitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Startlongitude
+          description: Longitude at journey start
+        stopLatitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Stoplatitude
+          description: Latitude at journey stop
+        stopLongitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Stoplongitude
+          description: Longitude at journey stop
+        vin:
+          type: string
+          title: Vin
+          description: Vehicle identification number
+      type: object
+      required:
+      - id
+      - vehicleId
+      - startTimestamp
+      - vin
+      title: VehicleJourneyResponse
+      description: Journey response schema for API
+    PageWithEstimatedTotalResults_VehicleJourneyResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleJourneyResponse'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        estimatedTotalResults:
+          type: integer
+          title: Estimated total results
+          description: Estimated total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - estimatedTotalResults
+      title: PageWithEstimatedTotalResults[VehicleJourneyResponse]
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

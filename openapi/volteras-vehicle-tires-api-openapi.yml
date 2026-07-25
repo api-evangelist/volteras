@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Tires API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Tires
+paths:
+  /v1/vehicles/{vehicle_id}/maintenance/tires/historic:
+    get:
+      tags:
+      - Vehicle Tires
+      summary: Get Vehicle Tires Readings Historic
+      description: 'Retrieves the list of tire pressures for the vehicle for the specified period (default is the last 3 months),
+
+        grouped by hour.
+
+
+        Maximum date range is 3 months.
+
+
+        **Returns:**
+
+        - The list of tire pressures for the vehicle.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_tires_readings_historic_v1_vehicles__vehicle_id__maintenance_tires_historic_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:telemetry
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      - name: from_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Start datetime for the tire pressure history, in ISO format. Date range must be 3 months or less.
+          title: From Datetime
+        description: Start datetime for the tire pressure history, in ISO format. Date range must be 3 months or less.
+      - name: to_datetime
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: End datetime for the tire pressure history, in ISO format. Date range must be 3 months or less.
+          title: To Datetime
+        description: End datetime for the tire pressure history, in ISO format. Date range must be 3 months or less.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleTiresList'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    VehicleTiresFormatted:
+      properties:
+        frontLeft:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Frontleft
+        frontRight:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Frontright
+        rearLeft:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Rearleft
+        rearRight:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Rearright
+        bucket:
+          type: string
+          format: date-time
+          title: Bucket
+      type: object
+      required:
+      - frontLeft
+      - frontRight
+      - rearLeft
+      - rearRight
+      - bucket
+      title: VehicleTiresFormatted
+    VehicleTiresList:
+      properties:
+        tires:
+          items:
+            $ref: '#/components/schemas/VehicleTiresFormatted'
+          type: array
+          title: Tires
+          default: []
+      type: object
+      title: VehicleTiresList
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

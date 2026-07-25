@@ -1,0 +1,423 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Manufacturer Alerts API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Manufacturer Alerts
+paths:
+  /v1/vehicles/{vehicle_id}/maintenance/manufacturer-alerts/current:
+    get:
+      tags:
+      - Vehicle Manufacturer Alerts
+      summary: Get Current Vehicle Oem Alerts
+      description: 'Retrieves the list of currently active manufacturer alerts for the vehicle, that is, alerts that have come from the vehicle itself,
+
+        rather than our alerts. This can include alerts for low tire pressure, faulty brakes etc.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_current_vehicle_oem_alerts_v1_vehicles__vehicle_id__maintenance_manufacturer_alerts_current_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:telemetry
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OEMAlerts'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    OEMAlertSeverity:
+      type: string
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      - CRITICAL
+      title: OEMAlertSeverity
+    OEMAlertType:
+      type: string
+      enum:
+      - FAULT
+      - WARNING
+      - INFO
+      - ROUTINE_MAINTENANCE
+      - TEMPORARY_FAULT
+      title: OEMAlertType
+    MappedCode:
+      type: string
+      enum:
+      - TIRE_DEFLATING_ALERT
+      - TIRE_PRESSURE_ALERT
+      - TIRE_PUNCTURE
+      - TIRE_PRESSURE_MISMATCH
+      - TIRE_PRESSURE_SYSTEM_FAULT
+      - TIRE_PRESSURE_MONITORING_DEACTIVATED
+      - AUXILIARY_BATTERY_FAULT
+      - AUXILIARY_BATTERY_LOW_VOLTAGE
+      - ELECTRICAL_CHARGING_FAULT
+      - BATTERY_OVERHEATING
+      - BATTERY_INSULATION_FAULT
+      - BATTERY_CELL_FAULT
+      - BATTERY_STORAGE_FAULT
+      - BATTERY_CHARGE_HIGH
+      - BATTERY_CHARGE_LOW
+      - BATTERY_CELL_OVERVOLTAGE
+      - BATTERY_CELL_UNDERVOLTAGE
+      - BATTERY_CHARGE_FLUCTUATION
+      - BATTERY_TEMP_IMBALANCE
+      - BATTERY_OVERCHARGE
+      - BATTERY_DISCHARGE_RATE_HIGH
+      - BATTERY_MONITORING_FAILED
+      - BATTERY_CHARGING
+      - CHARGING_ABORTED
+      - BATTERY_OUTPUT_RESTRICTED
+      - BATTERY_REGENERATION_REQUIRED
+      - CHARGING_COUPLER_FAULT
+      - INVERTER_FAULT
+      - ENGINE_OVERHEATING
+      - ENGINE_FAULT
+      - ENGINE_INCREASED_EMISSIONS
+      - ENGINE_REDUCE_LOAD
+      - OIL_PRESSURE_LOW
+      - OIL_LEVEL_SENSOR_MALFUNCTION
+      - ENGINE_OIL_LEVEL_ALERT
+      - POWERTRAIN_FAULT
+      - CHECK_ENGINE
+      - TRANSMISSION_MALFUNCTION
+      - TRANSMISSION_RESTRICTED_POSITION
+      - TRANSMISSION_POSITION_N
+      - TRANSMISSION_POSITION_D_ONLY
+      - TRANSMISSION_POSITION_P_ONLY
+      - TRANSMISSION_FAILSAFE_ACTIVE
+      - TRANSMISSION_NEUTRAL_PARKING_BRAKE
+      - GEARBOX_OVERHEATING
+      - GEARBOX_OVERHEATED
+      - GEAR_INDICATOR_FAILED
+      - BRAKE_SYSTEM_FAULT
+      - ABS_FAULT
+      - BRAKE_PAD_WEAR
+      - BRAKE_FLUID_LOW
+      - BRAKE_DRIVING_CONTROL_FAILURE
+      - DBC_BRAKE_ASSIST_FAILED
+      - PARKING_BRAKE_ACTIVE
+      - PARKING_BRAKE_OVERHEATED
+      - PARKING_BRAKE_MALFUNCTION
+      - PARKING_BRAKE_RELEASE
+      - AUTOMATIC_HOLD_MALFUNCTION
+      - PRESS_BRAKE_TO_START
+      - POWER_STEERING_FAULT
+      - POWER_STEERING_SERVICE_REQUIRED
+      - SUSPENSION_FAULT
+      - DYNAMIC_DAMPER_CONTROL_FAILED
+      - LEVEL_CONTROL_SYSTEM_FAILURE
+      - SERVOTRONIC_FAILED
+      - EPS_INOPERATIVE
+      - ELV_STEERING_LOCK_FAULT
+      - ELV_STEERING_LOCK_ACTIVE
+      - CRASH_DETECTED
+      - CRASH_SAFETY_MODULE
+      - SEATBELT_UNFASTENED
+      - SEATBELT_FAULT
+      - SEATBELT_PRETENSIONER_FAULT
+      - MULTIPLE_RESTRAINT_SYSTEM_FAULT
+      - AIRBAG_SYSTEM_FAULT
+      - DRIVERS_AIRBAG_FAULT
+      - PASSENGER_AIRBAG_FAULT
+      - SIDE_AIRBAG_FAULT
+      - FORWARD_COLLISION_ALERT
+      - FORWARD_COLLISION_SYSTEM_FAULT
+      - LOW_SPEED_COLLISION_ALERT
+      - LOW_SPEED_COLLISION_SYSTEM_FAULT
+      - ANTI_THEFT_ALERT
+      - SECURITY_SYSTEM_FAULT
+      - CRUISE_CONTROL_FAULT
+      - CRUISE_CONTROL_DEACTIVATED_SENSOR_ERROR
+      - ACTIVE_CRUISE_CONTROL_DISABLED
+      - LANE_ASSIST_FAULT
+      - BLIND_SPOT_SYSTEM_FAULT
+      - PARK_ASSIST_FAULT
+      - REAR_CROSS_TRAFFIC_FAULT
+      - HILL_DESCENT_FAULT
+      - HILL_START_FAULT
+      - ESC_FAULT
+      - DSC_FAILED
+      - DSC_DEACTIVATED
+      - TRACTION_CONTROL_OFF
+      - TRACTION_CONTROL_ACTIVE
+      - DYNAMIC_TRACTION_CONTROL_ACTIVE
+      - AWD_DISABLED
+      - LIGHTING_SYSTEM_FAULT
+      - HEADLIGHT_FAULT
+      - LIGHT_FAULT
+      - INDICATOR_LIGHT_FAULT
+      - BRAKE_LIGHT_FAULT
+      - REVERSE_LIGHT_FAULT
+      - FOG_LIGHT_FAULT
+      - SIDE_LIGHT_FAULT
+      - NUMBER_PLATE_LIGHT_FAULT
+      - ADAPTIVE_LIGHTING_FAULT
+      - SIDELIGHTS_ON
+      - PARKING_LIGHTS_ON
+      - TRAILER_LIGHT_FAULT
+      - FUEL_LEVEL_LOW
+      - FUEL_CAP_ISSUE
+      - FUEL_INLET_ISSUE
+      - FUEL_DOOR_OPEN
+      - FUEL_FILTER_MAINTENANCE
+      - WATER_IN_FUEL
+      - DIESEL_IDLE_SHUTDOWN
+      - DIESEL_ENGINE_FAULT
+      - DIESEL_PREHEAT
+      - DEF_LOW
+      - DEF_SYSTEM_FAULT
+      - DEF_WARNING
+      - DEF_QUALITY_ISSUE
+      - EXHAUST_OVERTEMP
+      - DPF_MAINTENANCE
+      - DPF_REGENERATION_ACTIVE
+      - PARTICULATE_FILTER_MALFUNCTION
+      - ANTI_POLLUTION_SYSTEM_FAULT
+      - HYBRID_SYSTEM_FAULT
+      - HV_INTERLOCK_FAULT
+      - DC_CONVERTER_OVERHEATING
+      - DC_CONVERTER_FAULT
+      - MOTOR_CONTROLLER_OVERHEATING
+      - TRACTION_MOTOR_OVERHEATING
+      - KEYLESS_ENTRY_FAULT
+      - WRONG_REMOTE_KEY
+      - KEY_BATTERY_LOW
+      - REMOTE_CONTROL_KEY_FAULT
+      - REMOTE_KEY_BATTERY_DISCHARGED
+      - REMOTE_KEY_STATIONARY_BATTERY_LOW
+      - DOOR_OPEN
+      - BONNET_OPEN
+      - BOOT_OPEN
+      - SERVICE_DUE
+      - AIR_FILTER_MAINTENANCE
+      - AUTO_START_STOP_FAULT
+      - WASHER_FLUID_LOW
+      - WINDSHIELD_WASHER_FLUID_LOW
+      - WINDSHIELD_WIPER_MALFUNCTION
+      - ENGINE_COOLANT_LEVEL_LOW
+      - LOW_EXTERNAL_TEMPERATURE
+      - RESET_CLOCK
+      - SYSTEM_CHECK_FAILED
+      - TRAILER_BRAKE_CONNECTION_ISSUE
+      - TRAILER_ELECTRICS_FAILED
+      - IGNITION_PROBLEM
+      - STARTER_PROBLEM
+      - PREHEATING_ACTIVE
+      - VEHICLE_SPEED_LIMIT_EXCEEDED
+      - ODOMETER_FAILURE
+      - GENERAL_MALFUNCTION
+      title: MappedCode
+    OEMAlertAction:
+      type: string
+      enum:
+      - DO_NOT_DRIVE
+      - SERVICE_REQUIRED
+      - COMPLETE_ROUTINE_MAINTENANCE
+      - SERVICE_IF_ALERT_PERSISTS
+      - SHUT_DOORS
+      - SHUT_TRUNK
+      - CHECK_VEHICLE_SECURE
+      - COORDINATE_RETRIEVAL
+      - CHARGE_CAR
+      - REFUEL
+      - FASTEN_SEATBELTS
+      - SET_CLOCK
+      - SWITCH_IGNITION_ON
+      - SWITCH_ENGINE_ON
+      - DEPRESS_BRAKE
+      - DEPRESS_CLUTCH
+      - TURN_STEERING_WHEEL
+      - REPLACE_KEY_BATTERY
+      - REPLACE_BULB
+      - CHECK_BATTERY_TERMINALS
+      - CHECK_BATTERY_CONDITION
+      title: OEMAlertAction
+    OEMAlert:
+      properties:
+        status:
+          $ref: '#/components/schemas/OEMAlertStatus'
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        oemCode:
+          type: string
+          title: Oemcode
+        oemMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Oemmessage
+        mappedMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mappedmessage
+        oemMetadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Oemmetadata
+        affectedComponent:
+          anyOf:
+          - $ref: '#/components/schemas/AffectedComponent'
+          - type: string
+          - type: 'null'
+          title: Affectedcomponent
+        recommendedAction:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertAction'
+          - type: string
+          - type: 'null'
+          title: Recommendedaction
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertType'
+          - type: string
+          - type: 'null'
+          title: Type
+        mappedCode:
+          anyOf:
+          - $ref: '#/components/schemas/MappedCode'
+          - type: string
+          - type: 'null'
+          title: Mappedcode
+        severity:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertSeverity'
+          - type: 'null'
+      type: object
+      required:
+      - status
+      - timestamp
+      - oemCode
+      title: OEMAlert
+    OEMAlertStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - RESOLVED
+      - UNKNOWN
+      title: OEMAlertStatus
+    AffectedComponent:
+      type: string
+      enum:
+      - VEHICLE
+      - ENGINE
+      - TRANSMISSION
+      - DRIVE_TRAIN
+      - MOTOR
+      - BRAKES
+      - BRAKE_FRONT
+      - BRAKE_REAR
+      - BRAKE_FLUID
+      - STEERING
+      - SUSPENSION
+      - ELECTRIC_POWER_STEERING
+      - BATTERY
+      - AUXILIARY_BATTERY
+      - ELECTRICAL_SYSTEM
+      - HYBRID_SYSTEM
+      - ENGINE_OIL
+      - COOLING
+      - FUEL
+      - EXHAUST_SYSTEM
+      - EMISSIONS_SYSTEM
+      - TIRES
+      - TIRE_PRESSURE_MONITORING_SYSTEM
+      - AIRBAGS
+      - AIRBAG
+      - SEATBELTS
+      - CRASH_DETECTION_SYSTEM
+      - CRASH_SAFETY_SYSTEM
+      - AUTOMATIC_BRAKING_SYSTEM
+      - EMERGENCY_BRAKING_SYSTEM
+      - PEDESTRIAN_PROTECTION_SYSTEM
+      - LANE_DEPARTURE_WARNING_SYSTEM
+      - HILL_START_SYSTEM
+      - AUTOPILOT
+      - CRUISE_CONTROL
+      - PARKING_SENSORS
+      - CAMERAS
+      - SENSORS
+      - TRACTION_SYSTEM
+      - ELECTRONIC_STABILITY_CONTROL
+      - HEADLIGHTS
+      - SIDE_LIGHTS
+      - BRAKE_LIGHTS
+      - REAR_LIGHTS
+      - REVERSE_LIGHTS
+      - SIGNAL_LIGHTS
+      - NUMBER_PLATE_LIGHTS
+      - TRAILER_LIGHTS
+      - ADAPTIVE_LIGHTING_SYSTEM
+      - LIGHTS
+      - BODY
+      - DOORS
+      - TRUNK
+      - ROOF
+      - WINDOWS
+      - LOCKS
+      - KEYS
+      - SECURITY_SYSTEM
+      - WASHER_LIQUID
+      - WIPERS
+      - CLOCK
+      - ODOMETER
+      - EXTERNAL_CHARGING_EQUIPMENT
+      - VEHICLE_CHARGING_PORT
+      - CHARGING_COUPLER
+      - TRAILER
+      title: AffectedComponent
+    OEMAlerts:
+      properties:
+        alerts:
+          items:
+            $ref: '#/components/schemas/OEMAlert'
+          type: array
+          title: Alerts
+          default: []
+      type: object
+      title: OEMAlerts
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

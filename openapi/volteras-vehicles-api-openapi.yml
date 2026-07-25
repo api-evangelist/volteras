@@ -1,0 +1,647 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicles API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicles
+paths:
+  /v1/vehicles:
+    get:
+      tags:
+      - Vehicles
+      summary: List Vehicles
+      description: 'Retrieve a paginated list of vehicles associated with your organization.
+
+
+        The endpoint lists vehicles based on the following criteria:
+
+        - Includes only vehicles that have enabled synchronization during the account connection process.
+
+        - Excludes disconnected vehicles or those not included in the OEM account.
+
+
+        **Returns:**
+
+        - A paginated response containing a list of vehicles.
+
+
+        **Note:**
+
+        - This endpoint provides a summary of each vehicle''s basic details. For comprehensive vehicle data, please refer to the individual vehicle detail endpoints.
+
+
+        _Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - PAGE_SIZE_TOO_LARGE
+
+        - PAGINATED_QUERY_FILTER_CHANGED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR'
+      operationId: list_vehicles_v1_vehicles_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page token
+          description: Page token used for pagination.
+        description: Page token used for pagination.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filter
+          description: Listing filter schema.
+        description: Listing filter schema.
+      - name: tagKey
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tagkey
+      - name: tagValue
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tagvalue
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_Vehicle_'
+      x-list-error-codes:
+      - PAGINATED_QUERY_FILTER_CHANGED
+      - PAGE_SIZE_TOO_LARGE
+  /v1/vehicles/{vehicle_id}:
+    get:
+      tags:
+      - Vehicles
+      summary: Get Vehicle
+      description: 'Retrieve detailed information about a vehicle by specifying its unique identifier (ID).
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_v1_vehicles__vehicle_id__get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/{vehicle_id}/options:
+    get:
+      tags:
+      - Vehicles
+      summary: Get Vehicle Options
+      description: 'Retrieves the options data for a specific Tesla vehicle based on its unique identifier (ID).
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve the options.
+
+
+        **Returns:**
+
+        - A response containing options data for the vehicle.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+        - UNSUPPORTED_OEM'
+      operationId: get_vehicle_options_v1_vehicles__vehicle_id__options_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:information
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleOptions'
+      x-list-error-codes:
+      - UNSUPPORTED_OEM
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/{vehicle_id}/registration-plate:
+    post:
+      tags:
+      - Vehicles
+      summary: Update Registration Plate
+      description: 'Update the registration plate of the specified vehicle.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to update.
+
+
+        **Returns:**
+
+        - A response containing the updated vehicle information.
+
+
+        **Note:**
+
+        - The `vehicle_id` should correspond to a valid and existing vehicle identifier.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: update_registration_plate_v1_vehicles__vehicle_id__registration_plate_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:information
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleUpdateRegistration'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/{vehicle_id}/specifications:
+    get:
+      tags:
+      - Vehicles
+      summary: Get Vehicle Specifications
+      description: 'Obtain detailed specifications for a vehicle.
+
+
+        This endpoint allows you to retrieve more detailed specifications (if available) for a specific vehicle identified by its unique ''vehicle_id''.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_specifications_v1_vehicles__vehicle_id__specifications_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:information
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleSpecifications'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    VehicleUpdateRegistration:
+      properties:
+        registrationPlate:
+          anyOf:
+          - type: string
+            maxLength: 50
+            minLength: 1
+          - type: 'null'
+          title: Registrationplate
+      type: object
+      required:
+      - registrationPlate
+      title: VehicleUpdateRegistration
+    Vehicle:
+      properties:
+        make:
+          type: string
+          title: Make
+          description: Manufacturer of the vehicle.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Subcategory of the make, used to differentiate between different variations of a vehicle within the same make.
+        trim:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trim
+          description: Subcategory of the model, used to differentiate between different variations of a vehicle within the same model. Also referred to as version or generation.
+        modelYear:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Modelyear
+          description: Year the vehicle model was released. Could be different than the year the vehicle was manufactured.
+        vin:
+          type: string
+          title: Vin
+          description: Vehicle identification number. Unique identifier for the vehicle.
+        registrationPlate:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Registrationplate
+          description: Plate that is attached to a vehicle and displays a unique combination of letters and numbers assigned to the vehicle by a government agency. Also referred to as license plate or registration number.
+        isRegNoValidated:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Isregnovalidated
+          description: Indicates whether the registration plate has been validated
+        regNoValidatedAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Regnovalidatedat
+          description: Timestamp of when the registration plate was last validated
+        id:
+          type: string
+          title: Id
+          description: Unique internal identifier for the vehicle.
+        metadata:
+          $ref: '#/components/schemas/VehicleMetaData'
+          description: Additional information about the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Indicates whether the vehicle is currently accepting data ingestion and commands. Defaults to True when no listening state entries have been recorded.
+          default: true
+        listeningLastUpdated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Listeninglastupdated
+          description: UTC timestamp for the most recent listening-state update, or null when no entries exist.
+        connectionStatus:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connectionstatus
+          description: Connection status of the vehicle (e.g. CONNECTED, PENDING_CONNECTION, DISCONNECTED).
+        connectionErrorCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connectionerrorcode
+          description: Error code if the vehicle has a connection issue.
+        connectionErrorMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connectionerrormessage
+          description: Human-readable error message for connection issues.
+        actionCategory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Actioncategory
+          description: 'Who must act on the connection error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW.'
+      type: object
+      required:
+      - make
+      - vin
+      - id
+      - metadata
+      title: Vehicle
+    VehicleOptions:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+        vehicleConfig:
+          $ref: '#/components/schemas/VehicleConfig'
+        options:
+          items:
+            $ref: '#/components/schemas/Option'
+          type: array
+          title: Options
+      type: object
+      required:
+      - vehicleId
+      - vehicleConfig
+      - options
+      title: VehicleOptions
+    VehicleConfig:
+      properties:
+        exteriorColor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Exteriorcolor
+        chargePortType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chargeporttype
+        driverAssist:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Driverassist
+        efficiencyPackage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Efficiencypackage
+        hasAirSuspension:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hasairsuspension
+        hasLudicrousMode:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hasludicrousmode
+        hasSeatCooling:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hasseatcooling
+        headlampType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Headlamptype
+        interiorTrimType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Interiortrimtype
+        motorizedChargePort:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Motorizedchargeport
+        rearDriveUnit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reardriveunit
+        rhd:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Rhd
+        spoilerType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Spoilertype
+        wheelType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wheeltype
+      type: object
+      title: VehicleConfig
+    VehicleMetaData:
+      properties:
+        lastSeenAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Lastseenat
+          description: 'The last recorded interaction with the vehicle endpoints. This is a timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+        consentId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Consentid
+          description: Unique identifier for the consent that was used to retrieve the vehicle data.
+        accountId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accountid
+          description: Unique identifier for the account that was used to retrieve the vehicle data.
+        registrationDate:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Registrationdate
+          description: Vehicle registration date (ISO 8601, day granularity). Captured at vehicle upload; used as the date-axis baseline for service-interval alerts.
+      type: object
+      required:
+      - lastSeenAt
+      - consentId
+      - accountId
+      title: VehicleMetaData
+    Option:
+      properties:
+        code:
+          type: string
+          title: Code
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - code
+      title: Option
+    VehicleSpecifications:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+        make:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Make
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+        batteryCapacity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacity
+        batteryCapacityNet:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacitynet
+        standardEvr:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Standardevr
+        allElectricRange:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Allelectricrange
+        allElectricRangeMin:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Allelectricrangemin
+      type: object
+      title: VehicleSpecifications
+      description: Vehicle specifications schema
+    Page_Vehicle_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Vehicle'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[Vehicle]
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

@@ -1,0 +1,268 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Listening API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Listening
+paths:
+  /v1/vehicles/{vehicle_id}/listening:
+    post:
+      tags:
+      - Vehicle Listening
+      summary: Set Vehicle Listening State
+      description: 'Set the listening state for a vehicle.
+
+
+        The listening state controls whether a vehicle can:
+
+        * Process incoming data stream messages
+
+        * Accept remote commands
+
+        * Fetch data from OEM endpoints
+
+
+        Requirements:
+
+        * Vehicle must belong to the authenticated organization
+
+        * Request will update the vehicle''s desired listening state
+
+
+        If the vehicle is already in the requested listening state, the request is a
+
+        no-op: no new audit entry is recorded and a 200 response is returned with the
+
+        current state.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: Set_Vehicle_Listening_State_v1_vehicles__vehicle_id__listening_post
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleListeningRequest'
+      responses:
+        '200':
+          description: The vehicle is already in the requested listening state; no change was made.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleListeningResponse'
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleListeningResponse'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/{vehicle_id}/listening-audit:
+    get:
+      tags:
+      - Vehicle Listening
+      summary: Get Vehicle Listening Audit
+      description: 'Retrieve the listening-state history for a vehicle, ordered by the time entries were recorded.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - PAGE_SIZE_TOO_LARGE
+
+        - PAGINATED_QUERY_FILTER_CHANGED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_listening_audit_v1_vehicles__vehicle_id__listening_audit_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:information
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      - name: startAt
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Startat
+      - name: endAt
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Endat
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page token
+          description: Page token used for pagination.
+        description: Page token used for pagination.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filter
+          description: Listing filter schema.
+        description: Listing filter schema.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_VehicleListeningAuditEntry_'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - PAGINATED_QUERY_FILTER_CHANGED
+      - PAGE_SIZE_TOO_LARGE
+components:
+  schemas:
+    VehicleListeningRequest:
+      properties:
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Indicates whether the vehicle should be marked as listening for data.
+      type: object
+      required:
+      - isListening
+      title: VehicleListeningRequest
+    Page_VehicleListeningAuditEntry_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleListeningAuditEntry'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleListeningAuditEntry]
+    VehicleListeningAuditEntry:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier of the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Listening state at the recorded time.
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+          description: When this listening state entry was recorded (UTC).
+      type: object
+      required:
+      - vehicleId
+      - isListening
+      - timestamp
+      title: VehicleListeningAuditEntry
+    VehicleListeningResponse:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier of the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Reflects the requested listening state.
+        lastUpdated:
+          type: string
+          format: date-time
+          title: Lastupdated
+          description: Timestamp (UTC) representing when the listening state was last updated.
+      type: object
+      required:
+      - vehicleId
+      - isListening
+      - lastUpdated
+      title: VehicleListeningResponse
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

@@ -1,0 +1,245 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Tags API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Tags
+paths:
+  /v1/tags:
+    post:
+      tags:
+      - Tags
+      summary: Add Tag To Entity
+      description: 'Create a new tag attached to the object specified inside the tag body.
+
+        A tag is a key-value pair that can be attached to specific objects, currently vehicles or batteries.
+
+        This can be used to categorize those objects and link them back to objects in your system.
+
+
+        For example, if you wanted to add a fleet id to a vehicle, you could pass a tag
+
+        with key "fleet_id" and then the id value, set the entityType to "DEVICE",
+
+        and pass, as the entityId, the ID of the vehicle you want to tag.
+
+
+        This would tag that vehicle with the fleet_id "1234", and you could query in the list vehicles endpoint for
+
+        vehicles with that tag.
+
+
+        The entity types that can be currently passed are:
+
+        - `DEVICE`
+
+
+        **Returns:**
+
+        - A response with an empty body and a 200 status code
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: add_tag_to_entity_v1_tags_post
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicTagCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+    delete:
+      tags:
+      - Tags
+      summary: Remove Tag From Entity
+      description: 'Remove a tag with the specified key and value from the specified object.
+
+        Please see the Add Tag endpoint for more information on tags.
+
+
+        **Returns:**
+
+        - A response with an empty body and a 200 status code
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: remove_tag_from_entity_v1_tags_delete
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 150
+          title: Key
+      - name: value
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 150
+          title: Value
+      - name: entityType
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PublicTagEntityTypes'
+      - name: entityId
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Entityid
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/tags/{entity_type}/{entity_id}:
+    get:
+      tags:
+      - Tags
+      summary: Get Tags
+      description: 'Get all tags for the specified object.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_tags_v1_tags__entity_type___entity_id__get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: entity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Entity Id
+      - name: entity_type
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/PublicTagEntityTypes'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsList'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    TagsList:
+      properties:
+        tags:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          title: Tags
+          description: List of tags
+      type: object
+      required:
+      - tags
+      title: TagsList
+    PublicTagEntityTypes:
+      type: string
+      enum:
+      - DEVICE
+      title: PublicTagEntityTypes
+    Tag:
+      properties:
+        key:
+          type: string
+          maxLength: 150
+          title: Key
+        value:
+          type: string
+          maxLength: 150
+          title: Value
+      type: object
+      required:
+      - key
+      - value
+      title: Tag
+    PublicTagCreate:
+      properties:
+        key:
+          type: string
+          maxLength: 150
+          title: Key
+        value:
+          type: string
+          maxLength: 150
+          title: Value
+        objectType:
+          $ref: '#/components/schemas/PublicTagEntityTypes'
+          description: 'What type of object is being tagged, such as ''VEHICLE''. *IMPORTANT*: If the account is tagged, all devices underneath the account will also be tagged.'
+        objectId:
+          type: string
+          title: Objectid
+          description: ID of the object being tagged
+      type: object
+      required:
+      - key
+      - value
+      - objectType
+      - objectId
+      title: PublicTagCreate
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

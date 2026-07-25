@@ -1,0 +1,1190 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Command Executions API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Command Executions
+paths:
+  /v1/vehicles/{vehicle_id}/command-executions:
+    get:
+      tags:
+      - Vehicle Command Executions
+      summary: List Vehicle Command Executions
+      description: 'Retrieve a paginated list of vehicle command executions for specific vehicle based on its unique identifier (ID).
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve the command executions.
+
+
+        **Returns:**
+
+        - A paginated response containing a list of vehicle command executions.
+
+
+        _Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - PAGE_SIZE_TOO_LARGE
+
+        - PAGINATED_QUERY_FILTER_CHANGED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: list_vehicle_command_executions_v1_vehicles__vehicle_id__command_executions_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page token
+          description: Page token used for pagination.
+        description: Page token used for pagination.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filter
+          description: Listing filter schema.
+        description: Listing filter schema.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_VehicleCommandExecution_'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - PAGINATED_QUERY_FILTER_CHANGED
+      - PAGE_SIZE_TOO_LARGE
+  /v1/vehicles/{vehicle_id}/command-executions/{vehicle_command_execution_id}:
+    get:
+      tags:
+      - Vehicle Command Executions
+      summary: Get Vehicle Command Execution
+      description: "Retrieve detailed information about a vehicle command execution by specifying its unique identifier (ID).\n\n **Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle.\n- `vehicle_command_execution_id`: The unique identifier (ID) of the vehicle command execution.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+      operationId: get_vehicle_command_execution_v1_vehicles__vehicle_id__command_executions__vehicle_command_execution_id__get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_command_execution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle command execution ID
+          description: ID of the vehicle command execution.
+        description: ID of the vehicle command execution.
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/{vehicle_id}/command-execution:actuate-front-trunk:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Actuate Front Trunk
+      description: 'Create a `ACTUATE_FRONT_TRUNK` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `ACTUATE_FRONT_TRUNK` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_actuate_front_trunk_v1_vehicles__vehicle_id__command_execution_actuate_front_trunk_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:actuate-rear-trunk:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Actuate Rear Trunk
+      description: 'Create a `ACTUATE_REAR_TRUNK` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `ACTUATE_REAR_TRUNK` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_actuate_rear_trunk_v1_vehicles__vehicle_id__command_execution_actuate_rear_trunk_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:climate-off:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Climate Off
+      description: 'Create a `CLIMATE_OFF` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `CLIMATE_OFF` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_climate_off_v1_vehicles__vehicle_id__command_execution_climate_off_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:climate-on:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Climate On
+      description: 'Create a `CLIMATE_ON` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `CLIMATE_ON` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_climate_on_v1_vehicles__vehicle_id__command_execution_climate_on_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:close-charge-port:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Close Charge Port
+      description: 'Create a `CLOSE_CHARGE_PORT` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `CLOSE_CHARGE_PORT` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_close_charge_port_v1_vehicles__vehicle_id__command_execution_close_charge_port_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:lock-doors:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Lock Doors
+      description: 'Create a `LOCK_DOORS` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `LOCK_DOORS` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_lock_doors_v1_vehicles__vehicle_id__command_execution_lock_doors_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:open-charge-port:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Open Charge Port
+      description: 'Create a `OPEN_CHARGE_PORT` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `OPEN_CHARGE_PORT` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_open_charge_port_v1_vehicles__vehicle_id__command_execution_open_charge_port_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:set-charge-limit:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Set Charge Limit
+      description: 'Create a `SET_CHARGE_LIMIT` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `SET_CHARGE_LIMIT` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_set_charge_limit_v1_vehicles__vehicle_id__command_execution_set_charge_limit_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetChargeLimitPayload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:set-temperature:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Set Temperature
+      description: 'Create a `SET_TEMPERATURE` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `SET_TEMPERATURE` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_set_temperature_v1_vehicles__vehicle_id__command_execution_set_temperature_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetTemperaturePayload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:start-charging:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Start Charging
+      description: 'Create a `START_CHARGING` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `START_CHARGING` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_start_charging_v1_vehicles__vehicle_id__command_execution_start_charging_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:start-hvac-system:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Start Hvac System
+      description: 'Create a `START_HVAC_SYSTEM` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `START_HVAC_SYSTEM` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_start_hvac_system_v1_vehicles__vehicle_id__command_execution_start_hvac_system_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:stop-charging:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Stop Charging
+      description: 'Create a `STOP_CHARGING` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `STOP_CHARGING` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_stop_charging_v1_vehicles__vehicle_id__command_execution_stop_charging_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+  /v1/vehicles/{vehicle_id}/command-execution:unlock-doors:
+    post:
+      tags:
+      - Vehicle Command Executions
+      summary: Action Unlock Doors
+      description: 'Create a `UNLOCK_DOORS` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - COMMAND_ALREADY_IN_PROGRESS
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR
+
+
+        Create a `UNLOCK_DOORS` command execution.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.'
+      operationId: action_unlock_doors_v1_vehicles__vehicle_id__command_execution_unlock_doors_post
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:commands
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCommandExecution'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - COMMAND_ALREADY_IN_PROGRESS
+components:
+  schemas:
+    VehicleCommandExecution:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        commandArguments:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Commandarguments
+        timeout:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Timeout
+        executedAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Executedat
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/OEMDeviceCommandExecutionStatus'
+          - type: 'null'
+        failedReason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - OEM_UNKNOWN_ERROR
+          - OEM_TIMEOUT
+          - OEM_UNAVAILABLE
+          - OEM_NETWORK_ERROR
+          - OEM_INCORRECT_REGION
+          - OEM_APP_REQUIRED_UPDATE
+          - OEM_USER_ACCOUNT_LOCKED
+          - OEM_OAUTH_TOKEN_EXPIRED
+          - OEM_VEHICLE_OFFLINE
+          - OEM_VEHICLE_REMOTE_ACCESS_DISABLED
+          - OEM_VEHICLE_LOCATION_SHARING_DISABLED
+          - OEM_AUTH_DRIVER_IS_NOT_PRIMARY_USER
+          - OEM_DEVICE_NOT_FOUND
+          - OEM_COMMAND_TIMEOUT
+          - OEM_COMMAND_FAILED
+          - OEM_RATE_LIMITED
+          - OEM_ACCOUNT_RATE_LIMITED
+          - OEM_DEVICE_RATE_LIMITED
+          - OEM_STOP_CHARGE_RATE_LIMITED
+          - OEM_COMMANDS_RATE_LIMITED
+          - OEM_VEHICLE_LOCATION_UNKNOWN
+          - OEM_VEHICLE_NOT_IN_AUTHORIZED_LOCATION
+          - OEM_VEHICLE_CHARGING_NOT_FINISHED
+          - OEM_VEHICLE_CHARGING_NOT_STOPPED
+          - OEM_VEHICLE_CHARGING_NOT_STARTED
+          - OEM_VEHICLE_CHARGING_NOT_PAUSED
+          - OEM_VEHICLE_CHARGING_REFUSED_PLAY_PROTECTION
+          - OEM_COMMAND_REFUSED_OTHER_SERVICE_RUNNING
+          - OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_STAND_STILL_AND_RESTING_STATE
+          - OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_STAND_STILL_AND_ACTIVE_STATE
+          - OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_DRIVING_OR_READY_TO_DRIVE
+          - OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_DIAGNOSTICS_MODE
+          - SERVER_ERROR
+          - INTERNAL_RATE_LIMITED
+          - AUTHENTICATION_ERROR
+          - NOT_PERMITTED
+          title: Failedreason
+          description: The reason the command failed to execute. Should be one of the codes listed in the enum, but may in some cases be a plain string.
+        vehicleId:
+          type: string
+          title: Vehicleid
+        command:
+          $ref: '#/components/schemas/VehicleCommandEnum'
+      type: object
+      required:
+      - vehicleId
+      - command
+      title: VehicleCommandExecution
+    Page_VehicleCommandExecution_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleCommandExecution'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleCommandExecution]
+    OEMDeviceCommandExecutionStatus:
+      type: string
+      enum:
+      - PENDING
+      - EXECUTED
+      - FAILED
+      title: OEMDeviceCommandExecutionStatus
+      description: Enum for command execution status.
+    VehicleCommandEnum:
+      type: string
+      enum:
+      - WAKE_UP
+      - UNLOCK_DOORS
+      - LOCK_DOORS
+      - HONK_HORN
+      - FLASH_LIGHTS
+      - START_HVAC_SYSTEM
+      - CLIMATE_ON
+      - CLIMATE_OFF
+      - SET_TEMPERATURE
+      - SET_CHARGE_LIMIT
+      - ACTUATE_FRONT_TRUNK
+      - ACTUATE_REAR_TRUNK
+      - OPEN_CHARGE_PORT
+      - CLOSE_CHARGE_PORT
+      - START_CHARGING
+      - STOP_CHARGING
+      - SET_VEHICLE_NAME
+      - SCHEDULE_SOFTWARE_UPDATE
+      - CANCEL_SOFTWARE_UPDATE
+      - WINDOW_HEATING_ON
+      - WINDOW_HEATING_OFF
+      title: VehicleCommandEnum
+      description: Enum for available commands.
+    SetTemperaturePayload:
+      properties:
+        driverTemperature:
+          type: number
+          title: Drivertemperature
+        passengerTemperature:
+          type: number
+          title: Passengertemperature
+      type: object
+      required:
+      - driverTemperature
+      - passengerTemperature
+      title: SetTemperaturePayload
+    SetChargeLimitPayload:
+      properties:
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - limit
+      title: SetChargeLimitPayload
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

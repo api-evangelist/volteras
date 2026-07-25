@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Rate Limit API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Rate Limit
+paths:
+  /v1/rate-limits:
+    get:
+      tags:
+      - Rate Limit
+      summary: Get Rate Limits
+      description: 'Get the rate limits for a specific entity.
+
+        For instance, could fetch rate limits applied to a specific vehicle.
+
+
+        The rate limit domain specifies the context the limit is applied to, e.g. for start / stop charge commands.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_rate_limits_v1_rate_limits_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: objectId
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Object ID
+          description: The ID of the object to get the rate limits for
+        description: The ID of the object to get the rate limits for
+      - name: domain
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RateLimitDomain'
+          title: Domain
+          description: The domain of the object to get the rate limits for
+        description: The domain of the object to get the rate limits for
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RateLimit'
+                title: Response Get Rate Limits V1 Rate Limits Get
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    RateLimit:
+      properties:
+        remainingRequests:
+          type: integer
+          title: Remainingrequests
+          description: The count of remaining requests before the rate limit is breached
+        maxRequests:
+          type: integer
+          title: Maxrequests
+          description: The maximum count of requests on the rate limit over the window period
+        domain:
+          $ref: '#/components/schemas/RateLimitDomain'
+          description: The domain of the object on which the rate limit is applied (for example, if the rate limit is applied to a specific vehicle, the domain is VEHICLE)
+        windowSizeSeconds:
+          type: integer
+          title: Windowsizeseconds
+          description: The window size in seconds over which the rate limit is calculated
+        objectId:
+          type: string
+          title: Objectid
+          description: The ID of the object on which the rate limit is applied
+        key:
+          $ref: '#/components/schemas/RateLimitKey'
+          description: The key of the rate limit, which can be used to uniquely identify the kind of rate limit applied
+      type: object
+      required:
+      - remainingRequests
+      - maxRequests
+      - domain
+      - windowSizeSeconds
+      - objectId
+      - key
+      title: RateLimit
+    RateLimitDomain:
+      type: string
+      enum:
+      - VEHICLE
+      title: RateLimitDomain
+    RateLimitKey:
+      type: string
+      enum:
+      - BMW_ENERGY_API_COMMANDS
+      - BMW_ENERGY_API_STOP_COMMANDS
+      - BMW_ENERGY_API_COMMANDS_AND_FETCH_STATE
+      title: RateLimitKey
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

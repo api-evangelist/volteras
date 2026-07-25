@@ -1,0 +1,337 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Alerts API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Alerts
+paths:
+  /v1/vehicles/{vehicle_id}/alerts:
+    get:
+      tags:
+      - Vehicle Alerts
+      summary: Get Vehicle Alerts
+      description: 'Retrieve alerts for a vehicle based on its unique ID.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - PAGE_SIZE_TOO_LARGE
+
+        - PAGINATED_QUERY_FILTER_CHANGED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_alerts_v1_vehicles__vehicle_id__alerts_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page token
+          description: Page token used for pagination.
+        description: Page token used for pagination.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filter
+          description: Listing filter schema.
+        description: Listing filter schema.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_VehicleAlertResponse_'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+      - PAGINATED_QUERY_FILTER_CHANGED
+      - PAGE_SIZE_TOO_LARGE
+components:
+  schemas:
+    AlertStepDefinition:
+      properties:
+        id:
+          type: string
+          title: Id
+        description:
+          type: string
+          title: Description
+        order:
+          type: integer
+          title: Order
+      type: object
+      required:
+      - id
+      - description
+      - order
+      title: AlertStepDefinition
+    AlertResolutionDefinition:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+      type: object
+      required:
+      - id
+      - name
+      - description
+      title: AlertResolutionDefinition
+    Page_VehicleAlertResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleAlertResponse'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleAlertResponse]
+    AlertResolutionInstanceSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        definition:
+          $ref: '#/components/schemas/AlertResolutionDefinition'
+        status:
+          $ref: '#/components/schemas/AlertResolutionStatus'
+        steps:
+          items:
+            $ref: '#/components/schemas/AlertStepInstance'
+          type: array
+          title: Steps
+      type: object
+      required:
+      - id
+      - definition
+      - status
+      - steps
+      title: AlertResolutionInstanceSchema
+    AlertDefinitionBase:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        message:
+          type: string
+          title: Message
+        category:
+          $ref: '#/components/schemas/AlertCategory'
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - message
+      - category
+      title: AlertDefinitionBase
+    AlertStepInstance:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/AlertStepStatus'
+        definition:
+          $ref: '#/components/schemas/AlertStepDefinition'
+      type: object
+      required:
+      - id
+      - status
+      - definition
+      title: AlertStepInstance
+    AlertCategory:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - id
+      - name
+      - description
+      title: AlertCategory
+    AlertMetadata:
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+        updatedAt:
+          type: string
+          format: date-time
+          title: Updatedat
+      type: object
+      required:
+      - createdAt
+      - updatedAt
+      title: AlertMetadata
+    AlertSeverity:
+      type: string
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      - CRITICAL
+      title: AlertSeverity
+    VehicleAlertResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/AlertStatus'
+        alertDefinitionId:
+          type: string
+          title: Alertdefinitionid
+        vehicleId:
+          type: string
+          title: Vehicleid
+        muted:
+          type: boolean
+          title: Muted
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+        currentSeverity:
+          anyOf:
+          - $ref: '#/components/schemas/AlertSeverity'
+          - type: 'null'
+        vin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vin
+        resolutions:
+          items:
+            $ref: '#/components/schemas/AlertResolutionInstanceSchema'
+          type: array
+          title: Resolutions
+        definition:
+          $ref: '#/components/schemas/AlertDefinitionBase'
+        metadata:
+          $ref: '#/components/schemas/AlertMetadata'
+        triggerName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Triggername
+        triggerDescription:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Triggerdescription
+      type: object
+      required:
+      - id
+      - status
+      - alertDefinitionId
+      - vehicleId
+      - muted
+      - createdAt
+      - currentSeverity
+      - resolutions
+      - definition
+      - metadata
+      title: VehicleAlertResponse
+    AlertStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - RESOLVED
+      title: AlertStatus
+    AlertResolutionStatus:
+      type: string
+      enum:
+      - PENDING
+      - COMPLETED
+      title: AlertResolutionStatus
+    AlertStepStatus:
+      type: string
+      enum:
+      - PENDING
+      - COMPLETED
+      title: AlertStepStatus
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

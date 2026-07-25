@@ -1,0 +1,170 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Authentication API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Authentication
+paths:
+  /v1/oauth2/token:
+    post:
+      tags:
+      - Authentication
+      summary: Auth Token
+      description: 'Obtain OAuth 2.0 access token. This endpoint follows the OAuth 2.0 industry-standard protocol for authorization.
+
+        It performs authorization and returns the access token and refresh token.
+
+
+        To use, pass the `grant_type` in the form data, which will be:
+
+        - `client_credentials` grant type to authenticate with `client_id` and `client_secret`.
+
+        - `refresh_token` grant type to refresh an existing token.
+
+
+        If using `client_credentials` grant type, please use HTTP Basic Auth to pass the credentials
+
+        (with the username being the `client_id` and the password being the `client_secret`).
+
+
+        The `client_id` and `client_secret` can be passed in the form data, but this is deprecated and
+
+        not recommended.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR'
+      operationId: auth_token_v1_oauth2_token_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_auth_token_v1_oauth2_token_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAccessToken'
+      security:
+      - HTTPBasic: []
+      x-list-error-codes: []
+  /v1/oauth2/test-token:
+    post:
+      tags:
+      - Authentication
+      summary: Test Token
+      description: 'This endpoint validates the access token and retrieves the associated `clientId` and `organizationId`.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR'
+      operationId: test_token_v1_oauth2_test_token_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAccess'
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      x-list-error-codes: []
+components:
+  schemas:
+    APIAccessToken:
+      properties:
+        access_token:
+          type: string
+          title: Access token
+          description: The access token used for authenticated requests.
+        token_type:
+          type: string
+          title: Token type
+          description: Type of the token.
+        expires_in:
+          type: integer
+          title: Expires in
+          description: Integer with the seconds that the access token will be expired in.
+        refresh_token:
+          type: string
+          title: Refresh token
+          description: The token used to refresh the authentication and retrieve a new access token.
+      type: object
+      required:
+      - access_token
+      - token_type
+      - expires_in
+      - refresh_token
+      title: APIAccessToken
+      description: Schema of the APIAccessToken, returned by the authentication or refresh token
+    APIAccess:
+      properties:
+        clientId:
+          type: string
+          title: Client ID
+          description: Your client ID.
+        organizationId:
+          type: string
+          title: Organization ID
+          description: ID of your organization.
+      type: object
+      required:
+      - clientId
+      - organizationId
+      title: APIAccess
+      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
+    Body_auth_token_v1_oauth2_token_post:
+      properties:
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+          description: Your client ID.
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+          description: Your client secret.
+        refresh_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refresh Token
+          description: The refresh token acquired during authentication with the `client_credentials` `grant_type`.
+        grant_type:
+          type: string
+          title: Grant Type
+          description: OAuth 2.0 grant type.
+      type: object
+      title: Body_auth_token_v1_oauth2_token_post
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

@@ -1,0 +1,296 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Charging History API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Charging History
+paths:
+  /v1/vehicles/{vehicle_id}/charging-history:
+    get:
+      tags:
+      - Vehicle Charging History
+      summary: List Vehicle Charging History
+      description: 'Retrieve a list of charging history sessions for the provided vehicle.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve charging history for.
+
+
+        **Returns:**
+
+        - A paginated list of vehicle charging history sessions.
+
+
+        This endpoint allows you to retrieve a paginated list of charging history sessions for a specific vehicle identified by its unique `vehicle_id`.
+
+        The list is ordered by the starting time of each charging session, with the most recent sessions appearing first.
+
+
+        **Note:**
+
+        - The `vehicle_id` should correspond to a valid and existing vehicle identifier.
+
+
+        _Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - PAGE_SIZE_TOO_LARGE
+
+        - PAGINATED_QUERY_FILTER_CHANGED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: list_vehicle_charging_history_v1_vehicles__vehicle_id__charging_history_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page token
+          description: Page token used for pagination.
+        description: Page token used for pagination.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filter
+          description: Listing filter schema.
+        description: Listing filter schema.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_VehicleChargingSession_'
+      x-list-error-codes:
+      - PAGINATED_QUERY_FILTER_CHANGED
+      - PAGE_SIZE_TOO_LARGE
+      - RESOURCE_NOT_FOUND
+  /v1/vehicles/{vehicle_id}/charging-history/{vehicle_charging_session_id}:
+    get:
+      tags:
+      - Vehicle Charging History
+      summary: Get Vehicle Charging History
+      description: 'Retrieve details of a vehicle charging session based on its unique ID.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle associated with the charging session.
+
+        - `vehicle_charging_session_id`: The unique identifier (ID) of the vehicle charging session to retrieve.
+
+
+        **Returns:**
+
+        - Details of the vehicle charging session.
+
+
+        This endpoint allows you to retrieve details of a specific vehicle charging session based on its unique `vehicle_charging_session_id`.
+
+        The session details provide information about the charging start time, end time, energy consumption, and more.
+
+
+        **Note:**
+
+        - The `vehicle_id` should correspond to a valid and existing vehicle identifier.
+
+        - The `vehicle_charging_session_id` uniquely identifies an existing charging session.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_charging_history_v1_vehicles__vehicle_id__charging_history__vehicle_charging_session_id__get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: vehicle_charging_session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle charging history ID
+          description: ID of the vehicle charging history.
+        description: ID of the vehicle charging history.
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleChargingSession'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    Page_VehicleChargingSession_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleChargingSession'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleChargingSession]
+    VehicleChargingSession:
+      properties:
+        id:
+          type: string
+          title: Id
+        vehicleId:
+          type: string
+          title: Vehicleid
+        startedAt:
+          type: string
+          format: date-time
+          title: Startedat
+        endedAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Endedat
+        chargeDuration:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chargeduration
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+        kwhFromGrid:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Kwhfromgrid
+        kwhInHvb:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Kwhinhvb
+        startStateOfCharge:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Startstateofcharge
+        endStateOfCharge:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Endstateofcharge
+        externalTemperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Externaltemperature
+        kwMedian:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Kwmedian
+      type: object
+      required:
+      - id
+      - vehicleId
+      - startedAt
+      - endedAt
+      - chargeDuration
+      - latitude
+      - longitude
+      - kwhFromGrid
+      - kwhInHvb
+      - startStateOfCharge
+      - endStateOfCharge
+      - externalTemperature
+      - kwMedian
+      title: VehicleChargingSession
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

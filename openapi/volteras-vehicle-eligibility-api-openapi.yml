@@ -1,0 +1,314 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Eligibility API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Eligibility
+paths:
+  /v1/vehicles/eligibility:
+    post:
+      tags:
+      - Vehicle Eligibility
+      summary: Bulk Vin Eligibility Check
+      description: 'Check the eligibility of multiple VINs
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - NOT_PERMITTED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR'
+      operationId: Bulk_VIN_eligibility_check_v1_vehicles_eligibility_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkVinEligibilityRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkVinEligibilityResponse'
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      x-list-error-codes:
+      - NOT_PERMITTED
+  /v1/vehicles/eligibility/{id}/results:
+    get:
+      tags:
+      - Vehicle Eligibility
+      summary: Bulk Vehicle Eligibility Check Results
+      description: 'Get the eligibility results for all VINs that were sent in a request
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - NOT_PERMITTED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: bulk_vehicle_eligibility_check_results_v1_vehicles_eligibility__id__results_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: currentPage
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Current page
+          description: Current page
+        description: Current page
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResults_SingleEligibilityResult_'
+      x-list-error-codes:
+      - NOT_PERMITTED
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    SingleEligibilityResult:
+      properties:
+        rowId:
+          type: integer
+          title: Rowid
+        vin:
+          type: string
+          maxLength: 17
+          minLength: 17
+          pattern: ^[A-Z0-9]*$
+          title: Vin
+          description: Vehicle identification number (VIN).
+        make:
+          anyOf:
+          - type: string
+            enum:
+            - ABARTH
+            - ALFA ROMEO
+            - AUDI
+            - BMW
+            - CHRYSLER
+            - CITROEN
+            - CUPRA
+            - DODGE
+            - DS AUTOMOBILES
+            - FIAT
+            - FORD
+            - HYUNDAI
+            - JEEP
+            - KIA
+            - LANCIA
+            - LEXUS
+            - MASERATI
+            - MERCEDES BENZ
+            - MINI
+            - NISSAN
+            - OPEL
+            - PEUGEOT
+            - POLESTAR
+            - RAM
+            - RENAULT
+            - SEAT
+            - SKODA
+            - TESLA
+            - TOYOTA
+            - VAUXHALL
+            - VOLKSWAGEN
+            - VOLVO
+            title: MakeEnum
+            description: "Implemented makes enum.\n\nInput normalization and aliases are handled via `from_input` / `_missing_`, so values like\n\"Mercedes\", \"MERCEDES-BENZ\", or \"MERCEDES_BENZ\" resolve to the canonical enum.\n\nOpenAPI exposure is filtered/normalized in `__get_pydantic_json_schema__`.\n\nWhen updating this enum you should also consider updating the public docs:\n    docs/public/connect-api/tools/mintlify/overview/supported-oems.mdx"
+          - type: 'null'
+          description: Manufacturer of the vehicle
+        status:
+          $ref: '#/components/schemas/EligibilityVinEntryStatusEnum'
+          description: The current status of the eligibility check
+        errorMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Errormessage
+          description: If there was an error with the check, this will have more information
+      type: object
+      required:
+      - rowId
+      - vin
+      - status
+      title: SingleEligibilityResult
+      description: Results for a single vin sent in the bulk eligibility request
+    EligibilityUploadStatusEnum:
+      type: string
+      enum:
+      - CREATED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      title: EligibilityUploadStatusEnum
+    BulkVinEligibilityRequest:
+      properties:
+        vins:
+          items:
+            $ref: '#/components/schemas/SingleEligibilityEntry'
+          type: array
+          maxItems: 500
+          minItems: 1
+          title: Vins
+          description: List of vehicle identification numbers. Each VIN must be a 17-character alphanumeric string.
+      type: object
+      required:
+      - vins
+      title: BulkVinEligibilityRequest
+    PageResults_SingleEligibilityResult_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SingleEligibilityResult'
+          type: array
+          title: Results
+          default: []
+        totalResults:
+          type: integer
+          title: Totalresults
+          default: 0
+      type: object
+      title: PageResults[SingleEligibilityResult]
+    EligibilityVinEntryStatusEnum:
+      type: string
+      enum:
+      - NOT_SUPPORTED
+      - VALIDATION_ERROR
+      - PENDING
+      - SUBMITTED
+      - INELIGIBLE_PENDING_FAILURE_REASON
+      - ELIGIBLE
+      - INELIGIBLE
+      - FAILED
+      title: EligibilityVinEntryStatusEnum
+    BulkVinEligibilityResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkVinEligibilityResponse
+      description: Response for async bulk eligibility request on connect-api
+    SingleEligibilityEntry:
+      properties:
+        vin:
+          type: string
+          maxLength: 17
+          minLength: 17
+          pattern: ^[A-Z0-9]*$
+          title: Vin
+          description: Vehicle identification number (VIN).
+        make:
+          type: string
+          enum:
+          - ABARTH
+          - ALFA ROMEO
+          - AUDI
+          - BMW
+          - CHRYSLER
+          - CITROEN
+          - CUPRA
+          - DODGE
+          - DS AUTOMOBILES
+          - FIAT
+          - FORD
+          - HYUNDAI
+          - JEEP
+          - KIA
+          - LANCIA
+          - LEXUS
+          - MASERATI
+          - MERCEDES BENZ
+          - MINI
+          - NISSAN
+          - OPEL
+          - PEUGEOT
+          - POLESTAR
+          - RAM
+          - RENAULT
+          - SEAT
+          - SKODA
+          - TESLA
+          - TOYOTA
+          - VAUXHALL
+          - VOLKSWAGEN
+          - VOLVO
+          title: MakeEnum
+          description: Manufacturer of the vehicle
+        countryCode:
+          anyOf:
+          - type: string
+            maxLength: 2
+            minLength: 2
+          - type: 'null'
+          title: Countrycode
+          description: ISO two-character country code for the VIN being checked.
+      type: object
+      required:
+      - countryCode
+      title: SingleEligibilityEntry
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

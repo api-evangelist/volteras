@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle Services API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle Services
+paths:
+  /v1/vehicles/{vehicle_id}/maintenance/services:
+    get:
+      tags:
+      - Vehicle Services
+      summary: Get Vehicle Services
+      description: 'Retrieves the list of services currently recommended for the vehicle.
+
+
+        This can include services for different components (e.g. brakes) but also statutory inspections
+
+        (such as MOT in the UK or TÜV in Germany).
+
+
+        The service data may include the due date for the service, or the number of kilometers the vehicle can do
+
+        before that particular service is due, or both.
+
+        It may also include the date when the service was last performed.
+
+
+        **Returns:**
+
+        - The list of services for the vehicle.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_services_v1_vehicles__vehicle_id__maintenance_services_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:telemetry
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleServices'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    VehicleServices:
+      properties:
+        services:
+          items:
+            $ref: '#/components/schemas/VehicleService'
+          type: array
+          title: Services
+      type: object
+      required:
+      - services
+      title: VehicleServices
+      description: Service data for a vehicle and its components
+    VehicleService:
+      properties:
+        component:
+          $ref: '#/components/schemas/AffectedComponent'
+          description: Component of the vehicle that requires service, for example BRAKE_FLUID. One of the options is VEHICLE, which means it is a full vehicle service.
+        type:
+          $ref: '#/components/schemas/ServiceType'
+          description: Type of service, for example FULL_SERVICE (a full, thorough check is required for the component) or HEALTH_CHECK (a quick check is required for the component)
+        kmToNextService:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Kmtonextservice
+          description: Vehicle kilometers until this service is due
+        dateOfNextServiceAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Dateofnextserviceat
+          description: Date when this service is next due
+        dateOfLastServiceAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Dateoflastserviceat
+          description: Date when this service was last performed
+        odometerKmAtLastService:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Odometerkmatlastservice
+          description: Odometer reading when this service was last performed
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/ServiceStatus'
+          - type: 'null'
+          description: Status of the service. Currently can only be PENDING (IE service is upcoming) or NO_SERVICE_DUE, but in future may be expanded to include when the service is in progress
+      type: object
+      required:
+      - component
+      - type
+      title: VehicleService
+      description: Service data for a vehicle and its components
+    AffectedComponent:
+      type: string
+      enum:
+      - VEHICLE
+      - ENGINE
+      - TRANSMISSION
+      - DRIVE_TRAIN
+      - MOTOR
+      - BRAKES
+      - BRAKE_FRONT
+      - BRAKE_REAR
+      - BRAKE_FLUID
+      - STEERING
+      - SUSPENSION
+      - ELECTRIC_POWER_STEERING
+      - BATTERY
+      - AUXILIARY_BATTERY
+      - ELECTRICAL_SYSTEM
+      - HYBRID_SYSTEM
+      - ENGINE_OIL
+      - COOLING
+      - FUEL
+      - EXHAUST_SYSTEM
+      - EMISSIONS_SYSTEM
+      - TIRES
+      - TIRE_PRESSURE_MONITORING_SYSTEM
+      - AIRBAGS
+      - AIRBAG
+      - SEATBELTS
+      - CRASH_DETECTION_SYSTEM
+      - CRASH_SAFETY_SYSTEM
+      - AUTOMATIC_BRAKING_SYSTEM
+      - EMERGENCY_BRAKING_SYSTEM
+      - PEDESTRIAN_PROTECTION_SYSTEM
+      - LANE_DEPARTURE_WARNING_SYSTEM
+      - HILL_START_SYSTEM
+      - AUTOPILOT
+      - CRUISE_CONTROL
+      - PARKING_SENSORS
+      - CAMERAS
+      - SENSORS
+      - TRACTION_SYSTEM
+      - ELECTRONIC_STABILITY_CONTROL
+      - HEADLIGHTS
+      - SIDE_LIGHTS
+      - BRAKE_LIGHTS
+      - REAR_LIGHTS
+      - REVERSE_LIGHTS
+      - SIGNAL_LIGHTS
+      - NUMBER_PLATE_LIGHTS
+      - TRAILER_LIGHTS
+      - ADAPTIVE_LIGHTING_SYSTEM
+      - LIGHTS
+      - BODY
+      - DOORS
+      - TRUNK
+      - ROOF
+      - WINDOWS
+      - LOCKS
+      - KEYS
+      - SECURITY_SYSTEM
+      - WASHER_LIQUID
+      - WIPERS
+      - CLOCK
+      - ODOMETER
+      - EXTERNAL_CHARGING_EQUIPMENT
+      - VEHICLE_CHARGING_PORT
+      - CHARGING_COUPLER
+      - TRAILER
+      title: AffectedComponent
+    ServiceType:
+      type: string
+      enum:
+      - FULL_SERVICE
+      - HEALTH_CHECK
+      - STATUTORY
+      - OIL_CHANGE
+      title: ServiceType
+    ServiceStatus:
+      type: string
+      enum:
+      - PENDING
+      - NO_SERVICE_DUE
+      - IN_SERVICE
+      - NOT_IN_SERVICE_UNKNOWN_IF_DUE
+      title: ServiceStatus
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

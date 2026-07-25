@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts Vehicle State of Health API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Vehicle State of Health
+paths:
+  /v1/vehicles/{vehicle_id}/state-of-health:
+    get:
+      tags:
+      - Vehicle State of Health
+      summary: Get Vehicle State Of Health
+      description: 'Retrieves state of health related information for the specified vehicle.
+
+        - Nominal battery pack capacity refers to the total amount of energy in kWh that the battery pack of the vehicle can
+
+        store, as per its specifications.
+
+        - Real battery pack capacity refers to the total amount of energy in kWh that the battery pack of the vehicle can
+
+        currently store, it''s reflective of the actual state of the battery rather than a specification.
+
+        - State of health is defined as real battery pack capacity over nominal battery pack capacity, as percentage.
+
+
+        **Parameters:**
+
+        - `vehicle_id`: A unique identifier for the vehicle, which must correspond to a vehicle registered in our system.
+
+
+        **Returns:**
+
+        - A vehicle state of health instance encapsulating detailed battery pack information for the vehicle. The data
+
+        includes both the nominal battery pack capacity and the real (observed) maximum battery pack capacity based on data
+
+        retrieved directly from the vehicle and the specifications published by the OEMs.
+
+
+        **Raises:**
+
+        - `APIException`: Raised when the system cannot locate the vehicle''s state of health details, due to an invalid
+
+        ''vehicle_id'' or absence of battery data. This results in a 404 Not Found status code.
+
+
+        **Note:**
+
+        - Endpoint is first available after observing a charging session that added at least 15% of state of charge and was
+
+        started above 20% state of charge.
+
+        - We recommend charging the vehicle overnight should the endpoint not be available immediately.
+
+        - This endpoint is reliant on the availability of the trim of the vehicle and supports certain OEMs.
+
+        Please see [state of health](/overview/state-of-health#supported-oems) for a list of supported OEMs
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_vehicle_state_of_health_v1_vehicles__vehicle_id__state_of_health_get
+      security:
+      - OAuth2ClientCredentialsBearer:
+        - vehicle:information
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Vehicle ID
+          description: Unique internal identifier for the vehicle.
+        description: Unique internal identifier for the vehicle.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStateOfHealth'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    BatteryCapacity:
+      properties:
+        nominal:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Nominal
+        real:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Real
+      type: object
+      required:
+      - nominal
+      - real
+      title: BatteryCapacity
+    VehicleStateOfHealth:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+        calculationDate:
+          type: string
+          format: date
+          title: Calculationdate
+        stateOfHealth:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Stateofhealth
+        batteryCapacity:
+          $ref: '#/components/schemas/BatteryCapacity'
+      type: object
+      required:
+      - vehicleId
+      - calculationDate
+      - stateOfHealth
+      - batteryCapacity
+      title: VehicleStateOfHealth
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token

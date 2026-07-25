@@ -1,0 +1,465 @@
+openapi: 3.1.0
+info:
+  title: VOLTERAS CONNECT Accounts API
+  version: 0.1.0
+servers:
+- url: https://api.volteras.com
+- url: https://api.sandbox.volteras.com
+tags:
+- name: Accounts
+paths:
+  /v1/accounts:
+    get:
+      tags:
+      - Accounts
+      summary: List Accounts
+      description: 'Retrieve a paginated list of active accounts associated with the current organization.
+
+
+        _Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - PAGE_SIZE_TOO_LARGE
+
+        - PAGINATED_QUERY_FILTER_CHANGED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR'
+      operationId: list_accounts_v1_accounts_get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: maxPageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Max page size
+          description: Max size of the returned list.
+        description: Max size of the returned list.
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page token
+          description: Page token used for pagination.
+        description: Page token used for pagination.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filter
+          description: Listing filter schema.
+        description: Listing filter schema.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_OEMAccount_'
+      x-list-error-codes:
+      - PAGINATED_QUERY_FILTER_CHANGED
+      - PAGE_SIZE_TOO_LARGE
+  /v1/accounts/{account_id}:
+    get:
+      tags:
+      - Accounts
+      summary: Get Account
+      description: 'Retrieve account details by providing its unique identifier.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: get_account_v1_accounts__account_id__get
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account ID
+          description: ID of the account.
+        description: ID of the account.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OEMAccount'
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+  /v1/accounts:connect:
+    post:
+      tags:
+      - Accounts
+      summary: Action Connect
+      description: 'Generate a URL to initiate the account connection flow, which allows users to connect their accounts.
+
+        The generated URL is active for a **one-hour period**. If not authenticated within this timeframe, the link will become invalid.
+
+
+        After the connection flow is completed, the device owner is redirected to the provided return URL with the following parameters:
+
+        - `result` indicating success or failure.
+
+        - `accountId` representing the ID of the connected account.
+
+
+        For further customization and integration details, consider the following resources:
+
+        - See the [Scopes documentation](/overview/scopes) for information on how to utilize scopes in your integration.
+
+        - See the [Regions documentation](/overview/regions) for guidelines on setting geographic regions.
+
+
+        You can also connect a single vehicle using the VIN upload flow. Pass the VIN, and (if available) the model and model year.
+
+        This will generate a consent flow link that''s dedicated to uploading a single vehicle.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - DEVICE_LIMIT_REACHED
+
+        - NOT_PERMITTED
+
+        - REQUEST_VALIDATION_ERROR
+
+        - SERVER_ERROR
+
+        - UNSUPPORTED_OEM'
+      operationId: action_connect_v1_accounts_connect_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountConnectPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountConnect'
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      x-list-error-codes:
+      - NOT_PERMITTED
+      - DEVICE_LIMIT_REACHED
+      - UNSUPPORTED_OEM
+  /v1/accounts/{account_id}:disconnect:
+    post:
+      tags:
+      - Accounts
+      summary: Action Disconnect
+      description: 'This endpoint allows you to disconnect an account.
+
+        Upon successful disconnection, the account''s connection is terminated.
+
+
+
+        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
+      operationId: action_disconnect_v1_accounts__account_id__disconnect_post
+      security:
+      - OAuth2ClientCredentialsBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account ID
+          description: ID of the account.
+        description: ID of the account.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-list-error-codes:
+      - RESOURCE_NOT_FOUND
+components:
+  schemas:
+    ConsentFlowIntegration:
+      type: string
+      enum:
+      - BMW_ENERGY_API
+      title: ConsentFlowIntegration
+    Page_OEMAccount_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/OEMAccount'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[OEMAccount]
+    DeviceTypeEnum:
+      type: string
+      enum:
+      - VEHICLE
+      - BATTERY
+      - CHARGER
+      - INVERTER
+      - HEAT_PUMP
+      title: DeviceTypeEnum
+      description: All supported device types
+    OEMRegion:
+      type: string
+      enum:
+      - NORTH_AMERICA
+      - EUROPE
+      title: OEMRegion
+    AccountConnect:
+      properties:
+        authenticationUrl:
+          type: string
+          title: Authenticationurl
+          description: The URL to redirect the user to for authentication through the connect flow.
+      type: object
+      required:
+      - authenticationUrl
+      title: AccountConnect
+    ConsentFlowLocales:
+      type: string
+      enum:
+      - en-GB
+      - de-DE
+      - fr-FR
+      - nl-NL
+      title: ConsentFlowLocales
+    MakeEnum:
+      type: string
+      enum:
+      - ABARTH
+      - ALFA ROMEO
+      - AUDI
+      - BMW
+      - CHRYSLER
+      - CITROEN
+      - CUPRA
+      - DODGE
+      - DS AUTOMOBILES
+      - FIAT
+      - FORD
+      - HYUNDAI
+      - JEEP
+      - KIA
+      - LANCIA
+      - LEXUS
+      - MASERATI
+      - MERCEDES BENZ
+      - MINI
+      - NISSAN
+      - OPEL
+      - PEUGEOT
+      - POLESTAR
+      - RAM
+      - RENAULT
+      - SEAT
+      - SKODA
+      - TESLA
+      - TOYOTA
+      - VAUXHALL
+      - VOLKSWAGEN
+      - VOLVO
+      title: MakeEnum
+      description: "Implemented makes enum.\n\nInput normalization and aliases are handled via `from_input` / `_missing_`, so values like\n\"Mercedes\", \"MERCEDES-BENZ\", or \"MERCEDES_BENZ\" resolve to the canonical enum.\n\nOpenAPI exposure is filtered/normalized in `__get_pydantic_json_schema__`.\n\nWhen updating this enum you should also consider updating the public docs:\n    docs/public/connect-api/tools/mintlify/overview/supported-oems.mdx"
+    ScopeEnum:
+      type: string
+      enum:
+      - vehicle:all
+      - vehicle:charging_history
+      - vehicle:driving_behavior
+      - vehicle:location_history
+      - vehicle:telemetry
+      - vehicle:information
+      - vehicle:commands
+      - battery:all
+      - battery:telemetry
+      - geofences:all
+      - geofences:read
+      - geofences:write
+      title: ScopeEnum
+    OEMAccount:
+      properties:
+        id:
+          type: string
+          title: Id
+        username:
+          type: string
+          title: Username
+      type: object
+      required:
+      - id
+      - username
+      title: OEMAccount
+    AccountConnectPayload:
+      properties:
+        returnUrl:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Redirect URI
+          description: The url the user is redirected to at the end of the consent flow
+        scopes:
+          items:
+            $ref: '#/components/schemas/ScopeEnum'
+          type: array
+          minItems: 1
+          title: Scopes
+          description: List of scopes that the application requires access to
+        locale:
+          anyOf:
+          - $ref: '#/components/schemas/ConsentFlowLocales'
+          - type: 'null'
+          description: Set the language used in the the consent flow. The default is English.
+        integrationMethod:
+          anyOf:
+          - $ref: '#/components/schemas/ConsentFlowIntegration'
+          - type: 'null'
+          description: This is for when a make can be connected via multiple methods. For example, if the make is BMW, the user can connect via the BMW Energy API (for smart charging) or via BMW Cardata (for other vehicle data).
+        chargerLocationLatitude:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Chargerlocationlatitude
+          description: The latitude of the charger location that the vehicle will be charging at. This is passed in specific cases to the OEM's Portal when the consent flow runs (currently only for BMW), to make it easier for the user to select their charger location, which in turn is needed (currently only for BMW) to restrict when start / stop charge commands can be sent.
+        chargerLocationLongitude:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Chargerlocationlongitude
+          description: The longitude of the charger location that the vehicle will be charging at. This is passed in specific cases to the OEM's Portal when the consent flow runs (currently only for BMW), to make it easier for the user to select their charger location, which in turn is needed (currently only for BMW) to restrict when start / stop charge commands can be sent.
+        countryCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countrycode
+          description: The ISO 3166-1 alpha-2 country code (e.g. DE, GB, US etc.) of the account's country. This is required when it is necessary to fetch the key specifications (model, model year, trim, battery capacity etc.) for vehicles in the account.
+        makes:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/MakeEnum'
+            type: array
+          - type: 'null'
+          title: Makes
+          description: Only show these makes of device in the consent flow
+        deviceTypes:
+          items:
+            $ref: '#/components/schemas/DeviceTypeEnum'
+          type: array
+          minItems: 1
+          title: Device types
+          description: Only show these device types in the consent flow. If only one device is selected, the device selection page is skipped.
+        urlExpiration:
+          anyOf:
+          - type: integer
+            maximum: 1209600
+            minimum: 3600
+          - type: 'null'
+          title: Urlexpiration
+          description: Defines the validity period of the authentication URL in seconds. Defaults to `3600`, with a range between `3600` seconds (1 hour) and `1209600` seconds (2 weeks). Once expired, the URL becomes invalid and cannot be used.
+          default: 3600
+        region:
+          anyOf:
+          - $ref: '#/components/schemas/OEMRegion'
+          - type: 'null'
+          description: Defines the geographic region for the account connection, directly influencing which OEM-specific API endpoint will be used for the connection. For OEMs with distinct APIs across regions, this setting ensures the correct regional API is utilized. The default is Europe.
+        vin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vin
+          description: The VIN to connect, if connecting via the VIN upload flow.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to connect, if connecting via the VIN upload flow.
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+          description: The model year to connect, if connecting via the VIN upload flow.
+      type: object
+      required:
+      - scopes
+      - deviceTypes
+      title: AccountConnectPayload
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
+    OAuth2ClientCredentialsBearer:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /v1/oauth2/token
