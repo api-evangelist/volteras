@@ -1,0 +1,73 @@
+# Volteras
+
+## Docs
+
+- [Action Connect](https://docs.volteras.com/api-reference/accounts/action-connect.md): Generate a URL to initiate the account connection flow, which allows users to connect their accounts. The generated URL is active for a **one-hour period**. If not authenticated within this timeframe, the link will become invalid.
+- [Action Disconnect](https://docs.volteras.com/api-reference/accounts/action-disconnect.md): This endpoint allows you to disconnect an account. Upon successful disconnection, the account's connection is terminated.
+- [Get Account](https://docs.volteras.com/api-reference/accounts/get-account.md): Retrieve account details by providing its unique identifier.
+- [List Accounts](https://docs.volteras.com/api-reference/accounts/list-accounts.md): Retrieve a paginated list of active accounts associated with the current organization.
+- [Auth Token](https://docs.volteras.com/api-reference/authentication/auth-token.md): Obtain OAuth 2.0 access token. This endpoint follows the OAuth 2.0 industry-standard protocol for authorization. It performs authorization and returns the access token and refresh token.
+- [Test Token](https://docs.volteras.com/api-reference/authentication/test-token.md): This endpoint validates the access token and retrieves the associated `clientId` and `organizationId`.
+- [Errors](https://docs.volteras.com/api-reference/errors/errors.md)
+- [Get Rate Limits](https://docs.volteras.com/api-reference/rate-limit/get-rate-limits.md): Get the rate limits for a specific entity. For instance, could fetch rate limits applied to a specific vehicle.
+- [Add Tag To Entity](https://docs.volteras.com/api-reference/tags/add-tag-to-entity.md): Create a new tag attached to the object specified inside the tag body. A tag is a key-value pair that can be attached to specific objects, currently vehicles or batteries. This can be used to categorize those objects and link them back to objects in your system.
+- [Get Tags](https://docs.volteras.com/api-reference/tags/get-tags.md): Get all tags for the specified object.
+- [Remove Tag From Entity](https://docs.volteras.com/api-reference/tags/remove-tag-from-entity.md): Remove a tag with the specified key and value from the specified object. Please see the Add Tag endpoint for more information on tags.
+- [Get Vehicle Alerts](https://docs.volteras.com/api-reference/vehicle-alerts/get-vehicle-alerts.md): Retrieve alerts for a vehicle based on its unique ID.
+- [Get Vehicle Charging History](https://docs.volteras.com/api-reference/vehicle-charging-history/get-vehicle-charging-history.md): Retrieve details of a vehicle charging session based on its unique ID.
+- [List Vehicle Charging History](https://docs.volteras.com/api-reference/vehicle-charging-history/list-vehicle-charging-history.md): Retrieve a list of charging history sessions for the provided vehicle.
+- [List Charging Windows](https://docs.volteras.com/api-reference/vehicle-charging-schedule/list-charging-windows.md): Retrieve a list of charging windows for the provided vehicle.
+- [List Vehicle Departure Times](https://docs.volteras.com/api-reference/vehicle-charging-schedule/list-vehicle-departure-times.md): Retrieve a list of departure times for the provided vehicle.
+- [Action Actuate Front Trunk](https://docs.volteras.com/api-reference/vehicle-command-executions/action-actuate-front-trunk.md): Create a `ACTUATE_FRONT_TRUNK` command execution.
+- [Action Actuate Rear Trunk](https://docs.volteras.com/api-reference/vehicle-command-executions/action-actuate-rear-trunk.md): Create a `ACTUATE_REAR_TRUNK` command execution.
+- [Action Climate Off](https://docs.volteras.com/api-reference/vehicle-command-executions/action-climate-off.md): Create a `CLIMATE_OFF` command execution.
+- [Action Climate On](https://docs.volteras.com/api-reference/vehicle-command-executions/action-climate-on.md): Create a `CLIMATE_ON` command execution.
+- [Action Close Charge Port](https://docs.volteras.com/api-reference/vehicle-command-executions/action-close-charge-port.md): Create a `CLOSE_CHARGE_PORT` command execution.
+- [Action Lock Doors](https://docs.volteras.com/api-reference/vehicle-command-executions/action-lock-doors.md): Create a `LOCK_DOORS` command execution.
+- [Action Open Charge Port](https://docs.volteras.com/api-reference/vehicle-command-executions/action-open-charge-port.md): Create a `OPEN_CHARGE_PORT` command execution.
+- [Action Set Charge Limit](https://docs.volteras.com/api-reference/vehicle-command-executions/action-set-charge-limit.md): Create a `SET_CHARGE_LIMIT` command execution.
+- [Action Set Temperature](https://docs.volteras.com/api-reference/vehicle-command-executions/action-set-temperature.md): Create a `SET_TEMPERATURE` command execution.
+- [Action Start Charging](https://docs.volteras.com/api-reference/vehicle-command-executions/action-start-charging.md): Create a `START_CHARGING` command execution.
+- [Action Start Hvac System](https://docs.volteras.com/api-reference/vehicle-command-executions/action-start-hvac-system.md): Create a `START_HVAC_SYSTEM` command execution.
+- [Action Stop Charging](https://docs.volteras.com/api-reference/vehicle-command-executions/action-stop-charging.md): Create a `STOP_CHARGING` command execution.
+- [Action Unlock Doors](https://docs.volteras.com/api-reference/vehicle-command-executions/action-unlock-doors.md): Create a `UNLOCK_DOORS` command execution.
+- [Get Vehicle Command Execution](https://docs.volteras.com/api-reference/vehicle-command-executions/get-vehicle-command-execution.md): Retrieve detailed information about a vehicle command execution by specifying its unique identifier (ID).
+- [List Vehicle Command Executions](https://docs.volteras.com/api-reference/vehicle-command-executions/list-vehicle-command-executions.md): Retrieve a paginated list of vehicle command executions for specific vehicle based on its unique identifier (ID).
+- [Action Disconnect](https://docs.volteras.com/api-reference/vehicle-connection/action-disconnect.md): This endpoint allows you to disconnect a specific vehicle from your organization, ceasing the synchronization of its data. After disconnection, the vehicle will no longer be accessible through your organization's account. Note that it can take a few minutes for the disconnection to be processed.
+- [Bulk Vehicle Connect Group Status](https://docs.volteras.com/api-reference/vehicle-connection/bulk-vehicle-connect-group-status.md): This returns the overall status of the connection request for all VINs.
+- [Bulk Vehicle Connect Vin Results](https://docs.volteras.com/api-reference/vehicle-connection/bulk-vehicle-connect-vin-results.md): Get details of individual VINs that were sent in the connection request.
+- [Bulk Vin Connect](https://docs.volteras.com/api-reference/vehicle-connection/bulk-vin-connect.md): Connect multiple VINs to the current organization. By default this endpoint is not enabled for organizations, please contact us to get access. Limited to 100 VINs per request.
+- [Bulk Vehicle Eligibility Check Results](https://docs.volteras.com/api-reference/vehicle-eligibility/bulk-vehicle-eligibility-check-results.md): Get the eligibility results for all VINs that were sent in a request
+- [Bulk Vin Eligibility Check](https://docs.volteras.com/api-reference/vehicle-eligibility/bulk-vin-eligibility-check.md): Check the eligibility of multiple VINs
+- [List Vehicle Journeys](https://docs.volteras.com/api-reference/vehicle-journeys/list-vehicle-journeys.md): Retrieve a paginated list of journeys for the provided vehicle.
+- [Get Vehicle Listening Audit](https://docs.volteras.com/api-reference/vehicle-listening/get-vehicle-listening-audit.md): Retrieve the listening-state history for a vehicle, ordered by the time entries were recorded.
+- [Set Vehicle Listening State](https://docs.volteras.com/api-reference/vehicle-listening/set-vehicle-listening-state.md): Set the listening state for a vehicle.
+- [Get Current Vehicle Oem Alerts](https://docs.volteras.com/api-reference/vehicle-manufacturer-alerts/get-current-vehicle-oem-alerts.md): Retrieves the list of currently active manufacturer alerts for the vehicle, that is, alerts that have come from the vehicle itself, rather than our alerts. This can include alerts for low tire pressure, faulty brakes etc.
+- [Get Vehicle Range](https://docs.volteras.com/api-reference/vehicle-range/get-vehicle-range.md): Retrieves both nominal and real-world maximum range information for specified vehicles. It enables accurate vehicle range analysis by drawing on historical data and usage patterns for the specified vehicle.
+- [Get Vehicle Services](https://docs.volteras.com/api-reference/vehicle-services/get-vehicle-services.md): Retrieves the list of services currently recommended for the vehicle.
+- [Get Vehicle State Of Health](https://docs.volteras.com/api-reference/vehicle-state-of-health/get-vehicle-state-of-health.md): Retrieves state of health related information for the specified vehicle. - Nominal battery pack capacity refers to the total amount of energy in kWh that the battery pack of the vehicle can store, as per its specifications. - Real battery pack capacity refers to the total amount of energy in kWh tha…
+- [Get Vehicle Telemetry](https://docs.volteras.com/api-reference/vehicle-telemetry/get-vehicle-telemetry.md): Retrieve telemetry data for the specified vehicle. The telemetry data provides essential information about the vehicle's status and performance.
+- [Get Vehicle Tires Readings Historic](https://docs.volteras.com/api-reference/vehicle-tires/get-vehicle-tires-readings-historic.md): Retrieves the list of tire pressures for the vehicle for the specified period (default is the last 3 months), grouped by hour.
+- [Get Vehicle Tires Readings Historic](https://docs.volteras.com/api-reference/vehicles/get-tires-historic.md): Retrieves the list of tire pressures for the vehicle for the specified period (default is the last 3 months), grouped by hour.
+- [Get Vehicle](https://docs.volteras.com/api-reference/vehicles/get-vehicle.md): Retrieve detailed information about a vehicle by specifying its unique identifier (ID).
+- [Get Current Vehicle Oem Alerts](https://docs.volteras.com/api-reference/vehicles/get-vehicle-current-manufacturer-alerts.md): Retrieves the list of currently active manufacturer alerts for the vehicle, that is, alerts that have come from the vehicle itself, rather than our alerts. This can include alerts for low tire pressure, faulty brakes etc.
+- [Get Vehicle Options](https://docs.volteras.com/api-reference/vehicles/get-vehicle-options.md): Retrieves the options data for a specific Tesla vehicle based on its unique identifier (ID).
+- [Get Vehicle Services](https://docs.volteras.com/api-reference/vehicles/get-vehicle-services.md): Retrieves the list of services currently recommended for the vehicle.
+- [Get Vehicle Specifications](https://docs.volteras.com/api-reference/vehicles/get-vehicle-specifications.md): Obtain detailed specifications for a vehicle.
+- [List Vehicles](https://docs.volteras.com/api-reference/vehicles/list-vehicles.md): Retrieve a paginated list of vehicles associated with your organization.
+- [Update Registration Plate](https://docs.volteras.com/api-reference/vehicles/update-registration-plate.md): Update the registration plate of the specified vehicle.
+- [Commands](https://docs.volteras.com/overview/commands.md)
+- [Connection methods](https://docs.volteras.com/overview/connection-methods.md)
+- [Disconnecting vehicles](https://docs.volteras.com/overview/disconnecting-vehicles.md)
+- [Getting started](https://docs.volteras.com/overview/getting-started.md)
+- [Listing filter JSON](https://docs.volteras.com/overview/listing-filter-json.md)
+- [Regions](https://docs.volteras.com/overview/regions.md)
+- [Sandbox environment](https://docs.volteras.com/overview/sandbox-environment.md)
+- [Scopes](https://docs.volteras.com/overview/scopes.md)
+- [Standardized units of measurement in our API](https://docs.volteras.com/overview/standardized-units-of-measurement-in-our-api.md)
+- [Supported OEMs](https://docs.volteras.com/overview/supported-oems.md)
+- [Webhooks](https://docs.volteras.com/overview/webhooks.md): This document outlines the webhooks available
+
+## OpenAPI Specs
+
+- [openapi](https://docs.volteras.com/openapi.json)

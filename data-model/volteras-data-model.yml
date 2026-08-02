@@ -1,0 +1,64 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/volteras-connect-openapi-original.json
+description: >-
+  Entity-relationship graph derived from the Volteras Connect OpenAPI schema
+  $refs and id-reference fields. The Vehicle is the hub entity; most resources
+  hang off it via vehicleId or the /v1/vehicles/{vehicle_id}/... sub-resources.
+entities:
+  - name: Account
+    schema: OEMAccount
+    id_field: id
+    description: A connected end-user OEM account (consent-flow connection), scoped to the organization.
+  - name: Vehicle
+    schema: Vehicle
+    id_field: id
+    key_fields: [vin, make, model, modelYear, registrationPlate, connectionStatus, isListening]
+  - name: VehicleCommandExecution
+    schema: VehicleCommandExecution
+    id_field: id
+    key_fields: [command, status, failedReason, executedAt]
+  - name: VehicleChargingSession
+    schema: VehicleChargingSession
+    id_field: id
+    key_fields: [startedAt, endedAt, kwhFromGrid, startStateOfCharge, endStateOfCharge]
+  - name: VehicleJourney
+    schema: VehicleJourneyResponse
+    id_field: id
+    key_fields: [distanceTravelledKm, energyUsedKwh, startTimestamp, stopTimestamp]
+  - name: VehicleTelemetry
+    schema: VehicleTelemetry
+    description: Point-in-time telemetry snapshot for a vehicle (location, speed, odometer, state of charge, charging state, tires, climate).
+  - name: VehicleAlert
+    schema: VehicleAlertResponse
+    description: Platform (custom) alerts for a vehicle; distinct from manufacturer OEMAlert.
+  - name: OEMAlert
+    schema: OEMAlert
+    description: Manufacturer-originated alerts (e.g. low tire pressure, brake faults) with severity, affected component, recommended action.
+  - name: Tag
+    schema: Tag
+    key_fields: [key, value]
+    description: Key-value pair attached to an entity (currently vehicles or batteries) to link back to external systems.
+  - name: RateLimit
+    schema: RateLimit
+    key_fields: [key, domain, maxRequests, remainingRequests, windowSizeSeconds]
+  - name: BulkConnectGroup
+    schema: BulkConnectStatusResponse
+    description: Async group created by bulk VIN connect; has per-VIN results (VehicleInputResponse).
+  - name: EligibilityCheck
+    schema: BulkVinEligibilityResponse
+    description: Async bulk VIN eligibility check with per-VIN results (SingleEligibilityResult).
+relationships:
+  - {from: Vehicle, to: VehicleCommandExecution, type: has_many, via: vehicleId}
+  - {from: Vehicle, to: VehicleChargingSession, type: has_many, via: vehicleId}
+  - {from: Vehicle, to: VehicleJourney, type: has_many, via: vehicleId}
+  - {from: Vehicle, to: VehicleTelemetry, type: has_one, via: '/v1/vehicles/{vehicle_id}/telemetry'}
+  - {from: Vehicle, to: VehicleAlert, type: has_many, via: '/v1/vehicles/{vehicle_id}/alerts'}
+  - {from: Vehicle, to: OEMAlert, type: has_many, via: '/v1/vehicles/{vehicle_id}/maintenance/manufacturer-alerts/current'}
+  - {from: Vehicle, to: Tag, type: has_many, via: '/v1/tags/{entity_type}/{entity_id}'}
+  - {from: Vehicle, to: RateLimit, type: has_many, via: objectId (domain VEHICLE)}
+  - {from: Account, to: Vehicle, type: has_many, via: consent-flow connection}
+  - {from: BulkConnectGroup, to: Vehicle, type: has_many, via: per-VIN results}
+  - {from: VehicleCommandExecution, to: Vehicle, type: belongs_to, via: vehicleId}
+  - {from: VehicleChargingSession, to: Vehicle, type: belongs_to, via: vehicleId}
+  - {from: VehicleJourney, to: Vehicle, type: belongs_to, via: vehicleId}

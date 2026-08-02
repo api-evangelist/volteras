@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: generated
+skills:
+  - file: volteras-connect-vehicles-and-read-telemetry.md
+    name: Connect vehicles and read telemetry with Volteras
+    api: openapi/volteras-connect-openapi-original.json
+    operations:
+      - auth_token_v1_oauth2_token_post
+      - action_connect_v1_accounts_connect_post
+      - Bulk_VIN_connect_v1_vehicles_connect_post
+      - list_vehicles_v1_vehicles_get
+      - get_vehicle_telemetry_v1_vehicles__vehicle_id__telemetry_get
+  - file: volteras-manage-charging-commands.md
+    name: Manage EV charging with Volteras commands
+    api: openapi/volteras-connect-openapi-original.json
+    operations:
+      - action_start_charging_v1_vehicles__vehicle_id__command_execution_start_charging_post
+      - action_stop_charging_v1_vehicles__vehicle_id__command_execution_stop_charging_post
+      - get_vehicle_command_execution_v1_vehicles__vehicle_id__command_executions__vehicle_command_execution_id__get
+      - get_rate_limits_v1_rate_limits_get

@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/volteras-connect-openapi-original.json
+docs: https://docs.volteras.com/api-reference/authentication/auth-token
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+  notes: >-
+    Volteras Connect adheres to OAuth 2.0: applications created in the Volteras
+    Portal (per environment, sandbox vs production) issue a client_id /
+    client_secret, exchanged at POST /v1/oauth2/token for access + refresh
+    tokens; requests carry Authorization: Bearer <access-token>. POST
+    /v1/oauth2/test-token validates a token and returns the associated clientId
+    and organizationId. The HTTPBasic scheme in the spec covers client
+    authentication on the token endpoint. End-user data access is governed
+    separately by consent scopes (see scopes/volteras-scopes.yml).
+endpoints:
+  token: /v1/oauth2/token
+  test_token: /v1/oauth2/test-token
+  sandbox_token_test: https://api.sandbox.volteras.com/v1/oauth2/test-token
+credentials:
+  issuer: https://portal.volteras.com/ (Applications section, one application per environment)
+schemes:
+- name: HTTPBasic
+  type: http
+  scheme: basic
+  sources:
+  - openapi/volteras-connect-openapi-original.json
+- name: OAuth2ClientCredentialsBearer
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /v1/oauth2/token
+    scopes: 0
+  sources:
+  - openapi/volteras-connect-openapi-original.json

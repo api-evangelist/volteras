@@ -1,0 +1,63 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/volteras-connect-openapi-original.json
+docs: https://docs.volteras.com/overview/scopes
+description: >-
+  Volteras consent scopes control what data/capabilities an integration gets
+  from a connected end-user account; they are passed via the scopes parameter
+  when constructing the account connect URL (POST /v1/accounts:connect). The
+  API-client credential itself uses OAuth 2.0 client-credentials with no
+  client-level scopes. The docs scopes page documents the five vehicle scopes;
+  the OpenAPI ScopeEnum additionally declares battery and geofence scopes.
+schemes:
+  - name: OAuth2ClientCredentialsBearer
+    source: openapi/volteras-connect-openapi-original.json
+    flows:
+      - flow: clientCredentials
+        tokenUrl: /v1/oauth2/token
+scopes:
+  - scope: vehicle:all
+    description: Access to everything (all vehicle scopes).
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum, docs]
+  - scope: vehicle:information
+    description: Access to vehicle specifications, options, vin and registration plate.
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum, docs]
+  - scope: vehicle:charging_history
+    description: Access to vehicle charging history.
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum, docs]
+  - scope: vehicle:telemetry
+    description: Access to location and odometer.
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum, docs]
+  - scope: vehicle:commands
+    description: Access to remote commands.
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum, docs]
+  - scope: vehicle:driving_behavior
+    description: null
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum]
+  - scope: vehicle:location_history
+    description: null
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum]
+  - scope: battery:all
+    description: null
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum]
+  - scope: battery:telemetry
+    description: null
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum]
+  - scope: geofences:all
+    description: null
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum]
+  - scope: geofences:read
+    description: null
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum]
+  - scope: geofences:write
+    description: null
+    sources: [openapi/volteras-connect-openapi-original.json#ScopeEnum]
+scoped_endpoints:
+  - {endpoint: '/vehicles/[id]', scopes: [vehicle:information], required: false, effect_without_scope: 'Fields excluded: vin, registrationPlate'}
+  - {endpoint: '/vehicles/', scopes: [vehicle:information], required: false, effect_without_scope: 'Fields excluded: vin, registrationPlate'}
+  - {endpoint: '/vehicles/[id]/options', scopes: [vehicle:information], required: true, effect_without_scope: 401 Response}
+  - {endpoint: '/vehicles/[id]/specifications', scopes: [vehicle:information], required: true, effect_without_scope: 401 Response}
+  - {endpoint: '/vehicles/[id]/telemetry', scopes: [vehicle:telemetry], required: true, effect_without_scope: 401 Response}
+  - {endpoint: '/vehicles/[id]/charging-history', scopes: [vehicle:charging_history], required: true, effect_without_scope: 401 Response}
+  - {endpoint: '/vehicles/[id]/charging-history/[id]', scopes: [vehicle:charging_history], required: true, effect_without_scope: 401 Response}
+  - {endpoint: '/vehicles/[id]/command-executions/', scopes: [vehicle:commands], required: true, effect_without_scope: 401 Response}

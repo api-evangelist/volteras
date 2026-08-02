@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.volteras.com
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      OpenAPI declares oauth2 clientCredentials securityScheme
+      (OAuth2ClientCredentialsBearer, tokenUrl /v1/oauth2/token); docs state
+      "We adhere to the OAuth 2.0 authorization standard."
+  - id: oidc
+    conforms: false
+    evidence: No openIdConnect scheme; no /.well-known/openid-configuration on any host (all 404).
+  - id: openapi-3.1
+    conforms: true
+    evidence: Published spec at https://docs.volteras.com/openapi.json is openapi 3.1.0.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom envelope (requestId/timestamp/error/message/data),
+      not application/problem+json.
+  - id: cursor-pagination
+    conforms: true
+    evidence: List endpoints use maxPageSize/pageToken with nextPageToken in responses.
+  - id: idempotency-key
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header documented or in the OpenAPI; duplicate
+      protection is server-side (one pending command per type per device).
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: No Sunset/Deprecation header support documented.
+  - id: iso-27001
+    conforms: true
+    evidence: >-
+      Homepage (https://www.volteras.com/) states "ISO 27001 certification.
+      Your data is protected at every layer." No standalone trust center page
+      found.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 on all probed hosts.

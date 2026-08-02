@@ -1,0 +1,283 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.volteras.com/api-reference/errors/errors
+format: volteras-error-codes
+description: 'Volteras Connect API error-code registry, captured verbatim from the public errors reference.
+  Codes appear in three places: CONNECT_API (synchronous API error responses), VIN_UPLOAD (async per-VIN
+  results of bulk VIN connection), and COMMANDS (the failedReason field of async vehicle command executions).'
+envelope:
+  description: Synchronous Connect API error responses use this envelope (error field carries the code).
+  fields:
+  - name: requestId
+    type: string
+    description: ID of the request.
+  - name: timestamp
+    type: string
+    description: An ISO8601 formatted date and time of error.
+  - name: error
+    type: string
+    description: Error type (see registry below).
+  - name: message
+    type: string
+    description: A human-friendly short description of the error.
+  - name: data
+    type: object
+    description: Optional. Any additional data that helps the debug.
+places:
+- id: CONNECT_API
+  description: Inside API error responses when calling endpoints in the Connect API, returned in the error
+    field.
+- id: VIN_UPLOAD
+  description: Async per-VIN errors in the errors field of the bulk VIN connection results endpoint.
+- id: COMMANDS
+  description: Async command failures stored in the command execution failedReason field.
+error_codes:
+- code: OEM_UNKNOWN_ERROR
+  description: Unknown error returned from the OEM's API
+  places:
+  - COMMANDS
+- code: OEM_TIMEOUT
+  description: The request timed out to the OEM's API
+  places:
+  - COMMANDS
+- code: OEM_UNAVAILABLE
+  description: The OEM's API is temporarily unavailable (e.g. a 502 error)
+  places:
+  - COMMANDS
+- code: OEM_NETWORK_ERROR
+  description: There was a network error when calling the OEM's API
+  places:
+  - COMMANDS
+- code: OEM_INCORRECT_REGION
+  description: The action or request has failed because it is not supported in the specified region
+  places:
+  - COMMANDS
+  - VIN_UPLOAD
+- code: OEM_APP_REQUIRED_UPDATE
+  description: The OEM's app is required to be updated for this operation to be completed
+  places:
+  - COMMANDS
+- code: OEM_USER_ACCOUNT_LOCKED
+  description: The device owner's account with the OEM has been locked by the OEM, and cannot be accessed
+    until it is unlocked
+  places:
+  - COMMANDS
+- code: OEM_OAUTH_TOKEN_EXPIRED
+  description: The OAuth token to access commands and data for the device has expired
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_OFFLINE
+  description: The device is offline and cannot be accessed
+  places:
+  - COMMANDS
+  - VIN_UPLOAD
+- code: OEM_VEHICLE_REMOTE_ACCESS_DISABLED
+  description: The device's remote access is not enabled or consent to access the vehicle needs to be
+    granted to Volteras - see the error message on the object for details on how to address.
+  places:
+  - COMMANDS
+  - VIN_UPLOAD
+- code: OEM_VEHICLE_LOCATION_SHARING_DISABLED
+  description: The device's location sharing is not enabled, and needs to be enabled by the device owner
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_DATA_SHARING_DISABLED
+  description: Data sharing is disabled for this vehicle, it must be enabled in the manufacturer's app
+    or in the vehicle, or by following steps in the accompanying error message.
+  places:
+  - VIN_UPLOAD
+- code: FLEET_CONSENT_MISSING
+  description: This vehicle's fleet has not granted data-sharing consent in the manufacturer's fleet portal.
+    Your fleet administrator needs to approve the connection there; the driver cannot resolve this from
+    the vehicle.
+  places:
+  - VIN_UPLOAD
+- code: OEM_AUTH_DRIVER_IS_NOT_PRIMARY_USER
+  description: The device owner's account is not the primary user of the device
+  places:
+  - COMMANDS
+  - VIN_UPLOAD
+- code: OEM_DEVICE_NOT_FOUND
+  description: The device could not be found within the OEM's platform
+  places:
+  - COMMANDS
+  - VIN_UPLOAD
+- code: OEM_VEHICLE_NOT_COMPATIBLE
+  description: The device is not compatible with the OEM's API. Check the error message to see if there
+    are any remediation steps.
+  places:
+  - VIN_UPLOAD
+- code: OEM_VEHICLE_UPDATE_REQUIRED
+  description: A vehicle update is required for the vehicle to be connected
+  places:
+  - VIN_UPLOAD
+- code: OEM_COMMAND_TIMEOUT
+  description: The command timed out to the OEM's API
+  places:
+  - COMMANDS
+- code: OEM_COMMAND_FAILED
+  description: The command failed to execute for an unknown reason
+  places:
+  - COMMANDS
+- code: OEM_RATE_LIMITED
+  description: The OEM's API has returned a rate limit error
+  places:
+  - COMMANDS
+- code: OEM_ACCOUNT_RATE_LIMITED
+  description: The device owner's account has been rate limited by the OEM, and is not currently available
+  places:
+  - COMMANDS
+- code: OEM_DEVICE_RATE_LIMITED
+  description: The device has been rate limited by the OEM, and is not currently available
+  places:
+  - COMMANDS
+- code: OEM_STOP_CHARGE_RATE_LIMITED
+  description: The stop charge command has been rate limited by the OEM, and is not currently available
+  places:
+  - COMMANDS
+- code: OEM_COMMANDS_RATE_LIMITED
+  description: Device commands have been rate limited by the OEM for this device, and are not currently
+    available
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_LOCATION_UNKNOWN
+  description: The vehicle's location is unknown, which is preventing the action from being performed
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_NOT_IN_AUTHORIZED_LOCATION
+  description: The vehicle is not in an authorized location to perform the action
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_CHARGING_NOT_FINISHED
+  description: The vehicle's charging is not finished
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_CHARGING_NOT_STOPPED
+  description: The vehicle's charging is not stopped
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_CHARGING_NOT_STARTED
+  description: The vehicle's charging is not started
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_CHARGING_NOT_PAUSED
+  description: The vehicle's charging is not paused
+  places:
+  - COMMANDS
+- code: OEM_VEHICLE_CHARGING_REFUSED_PLAY_PROTECTION
+  description: Charging the vehicle is not allowed because of play protection
+  places:
+  - COMMANDS
+- code: OEM_COMMAND_REFUSED_OTHER_SERVICE_RUNNING
+  description: The command failed because another command is already running on the vehicle
+  places:
+  - COMMANDS
+- code: OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_STAND_STILL_AND_RESTING_STATE
+  description: Command refused. The vehicle is in a stand still and resting state
+  places:
+  - COMMANDS
+- code: OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_STAND_STILL_AND_ACTIVE_STATE
+  description: Command refused. The vehicle is in a stand still and active state
+  places:
+  - COMMANDS
+- code: OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_DRIVING_OR_READY_TO_DRIVE
+  description: Command refused. The vehicle is in a driving or ready to drive state
+  places:
+  - COMMANDS
+- code: OEM_COMMAND_REFUSED_VEHICLE_AWAKE_IN_DIAGNOSTICS_MODE
+  description: Command refused. The vehicle is in diagnostics mode
+  places:
+  - COMMANDS
+- code: SERVER_ERROR
+  description: Something went wrong while processing the request, we have been alerted and are investigating
+    the issue.
+  places:
+  - CONNECT_API
+  - COMMANDS
+- code: INTERNAL_RATE_LIMITED
+  description: Your organization has reached its rate limit for this operation. Please contact support
+    if you need to increase your limit.
+  places:
+  - COMMANDS
+- code: RESOURCE_NOT_FOUND
+  description: The resource was not found
+  places:
+  - CONNECT_API
+- code: AUTHENTICATION_ERROR
+  description: Request authentication failed
+  places:
+  - CONNECT_API
+  - COMMANDS
+- code: DEVICE_LIMIT_REACHED
+  description: You have uploaded the maximum number of vehicles for your organization. Please contact
+    us to upgrade.
+  places:
+  - VIN_UPLOAD
+  - CONNECT_API
+- code: NOT_PERMITTED
+  description: This action is not permitted
+  places:
+  - CONNECT_API
+  - VIN_UPLOAD
+  - COMMANDS
+- code: REQUEST_VALIDATION_ERROR
+  description: The request validation failed
+  places:
+  - CONNECT_API
+- code: VIN_UPLOAD_INVALID_FORMAT
+  description: One of the vehicle fields is invalid - see errors for details.
+  places:
+  - VIN_UPLOAD
+- code: QUERY_PAGE_TOKEN_EXPIRED
+  description: The page token for this paginated query has expired. Please start a new query (IE without
+    passing a page token).
+  places:
+  - CONNECT_API
+- code: PAGINATED_QUERY_FILTER_CHANGED
+  description: The filter for this paginated query has changed between pages (IE, you have fetched a page
+    of data, and then attempted to fetch a second page but with a different set of filters). Please start
+    a new query or use the same filters as the previous page.
+  places:
+  - CONNECT_API
+- code: PAGE_SIZE_TOO_LARGE
+  description: The page size for this paginated query is too large, please pass a smaller one.
+  places:
+  - CONNECT_API
+- code: INVALID_VIN
+  description: The VIN is invalid
+  places:
+  - VIN_UPLOAD
+- code: VIN_CHECK_NOT_SUPPORTED
+  description: The VIN check is not supported for this OEM
+  places:
+  - VIN_UPLOAD
+- code: VEHICLE_ALREADY_ADDED_TO_ORGANIZATION
+  description: This vehicle has already been connected to the organization
+  places:
+  - VIN_UPLOAD
+- code: VEHICLE_ALREADY_ADDED_CONNECTION_REQUIRED
+  description: You have already attempted to add this VIN to the platform, and it requires the consent
+    flow to be completed to be connected
+  places:
+  - VIN_UPLOAD
+- code: VEHICLE_ALREADY_ADDED_INCOMPATIBLE
+  description: You have already attempted to add this VIN to the platform, and it is incompatible
+  places:
+  - VIN_UPLOAD
+- code: VEHICLE_ALREADY_ADDED_PENDING_CONNECTION
+  description: You have already attempted to add this VIN to the platform, and it is pending connection
+  places:
+  - VIN_UPLOAD
+- code: VIN_UPLOAD_NOT_SUPPORTED
+  description: The VIN upload is not supported for this OEM
+  places:
+  - VIN_UPLOAD
+- code: VIN_BLACKLISTED
+  description: The VIN is blacklisted and cannot be added to the platform
+  places:
+  - VIN_UPLOAD
+- code: SUBJECTS_NOT_ASSIGNABLE
+  description: The vehicle owners for the VIN upload could not be assigned to the vehicle - please check
+    that the users or user group IDs are correct.
+  places:
+  - VIN_UPLOAD

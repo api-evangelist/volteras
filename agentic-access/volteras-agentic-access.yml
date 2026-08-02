@@ -1,0 +1,720 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/volteras-connect-openapi-original.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 50
+  by_action_class:
+    acting: 24
+    connected: 26
+  by_consequence:
+    write: 20
+    read: 26
+    physical: 3
+    safety-critical: 1
+  human_in_the_loop_required: 1
+operations:
+- path: /v1/oauth2/token
+  method: post
+  operationId: auth_token_v1_oauth2_token_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/oauth2/test-token
+  method: post
+  operationId: test_token_v1_oauth2_test_token_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/accounts
+  method: get
+  operationId: list_accounts_v1_accounts_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/accounts/{account_id}
+  method: get
+  operationId: get_account_v1_accounts__account_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/accounts:connect
+  method: post
+  operationId: action_connect_v1_accounts_connect_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/accounts/{account_id}:disconnect
+  method: post
+  operationId: action_disconnect_v1_accounts__account_id__disconnect_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/tags
+  method: post
+  operationId: add_tag_to_entity_v1_tags_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/tags
+  method: delete
+  operationId: remove_tag_from_entity_v1_tags_delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/tags/{entity_type}/{entity_id}
+  method: get
+  operationId: get_tags_v1_tags__entity_type___entity_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles
+  method: get
+  operationId: list_vehicles_v1_vehicles_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}
+  method: get
+  operationId: get_vehicle_v1_vehicles__vehicle_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}
+  method: delete
+  operationId: action_disconnect_v1_vehicles__vehicle_id__delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/options
+  method: get
+  operationId: get_vehicle_options_v1_vehicles__vehicle_id__options_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:information
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/registration-plate
+  method: post
+  operationId: update_registration_plate_v1_vehicles__vehicle_id__registration_plate_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:information
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/specifications
+  method: get
+  operationId: get_vehicle_specifications_v1_vehicles__vehicle_id__specifications_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:information
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/telemetry
+  method: get
+  operationId: get_vehicle_telemetry_v1_vehicles__vehicle_id__telemetry_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:telemetry
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/command-executions
+  method: get
+  operationId: list_vehicle_command_executions_v1_vehicles__vehicle_id__command_executions_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/command-executions/{vehicle_command_execution_id}
+  method: get
+  operationId: get_vehicle_command_execution_v1_vehicles__vehicle_id__command_executions__vehicle_command_execution_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/command-execution:actuate-front-trunk
+  method: post
+  operationId: action_actuate_front_trunk_v1_vehicles__vehicle_id__command_execution_actuate_front_trunk_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:actuate-rear-trunk
+  method: post
+  operationId: action_actuate_rear_trunk_v1_vehicles__vehicle_id__command_execution_actuate_rear_trunk_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:climate-off
+  method: post
+  operationId: action_climate_off_v1_vehicles__vehicle_id__command_execution_climate_off_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:climate-on
+  method: post
+  operationId: action_climate_on_v1_vehicles__vehicle_id__command_execution_climate_on_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:close-charge-port
+  method: post
+  operationId: action_close_charge_port_v1_vehicles__vehicle_id__command_execution_close_charge_port_post
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:lock-doors
+  method: post
+  operationId: action_lock_doors_v1_vehicles__vehicle_id__command_execution_lock_doors_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:open-charge-port
+  method: post
+  operationId: action_open_charge_port_v1_vehicles__vehicle_id__command_execution_open_charge_port_post
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:set-charge-limit
+  method: post
+  operationId: action_set_charge_limit_v1_vehicles__vehicle_id__command_execution_set_charge_limit_post
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:set-temperature
+  method: post
+  operationId: action_set_temperature_v1_vehicles__vehicle_id__command_execution_set_temperature_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:start-charging
+  method: post
+  operationId: action_start_charging_v1_vehicles__vehicle_id__command_execution_start_charging_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:start-hvac-system
+  method: post
+  operationId: action_start_hvac_system_v1_vehicles__vehicle_id__command_execution_start_hvac_system_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:stop-charging
+  method: post
+  operationId: action_stop_charging_v1_vehicles__vehicle_id__command_execution_stop_charging_post
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/command-execution:unlock-doors
+  method: post
+  operationId: action_unlock_doors_v1_vehicles__vehicle_id__command_execution_unlock_doors_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - vehicle:commands
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/listening
+  method: post
+  operationId: Set_Vehicle_Listening_State_v1_vehicles__vehicle_id__listening_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/{vehicle_id}/listening-audit
+  method: get
+  operationId: get_vehicle_listening_audit_v1_vehicles__vehicle_id__listening_audit_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:information
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/charging-history
+  method: get
+  operationId: list_vehicle_charging_history_v1_vehicles__vehicle_id__charging_history_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/charging-history/{vehicle_charging_session_id}
+  method: get
+  operationId: get_vehicle_charging_history_v1_vehicles__vehicle_id__charging_history__vehicle_charging_session_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/range
+  method: get
+  operationId: get_vehicle_range_v1_vehicles__vehicle_id__range_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:information
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/maintenance/services
+  method: get
+  operationId: get_vehicle_services_v1_vehicles__vehicle_id__maintenance_services_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:telemetry
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/maintenance/tires/historic
+  method: get
+  operationId: get_vehicle_tires_readings_historic_v1_vehicles__vehicle_id__maintenance_tires_historic_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:telemetry
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/state-of-health
+  method: get
+  operationId: get_vehicle_state_of_health_v1_vehicles__vehicle_id__state_of_health_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:information
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/alerts
+  method: get
+  operationId: get_vehicle_alerts_v1_vehicles__vehicle_id__alerts_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/maintenance/manufacturer-alerts/current
+  method: get
+  operationId: get_current_vehicle_oem_alerts_v1_vehicles__vehicle_id__maintenance_manufacturer_alerts_current_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:telemetry
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/connect
+  method: post
+  operationId: Bulk_VIN_connect_v1_vehicles_connect_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/connect/{id}
+  method: get
+  operationId: bulk_vehicle_connect_group_status_v1_vehicles_connect__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/connect/{id}/results
+  method: get
+  operationId: bulk_vehicle_connect_vin_results_v1_vehicles_connect__id__results_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/eligibility
+  method: post
+  operationId: Bulk_VIN_eligibility_check_v1_vehicles_eligibility_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/vehicles/eligibility/{id}/results
+  method: get
+  operationId: bulk_vehicle_eligibility_check_results_v1_vehicles_eligibility__id__results_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/journeys
+  method: get
+  operationId: list_vehicle_journeys_v1_vehicles__vehicle_id__journeys_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:telemetry
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/rate-limits
+  method: get
+  operationId: get_rate_limits_v1_rate_limits_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/departure-times
+  method: get
+  operationId: list_vehicle_departure_times_v1_vehicles__vehicle_id__departure_times_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:charging_history
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/vehicles/{vehicle_id}/charging-windows
+  method: get
+  operationId: list_charging_windows_v1_vehicles__vehicle_id__charging_windows_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - vehicle:charging_history
+    token:
+      max-ttl: 3600
+    audit: none

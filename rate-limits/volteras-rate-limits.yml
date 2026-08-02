@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.volteras.com/api-reference/rate-limit/get-rate-limits
+description: >-
+  Volteras exposes rate limits as a first-class API resource rather than fixed
+  published numbers: GET /v1/rate-limits returns the live limits applied to a
+  specific entity (e.g. a vehicle), and the rate_limit.updated webhook pushes
+  changes. Limits are dynamic per entity/OEM (many originate from OEM-side
+  quotas, surfaced via OEM_*_RATE_LIMITED error codes); no static numeric quota
+  table is published, so none is recorded here.
+signaling:
+  endpoint:
+    method: GET
+    path: /v1/rate-limits
+    operationId: get_rate_limits_v1_rate_limits_get
+    params: [objectId, domain]
+    domains: [VEHICLE]
+  response_fields: [remainingRequests, maxRequests, domain, windowSizeSeconds, objectId, key]
+  keys:
+    - BMW_ENERGY_API_COMMANDS
+    - BMW_ENERGY_API_STOP_COMMANDS
+    - BMW_ENERGY_API_COMMANDS_AND_FETCH_STATE
+  webhook: rate_limit.updated (Svix; example payload shows max_requests/window_size_seconds)
+  headers: No documented rate-limit response headers.
+related_error_codes:
+  - INTERNAL_RATE_LIMITED
+  - OEM_RATE_LIMITED
+  - OEM_ACCOUNT_RATE_LIMITED
+  - OEM_DEVICE_RATE_LIMITED
+  - OEM_COMMANDS_RATE_LIMITED
+  - OEM_STOP_CHARGE_RATE_LIMITED

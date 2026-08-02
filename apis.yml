@@ -1,8 +1,22 @@
 aid: volteras
 name: Volteras
-description: Volteras is a company surfaced as a portfolio company of union-square-ventures and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1
+description: >-
+  Volteras is the intelligence layer for OEM-grade connected vehicle data,
+  providing a single Connect API that streams real-time telemetry, charging
+  sessions, journeys, battery state of health, alerts, and asynchronous remote
+  commands (charging, climate, locks) from 35+ global automakers across 340+
+  vehicle models, sourced directly from manufacturers rather than scrapers or
+  hardware. Vehicles onboard via consent flow or bulk VIN upload, with a
+  full-fidelity sandbox, Svix-powered webhooks, and OAuth 2.0
+  client-credentials security, serving fleet telematics, insurance, leasing,
+  ride-hailing, and EV charging use cases across North America, Europe, and
+  Australia. Backed by Union Square Ventures, Edenred, WEX, and Long Journey
+  Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/volteras/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,12 +24,342 @@ x-backed-by:
 - union-square-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+image: https://avatars.githubusercontent.com/u/89023482
 tags:
 - Company
-apis: []
+- Electric Vehicles
+- Connected Vehicles
+- Automotive
+- Vehicle Telemetry
+- EV Charging
+- Energy
+- Mobility
+- Fleet Management
+apis:
+- aid: volteras:volteras-accounts-api
+  name: Volteras Accounts API
+  description: The Accounts API from Volteras — 4 operation(s) for accounts.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-authentication-api
+  name: Volteras Authentication API
+  description: The Authentication API from Volteras — 2 operation(s) for authentication.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-rate-limit-api
+  name: Volteras Rate Limit API
+  description: The Rate Limit API from Volteras — 1 operation(s) for rate limit.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Rate Limit
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-rate-limit-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-tags-api
+  name: Volteras Tags API
+  description: The Tags API from Volteras — 2 operation(s) for tags.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-alerts-api
+  name: Volteras Vehicle Alerts API
+  description: The Vehicle Alerts API from Volteras — 1 operation(s) for vehicle alerts.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-charging-history-api
+  name: Volteras Vehicle Charging History API
+  description: >-
+    The Vehicle Charging History API from Volteras — 2 operation(s) for vehicle charging history.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Charging History
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-charging-history-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-charging-schedule-api
+  name: Volteras Vehicle Charging Schedule API
+  description: >-
+    The Vehicle Charging Schedule API from Volteras — 2 operation(s) for vehicle charging schedule.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Charging Schedule
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-charging-schedule-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-command-executions-api
+  name: Volteras Vehicle Command Executions API
+  description: >-
+    The Vehicle Command Executions API from Volteras — 15 operation(s) for vehicle command executions.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Command Executions
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-command-executions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-connection-api
+  name: Volteras Vehicle Connection API
+  description: The Vehicle Connection API from Volteras — 4 operation(s) for vehicle connection.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Connection
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-connection-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-eligibility-api
+  name: Volteras Vehicle Eligibility API
+  description: The Vehicle Eligibility API from Volteras — 2 operation(s) for vehicle eligibility.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Eligibility
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-eligibility-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-journeys-api
+  name: Volteras Vehicle Journeys API
+  description: The Vehicle Journeys API from Volteras — 1 operation(s) for vehicle journeys.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Journeys
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-journeys-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-listening-api
+  name: Volteras Vehicle Listening API
+  description: The Vehicle Listening API from Volteras — 2 operation(s) for vehicle listening.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Listening
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-listening-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-manufacturer-alerts-api
+  name: Volteras Vehicle Manufacturer Alerts API
+  description: >-
+    The Vehicle Manufacturer Alerts API from Volteras — 1 operation(s) for vehicle manufacturer alerts.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Manufacturer Alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-manufacturer-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-range-api
+  name: Volteras Vehicle Range API
+  description: The Vehicle Range API from Volteras — 1 operation(s) for vehicle range.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Range
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-range-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-services-api
+  name: Volteras Vehicle Services API
+  description: The Vehicle Services API from Volteras — 1 operation(s) for vehicle services.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Services
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-services-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-state-of-health-api
+  name: Volteras Vehicle State of Health API
+  description: >-
+    The Vehicle State of Health API from Volteras — 1 operation(s) for vehicle state of health.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle State of Health
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-state-of-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-telemetry-api
+  name: Volteras Vehicle Telemetry API
+  description: The Vehicle Telemetry API from Volteras — 1 operation(s) for vehicle telemetry.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-telemetry-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicle-tires-api
+  name: Volteras Vehicle Tires API
+  description: The Vehicle Tires API from Volteras — 1 operation(s) for vehicle tires.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicle Tires
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicle-tires-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
+- aid: volteras:volteras-vehicles-api
+  name: Volteras Vehicles API
+  description: The Vehicles API from Volteras — 5 operation(s) for vehicles.
+  humanURL: https://docs.volteras.com
+  baseURL: https://api.volteras.com
+  tags:
+  - Vehicles
+  properties:
+  - type: OpenAPI
+    url: openapi/volteras-vehicles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.volteras.com
+  - type: APIReference
+    url: https://docs.volteras.com/api-reference
+  - type: Sandbox
+    url: https://api.sandbox.volteras.com
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -24,3 +368,59 @@ maintainers:
 common:
 - type: Website
   url: https://volteras.com
+- type: DeveloperPortal
+  url: https://portal.volteras.com
+- type: Documentation
+  url: https://docs.volteras.com
+- type: APIReference
+  url: https://docs.volteras.com/api-reference
+- type: GettingStarted
+  url: https://docs.volteras.com/overview/getting-started
+- type: SignUp
+  url: https://portal.volteras.com/sign-up
+- type: Support
+  url: https://www.volteras.com/contact
+- type: Blog
+  url: https://www.volteras.com/blog/articles
+- type: GitHubOrganization
+  url: https://github.com/volteras
+- type: StatusPage
+  url: https://status.volteras.com
+- type: TermsOfService
+  url: https://www.volteras.com/terms
+- type: PrivacyPolicy
+  url: https://www.volteras.com/privacy
+- type: Compliance
+  url: https://www.volteras.com/
+- type: LLMsTxt
+  url: llms/volteras-llms.txt
+- type: Authentication
+  url: authentication/volteras-authentication.yml
+- type: OAuthScopes
+  url: scopes/volteras-scopes.yml
+- type: DomainSecurity
+  url: security/volteras-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/volteras-agentic-access.yml
+- type: Conventions
+  url: conventions/volteras-conventions.yml
+- type: ErrorCatalog
+  url: errors/volteras-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/volteras-lifecycle.yml
+- type: Sandbox
+  url: sandbox/volteras-sandbox.yml
+- type: RateLimits
+  url: rate-limits/volteras-rate-limits.yml
+- type: Webhooks
+  url: asyncapi/volteras-webhooks.yml
+- type: Conformance
+  url: conformance/volteras-conformance.yml
+- type: DataModel
+  url: data-model/volteras-data-model.yml
+- type: Overlay
+  url: overlays/volteras-connect-overlay.yaml
+- type: MCPServer
+  url: mcp/volteras-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml

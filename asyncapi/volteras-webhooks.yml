@@ -1,0 +1,51 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.volteras.com/overview/webhooks
+type: webhook-catalog
+description: >-
+  Volteras publishes a documented webhook surface (no AsyncAPI document found on
+  the docs host or GitHub org, so this captures the webhook catalog). Webhooks
+  are delivered via Svix; subscription, payload-verification secrets, JSON
+  schemas, rate limiting/filtering rules, test sends, and delivery logs are
+  managed in the Volteras Portal webhook page.
+platform: svix
+portal: https://portal.volteras.com/dashboard/webhooks
+event_catalog_schemas: https://www.svix.com/event-types/eu/org_2cm3iv3nwXD4mYJnVQH3ykGftVo
+verification: Svix payload signing (see https://docs.svix.com/receiving/verifying-payloads/how)
+events:
+  - name: device.connected
+    description: Triggered whenever a new device successfully connects to the platform.
+    payload_fields: [id, deviceType]
+  - name: device.disconnected
+    description: Triggered whenever a device disconnects from the platform.
+    payload_fields: [id, deviceType]
+  - name: device.telemetry
+    description: >-
+      Sends data and metrics from a device; payload determined by the
+      metricType field.
+    payload_fields: [metricType, vehicle, timestamp]
+    metric_types:
+      - STATE_OF_CHARGE
+      - ENERGY_REMAINING
+      - LOCATION
+      - ODOMETER
+      - RANGE
+      - TIRES
+      - OEM_ALERT
+      - CHARGING_STATE
+      - DEPARTURE_TIMES
+      - OTHER_CHARGING_DATA
+      - OTHER_LOCATION_DATA
+  - name: command.updated
+    description: >-
+      Triggered when a vehicle command's status changes (e.g. from PENDING to
+      EXECUTED or FAILED).
+    payload_fields: [id, deviceType, deviceId, command, status, failedReason]
+  - name: rate_limit.updated
+    description: Triggered when a rate limit is updated for an API endpoint or service.
+    payload_fields: [remaining_requests, max_requests, domain, window_size_seconds, object_id, key]
+  - name: alert.updated
+    description: >-
+      Triggered when a custom (non-manufacturer) alert's status, severity, or
+      other properties change; alerts can be created, resolved, muted, or have
+      severity updated.

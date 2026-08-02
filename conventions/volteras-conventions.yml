@@ -1,0 +1,67 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.volteras.com/overview/getting-started
+sources:
+  - https://docs.volteras.com/overview/getting-started
+  - https://docs.volteras.com/overview/listing-filter-json
+  - https://docs.volteras.com/overview/standardized-units-of-measurement-in-our-api
+  - https://docs.volteras.com/overview/commands
+  - https://docs.volteras.com/overview/regions
+  - https://docs.volteras.com/api-reference/errors/errors
+  - openapi/volteras-connect-openapi-original.json
+authentication:
+  style: OAuth 2.0 client-credentials (Bearer token)
+  token_endpoint: /v1/oauth2/token (per environment; HTTP Basic client authentication also declared)
+  token_test_endpoint: /v1/oauth2/test-token
+  credentials: client_id / client_secret per application, created in the Volteras Portal per environment (sandbox vs production)
+  artifact: authentication/volteras-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    No Idempotency-Key header or idempotency contract is documented or declared
+    in the OpenAPI. Duplicate-command protection is server-side instead: only
+    one pending command of each type may be in progress per device at any time.
+pagination:
+  style: cursor
+  request_params: [maxPageSize, pageToken]
+  response_fields: [nextPageToken]
+  errors: [PAGE_SIZE_TOO_LARGE, QUERY_PAGE_TOKEN_EXPIRED, PAGINATED_QUERY_FILTER_CHANGED]
+filtering:
+  style: structured JSON filter (SQL-like)
+  shape: '{field, operator, value} with and/or/not boolean functions; nested fields via dot notation'
+  operators: [isNull, isNotNull, '==', '!=', '>', '<', '>=', '<=', like, ilike, notIlike]
+  docs: https://docs.volteras.com/overview/listing-filter-json
+units:
+  system: SI (International System of Units) across all measurements
+  docs: https://docs.volteras.com/overview/standardized-units-of-measurement-in-our-api
+request_tracing:
+  response_field: requestId (returned in the error envelope)
+versioning:
+  scheme: uri-path
+  current: v1
+async_semantics:
+  commands: >-
+    All vehicle commands are asynchronous: poll the command execution endpoints
+    or subscribe to the command.updated webhook. Only one pending command per
+    type per device; commands time out after 5 minutes.
+  vin_connection: >-
+    Bulk VIN connection returns 202 Accepted with a group id; poll group status
+    and per-VIN results, or listen for device.connected webhooks.
+regions:
+  default: EUROPE
+  available: [EUROPE, NORTH_AMERICA]
+  note: Region property required for BMW/MINI (EUROPE, NORTH_AMERICA) and Hyundai/Kia (EUROPE).
+error_envelope:
+  fields: [requestId, timestamp, error, message, data]
+  artifact: errors/volteras-error-codes.yml
+rate_limit_signaling:
+  style: dedicated rate-limit API + webhook (no documented response headers)
+  endpoint: GET /v1/rate-limits (per-entity, e.g. per vehicle; domain=VEHICLE)
+  webhook: rate_limit.updated
+  artifact: rate-limits/volteras-rate-limits.yml
+cross_links:
+  errors: errors/volteras-error-codes.yml
+  authentication: authentication/volteras-authentication.yml
+  scopes: scopes/volteras-scopes.yml
+  lifecycle: lifecycle/volteras-lifecycle.yml
+  sandbox: sandbox/volteras-sandbox.yml

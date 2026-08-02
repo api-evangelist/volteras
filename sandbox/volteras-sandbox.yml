@@ -1,0 +1,55 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.volteras.com/overview/sandbox-environment
+name: Volteras sandbox environment
+description: >-
+  Fully isolated sandbox that mimics production. Simulated vehicles from every
+  supported make (real EV models, 2020-2025 model years) drive continuously
+  around Monaco on real road networks, generating realistic telemetry (location,
+  speed, odometer, state of charge, charging sessions with realistic power
+  curves, tire pressure, climate, ignition/journeys, service intervals, OEM
+  alerts). Vehicle data updates every 60 seconds, published via webhooks and the
+  Connect API.
+base_url: https://api.sandbox.volteras.com
+test_vs_live:
+  separation: >-
+    Separate sandbox applications created in the Volteras Portal issue distinct
+    client_id / client_secret pairs per environment; tokens are
+    environment-specific (sandbox vs production).
+  portal: https://portal.volteras.com/
+  token_test_endpoint: https://api.sandbox.volteras.com/v1/oauth2/test-token
+connection_modes:
+  - mode: consent-flow
+    detail: Any credentials are accepted to complete the consent flow in sandbox.
+  - mode: vin-connection
+    detail: >-
+      Connect vehicles by VIN, make, and country via the bulk VIN connect
+      endpoint. The make must match a supported make and the VIN must be a valid
+      17-character checksum-passing VIN (docs suggest https://randomvin.com to
+      generate valid fake VINs).
+magic_test_values:
+  - value: ALERT511 (VIN prefix)
+    behavior: Assigns a simulated vehicle with OEM alerts (all six alert codes).
+    example: ALERT5110000000X0
+  - value: PERR0R11 (VIN prefix)
+    behavior: Returns a public-facing error (e.g. software update required in the vehicle).
+  - value: 1NC0MP11 (VIN prefix)
+    behavior: Returns an incompatibility error (vehicle is incompatible).
+  - value: PR0C11 (VIN prefix)
+    behavior: Returns a pending/processing status.
+simulation:
+  update_interval_seconds: 60
+  location: Monaco road network (real geometry; GPS, altitude, heading, speed)
+  charging_power: 11 kW AC Level 2, 32 A current limit
+  initial_state_of_charge: 50-95% (varies per vehicle)
+  shared_pool_note: >-
+    The simulated vehicle pool is shared; multiple connected vehicles may be
+    assigned the same simulated vehicle and show identical data (sandbox-only
+    behavior).
+  oem_alert_codes:
+    - {alert: Tire pressure alert, component: Tires, severity: Medium}
+    - {alert: Brake pad wear, component: Brakes, severity: Critical}
+    - {alert: Washer fluid low, component: Vehicle, severity: Low}
+    - {alert: Battery charge low, component: Battery, severity: Medium}
+    - {alert: Service due, component: Vehicle, severity: Medium}
+    - {alert: Brake fluid low, component: Brakes, severity: High}

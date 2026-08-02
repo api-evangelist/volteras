@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: searched
+source: https://status.volteras.com
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: All Connect API paths are prefixed /v1/ (openapi/volteras-connect-openapi-original.json); spec info.version 0.1.0.
+deprecation:
+  policy_url: null
+  sunset_header: null
+  notes: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found in the public docs.
+sla:
+  url: null
+  uptime_claim: 99.9% average uptime (marketing claim on https://www.volteras.com/; no formal SLA page found)
+status_page: https://status.volteras.com
+status_page_title: Volteras API Uptime Status
+deprecated_operations: []

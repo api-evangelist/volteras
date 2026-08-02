@@ -1,0 +1,59 @@
+generated: '2026-07-21'
+method: probed
+source: live probe of /.well-known/* on Volteras hosts (2026-07-21)
+description: >-
+  Probe of the /.well-known/ discovery surface on Volteras hosts. No
+  machine-readable discovery documents were found — every probed path on the
+  website, docs, and API hosts returned 404. portal.volteras.com returned HTTP
+  200 for every probed path, but each response is the Next.js portal SPA shell
+  (text/html catch-all route), not a discovery document, so those are recorded
+  as false positives and no raw files are saved. Absence is recorded as valid
+  data; no WellKnown rating pointer is emitted because no catalog was found.
+  Volteras uses OAuth 2.0 client-credentials issued from its own API
+  (/v1/oauth2/token) rather than OIDC discovery.
+hosts:
+  - host: https://volteras.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://www.volteras.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://api.volteras.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://api.sandbox.volteras.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://docs.volteras.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://portal.volteras.com
+    note: >-
+      Returned HTTP 200 text/html (Next.js SPA catch-all) for every path below —
+      not real discovery documents; treated as 404-equivalent.
+    documents:
+      - {path: /.well-known/security.txt, status: 200, false_positive: spa-catch-all}
+      - {path: /.well-known/openid-configuration, status: 200, false_positive: spa-catch-all}
+      - {path: /.well-known/oauth-authorization-server, status: 200, false_positive: spa-catch-all}
+      - {path: /.well-known/api-catalog, status: 200, false_positive: spa-catch-all}
+      - {path: /.well-known/ai-plugin.json, status: 200, false_positive: spa-catch-all}
