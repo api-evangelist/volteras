@@ -1,0 +1,304 @@
+{
+  "item": [
+    {
+      "id": "e3a62e89-9b7a-4d61-9d01-10fd38809fc6",
+      "name": "Vehicle Charging History",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c2bc6f87-73ec-49a7-bb00-cc0d9e64b0c5",
+          "name": "List Vehicle Charging History",
+          "request": {
+            "name": "List Vehicle Charging History",
+            "description": {
+              "content": "Retrieve a list of charging history sessions for the provided vehicle.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve charging history for.\n\n**Returns:**\n- A paginated list of vehicle charging history sessions.\n\nThis endpoint allows you to retrieve a paginated list of charging history sessions for a specific vehicle identified by its unique `vehicle_id`.\nThe list is ordered by the starting time of each charging session, with the most recent sessions appearing first.\n\n**Note:**\n- The `vehicle_id` should correspond to a valid and existing vehicle identifier.\n\n_Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- PAGE_SIZE_TOO_LARGE\n- PAGINATED_QUERY_FILTER_CHANGED\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "charging-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxPageSize",
+                  "value": "<integer>",
+                  "description": "Max size of the returned list."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Page token used for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Listing filter schema."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "04d64373-6c4a-4595-a2f6-820250b17c3d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "charging-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxPageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"vehicleId\": \"string\",\n      \"startedAt\": \"1962-04-24T14:37:09.756Z\",\n      \"endedAt\": \"1953-03-08T21:42:05.200Z\",\n      \"chargeDuration\": 7657,\n      \"latitude\": 2863.4801051263535,\n      \"longitude\": 9331.498451382122,\n      \"kwhFromGrid\": 5373.621813413942,\n      \"kwhInHvb\": 2099.66655674787,\n      \"startStateOfCharge\": 3741.211151528794,\n      \"endStateOfCharge\": 4645.80430087005,\n      \"externalTemperature\": 2770.651550945572,\n      \"kwMedian\": 1764.8743186661552\n    },\n    {\n      \"id\": \"string\",\n      \"vehicleId\": \"string\",\n      \"startedAt\": \"2005-10-22T05:12:21.090Z\",\n      \"endedAt\": \"1960-04-19T11:48:58.408Z\",\n      \"chargeDuration\": 4215,\n      \"latitude\": 4567.733355818253,\n      \"longitude\": 5512.296395913349,\n      \"kwhFromGrid\": 9450.077511751591,\n      \"kwhInHvb\": 6020.666580682198,\n      \"startStateOfCharge\": 6343.1222456113155,\n      \"endStateOfCharge\": 321.6141599966027,\n      \"externalTemperature\": 4194.319979518509,\n      \"kwMedian\": 7911.9880876444895\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalResults\": 9717\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6883bcc5-8393-4a62-9a26-969ecb135e9c",
+          "name": "Get Vehicle Charging History",
+          "request": {
+            "name": "Get Vehicle Charging History",
+            "description": {
+              "content": "Retrieve details of a vehicle charging session based on its unique ID.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle associated with the charging session.\n- `vehicle_charging_session_id`: The unique identifier (ID) of the vehicle charging session to retrieve.\n\n**Returns:**\n- Details of the vehicle charging session.\n\nThis endpoint allows you to retrieve details of a specific vehicle charging session based on its unique `vehicle_charging_session_id`.\nThe session details provide information about the charging start time, end time, energy consumption, and more.\n\n**Note:**\n- The `vehicle_id` should correspond to a valid and existing vehicle identifier.\n- The `vehicle_charging_session_id` uniquely identifies an existing charging session.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "charging-history",
+                ":vehicle_charging_session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_charging_session_id",
+                  "description": "(Required) ID of the vehicle charging history."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6fa13d1e-1a2b-4125-a0e4-db669710fc2b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "charging-history",
+                    ":vehicle_charging_session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_charging_session_id",
+                      "description": "(Required) ID of the vehicle charging history."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"vehicleId\": \"string\",\n  \"startedAt\": \"1996-11-20T14:28:24.465Z\",\n  \"endedAt\": \"1992-06-23T18:51:28.172Z\",\n  \"chargeDuration\": 6049,\n  \"latitude\": 9959.512113819015,\n  \"longitude\": 9636.034677934429,\n  \"kwhFromGrid\": 3987.6884067883866,\n  \"kwhInHvb\": 5348.3058437799455,\n  \"startStateOfCharge\": 3402.9674167664525,\n  \"endStateOfCharge\": 6133.60057296891,\n  \"externalTemperature\": 3487.5857498481355,\n  \"kwMedian\": 6035.295826633423\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "761c179b-7f14-428a-b2fb-32a8e1be5293",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Charging History API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Authentication API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Auth Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/oauth2/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Obtain OAuth 2.0 access token. This endpoint follows the OAuth 2.0 industry-standard protocol for authorization.\nIt performs authorization and returns the access token and refresh token.\n\nTo use, pass the `grant_type` in the form data, which will be:\n- `client_credentials` grant type to authenticate with `client_id` and `client_secret`.\n- `refresh_token` grant type to refresh an existing token.\n\nIf using `client_credentials` grant type, please use HTTP Basic Auth to pass the credentials\n(with th"
+        },
+        {
+          "info": {
+            "name": "Test Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/oauth2/test-token",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint validates the access token and retrieves the associated `clientId` and `organizationId`.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- SERVER_ERROR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

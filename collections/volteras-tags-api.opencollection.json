@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Tags API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Tag To Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/tags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new tag attached to the object specified inside the tag body.\nA tag is a key-value pair that can be attached to specific objects, currently vehicles or batteries.\nThis can be used to categorize those objects and link them back to objects in your system.\n\nFor example, if you wanted to add a fleet id to a vehicle, you could pass a tag\nwith key \"fleet_id\" and then the id value, set the entityType to \"DEVICE\",\nand pass, as the entityId, the ID of the vehicle you want to tag.\n\nThis would tag"
+        },
+        {
+          "info": {
+            "name": "Remove Tag From Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.volteras.com/v1/tags",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Remove a tag with the specified key and value from the specified object.\nPlease see the Add Tag endpoint for more information on tags.\n\n**Returns:**\n- A response with an empty body and a 200 status code\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        },
+        {
+          "info": {
+            "name": "Get Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/tags/:entity_type/:entity_id",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entity_type",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all tags for the specified object.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

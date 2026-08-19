@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicle Telemetry API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Telemetry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vehicle Telemetry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/telemetry",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve telemetry data for the specified vehicle. The telemetry data provides essential information about the vehicle's status and performance.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve telemetry data for.\n\n**Returns:**\n- Telemetry data for the vehicle.\n\nTelemetry Information returned might include:\n- Odometer: The total distance traveled by the vehicle, recorded in kilometers. The timestamp indicates when the odometer reading was taken.\n- Location: "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

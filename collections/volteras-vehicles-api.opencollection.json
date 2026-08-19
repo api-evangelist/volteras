@@ -1,0 +1,184 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicles API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vehicles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles",
+            "params": [
+              {
+                "name": "maxPageSize",
+                "value": "",
+                "type": "query",
+                "description": "Max size of the returned list."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Page token used for pagination."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Listing filter schema."
+              },
+              {
+                "name": "tagKey",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tagValue",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a paginated list of vehicles associated with your organization.\n\nThe endpoint lists vehicles based on the following criteria:\n- Includes only vehicles that have enabled synchronization during the account connection process.\n- Excludes disconnected vehicles or those not included in the OEM account.\n\n**Returns:**\n- A paginated response containing a list of vehicles.\n\n**Note:**\n- This endpoint provides a summary of each vehicle's basic details. For comprehensive vehicle data, please refer "
+        },
+        {
+          "info": {
+            "name": "Get Vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve detailed information about a vehicle by specifying its unique identifier (ID).\n\n**Returns:**\n- A response containing detailed information about the vehicle.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/options",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the options data for a specific Tesla vehicle based on its unique identifier (ID).\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve the options.\n\n**Returns:**\n- A response containing options data for the vehicle.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n- UNSU"
+        },
+        {
+          "info": {
+            "name": "Update Registration Plate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/registration-plate",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update the registration plate of the specified vehicle.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to update.\n\n**Returns:**\n- A response containing the updated vehicle information.\n\n**Note:**\n- The `vehicle_id` should correspond to a valid and existing vehicle identifier.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERRO"
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Specifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/specifications",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Obtain detailed specifications for a vehicle.\n\nThis endpoint allows you to retrieve more detailed specifications (if available) for a specific vehicle identified by its unique 'vehicle_id'.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

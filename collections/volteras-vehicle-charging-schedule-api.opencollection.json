@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicle Charging Schedule API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Charging Schedule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vehicle Departure Times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/departure-times",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a list of departure times for the provided vehicle.\n\nDeparture times determine when the vehicle needs to charge by, working with the target state of charge,\nwhich determines the charging behavior. So for example, if the target state of charge is 80%,\nthe departure time is 10:00, the vehicle is at 70%, and the rate of charge is 10% per hour,\nthe vehicle might start charging at 9:00 to reach 80% by 10:00.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-refer"
+        },
+        {
+          "info": {
+            "name": "List Charging Windows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/charging-windows",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a list of charging windows for the provided vehicle.\n\nCharging windows determine the start and stop times for the vehicle to charge, for example so that\nthe vehicle can be set to charge during electricity off-peak times.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- SERVER_ERROR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

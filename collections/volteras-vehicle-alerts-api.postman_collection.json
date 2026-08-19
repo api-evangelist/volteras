@@ -1,0 +1,176 @@
+{
+  "item": [
+    {
+      "id": "545af970-a675-4cf1-8aa6-777c6a558b66",
+      "name": "Vehicle Alerts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d94cefb1-3671-4c77-ab1d-6ebb32225705",
+          "name": "Get Vehicle Alerts",
+          "request": {
+            "name": "Get Vehicle Alerts",
+            "description": {
+              "content": "Retrieve alerts for a vehicle based on its unique ID.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- PAGE_SIZE_TOO_LARGE\n- PAGINATED_QUERY_FILTER_CHANGED\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxPageSize",
+                  "value": "<integer>",
+                  "description": "Max size of the returned list."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Page token used for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Listing filter schema."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b2a57ab-b0ca-403a-b7f5-59e9b737c53a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxPageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"RESOLVED\",\n      \"alertDefinitionId\": \"string\",\n      \"vehicleId\": \"string\",\n      \"muted\": true,\n      \"createdAt\": \"1965-04-08T19:46:14.369Z\",\n      \"currentSeverity\": \"MEDIUM\",\n      \"resolutions\": [\n        {\n          \"id\": \"string\",\n          \"definition\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          \"status\": \"PENDING\",\n          \"steps\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"definition\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          \"status\": \"PENDING\",\n          \"steps\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"definition\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"message\": \"string\",\n        \"category\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\"\n        }\n      },\n      \"metadata\": {\n        \"createdAt\": \"2013-10-02T01:17:15.962Z\",\n        \"updatedAt\": \"1995-12-20T11:37:08.840Z\"\n      },\n      \"vin\": \"string\",\n      \"triggerName\": \"string\",\n      \"triggerDescription\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"RESOLVED\",\n      \"alertDefinitionId\": \"string\",\n      \"vehicleId\": \"string\",\n      \"muted\": false,\n      \"createdAt\": \"1967-01-26T19:41:27.200Z\",\n      \"currentSeverity\": \"HIGH\",\n      \"resolutions\": [\n        {\n          \"id\": \"string\",\n          \"definition\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          \"status\": \"COMPLETED\",\n          \"steps\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"definition\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          \"status\": \"COMPLETED\",\n          \"steps\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"definition\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"definition\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"message\": \"string\",\n        \"category\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\"\n        }\n      },\n      \"metadata\": {\n        \"createdAt\": \"2014-03-26T10:01:08.832Z\",\n        \"updatedAt\": \"2021-05-09T10:13:06.506Z\"\n      },\n      \"vin\": \"string\",\n      \"triggerName\": \"string\",\n      \"triggerDescription\": \"string\"\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalResults\": 104\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d1fff6be-1e6b-4671-bc31-7f68530b5312",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Alerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

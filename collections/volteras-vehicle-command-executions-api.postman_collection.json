@@ -1,0 +1,1802 @@
+{
+  "item": [
+    {
+      "id": "e539800e-66b5-45fe-811c-97101d3e211b",
+      "name": "Vehicle Command Executions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee756741-f7ef-4cf7-8962-67e7814d3b96",
+          "name": "List Vehicle Command Executions",
+          "request": {
+            "name": "List Vehicle Command Executions",
+            "description": {
+              "content": "Retrieve a paginated list of vehicle command executions for specific vehicle based on its unique identifier (ID).\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve the command executions.\n\n**Returns:**\n- A paginated response containing a list of vehicle command executions.\n\n_Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- PAGE_SIZE_TOO_LARGE\n- PAGINATED_QUERY_FILTER_CHANGED\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-executions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxPageSize",
+                  "value": "<integer>",
+                  "description": "Max size of the returned list."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Page token used for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Listing filter schema."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6c3174a8-d866-468c-a030-5a53abb80ac8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxPageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"vehicleId\": \"string\",\n      \"command\": \"CLOSE_CHARGE_PORT\",\n      \"id\": \"string\",\n      \"commandArguments\": {\n        \"key_0\": 5307,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"timeout\": 4281,\n      \"executedAt\": \"1996-10-23T19:06:54.034Z\",\n      \"status\": \"FAILED\",\n      \"failedReason\": \"string\"\n    },\n    {\n      \"vehicleId\": \"string\",\n      \"command\": \"CANCEL_SOFTWARE_UPDATE\",\n      \"id\": \"string\",\n      \"commandArguments\": {\n        \"key_0\": 2700.9046443831053\n      },\n      \"timeout\": 717,\n      \"executedAt\": \"1961-08-11T02:03:55.027Z\",\n      \"status\": \"PENDING\",\n      \"failedReason\": \"string\"\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalResults\": 3278\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a5d58cf-6de4-4542-b157-604d6046ebe5",
+          "name": "Get Vehicle Command Execution",
+          "request": {
+            "name": "Get Vehicle Command Execution",
+            "description": {
+              "content": "Retrieve detailed information about a vehicle command execution by specifying its unique identifier (ID).\n\n **Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle.\n- `vehicle_command_execution_id`: The unique identifier (ID) of the vehicle command execution.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-executions",
+                ":vehicle_command_execution_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_command_execution_id",
+                  "description": "(Required) ID of the vehicle command execution."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3341fbe5-acdb-4adc-86c5-d13c58d9b312",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-executions",
+                    ":vehicle_command_execution_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_command_execution_id",
+                      "description": "(Required) ID of the vehicle command execution."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9c6540b-ae34-417c-b133-e85b63200f30",
+          "name": "Action Actuate Front Trunk",
+          "request": {
+            "name": "Action Actuate Front Trunk",
+            "description": {
+              "content": "Create a `ACTUATE_FRONT_TRUNK` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `ACTUATE_FRONT_TRUNK` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:actuate-front-trunk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1eaa4844-9e63-4418-a132-b0ada530a389",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:actuate-front-trunk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00c8b816-fe15-402d-8c3d-53a59fab9557",
+          "name": "Action Actuate Rear Trunk",
+          "request": {
+            "name": "Action Actuate Rear Trunk",
+            "description": {
+              "content": "Create a `ACTUATE_REAR_TRUNK` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `ACTUATE_REAR_TRUNK` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:actuate-rear-trunk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "50557b52-05b7-4844-8786-ab4518027298",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:actuate-rear-trunk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6737e6b1-69de-4b43-84d2-088abd2e046e",
+          "name": "Action Climate Off",
+          "request": {
+            "name": "Action Climate Off",
+            "description": {
+              "content": "Create a `CLIMATE_OFF` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `CLIMATE_OFF` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:climate-off"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "289f2516-532c-41ea-b883-aeb2e57957f0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:climate-off"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07321096-1dc9-49e4-8aba-f85e2b5f0ca5",
+          "name": "Action Climate On",
+          "request": {
+            "name": "Action Climate On",
+            "description": {
+              "content": "Create a `CLIMATE_ON` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `CLIMATE_ON` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:climate-on"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "86c18d42-864c-46cc-9c1b-8dfae2c38cf6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:climate-on"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c20f468-3648-4109-96c0-6f915295a616",
+          "name": "Action Close Charge Port",
+          "request": {
+            "name": "Action Close Charge Port",
+            "description": {
+              "content": "Create a `CLOSE_CHARGE_PORT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `CLOSE_CHARGE_PORT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:close-charge-port"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "69c7d50c-7756-4590-bc9d-fbafd951a0b7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:close-charge-port"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a78cb3cc-beaf-4947-8e5d-c4ebda37a3d1",
+          "name": "Action Lock Doors",
+          "request": {
+            "name": "Action Lock Doors",
+            "description": {
+              "content": "Create a `LOCK_DOORS` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `LOCK_DOORS` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:lock-doors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "18b796b4-b841-476b-b62f-4b23482762d2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:lock-doors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53538755-d5a3-4045-aa19-7ff0cd4dc7ee",
+          "name": "Action Open Charge Port",
+          "request": {
+            "name": "Action Open Charge Port",
+            "description": {
+              "content": "Create a `OPEN_CHARGE_PORT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `OPEN_CHARGE_PORT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:open-charge-port"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b175a6c5-9fdc-4f9f-ab30-b62a2a6f127d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:open-charge-port"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab09faa3-fa04-46c3-a0e2-bc31443993cc",
+          "name": "Action Set Charge Limit",
+          "request": {
+            "name": "Action Set Charge Limit",
+            "description": {
+              "content": "Create a `SET_CHARGE_LIMIT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `SET_CHARGE_LIMIT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:set-charge-limit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7a9e0df-eded-4867-bec2-5c7bac04de29",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:set-charge-limit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59e2e8fd-38ad-47de-a0c0-491e94851367",
+          "name": "Action Set Temperature",
+          "request": {
+            "name": "Action Set Temperature",
+            "description": {
+              "content": "Create a `SET_TEMPERATURE` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `SET_TEMPERATURE` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:set-temperature"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"driverTemperature\": \"<number>\",\n  \"passengerTemperature\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3aae172-74d8-4f74-a76a-dfa8ae328a23",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:set-temperature"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"driverTemperature\": \"<number>\",\n  \"passengerTemperature\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de6f7171-d4a9-4d1d-b5c2-5e7b205f4c84",
+          "name": "Action Start Charging",
+          "request": {
+            "name": "Action Start Charging",
+            "description": {
+              "content": "Create a `START_CHARGING` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `START_CHARGING` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:start-charging"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3b1c4b4-bc17-4d67-b05e-f1ec7b2fc014",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:start-charging"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbe417a3-8774-4492-b850-b2af649327fa",
+          "name": "Action Start Hvac System",
+          "request": {
+            "name": "Action Start Hvac System",
+            "description": {
+              "content": "Create a `START_HVAC_SYSTEM` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `START_HVAC_SYSTEM` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:start-hvac-system"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1b6aeca1-d03b-4590-962c-3731226348b2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:start-hvac-system"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f81d04ce-da57-4ab2-bab2-e7103b28596b",
+          "name": "Action Stop Charging",
+          "request": {
+            "name": "Action Stop Charging",
+            "description": {
+              "content": "Create a `STOP_CHARGING` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `STOP_CHARGING` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:stop-charging"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e1300448-442d-49d7-b9c5-4c0f6567c7b2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:stop-charging"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "975bf986-310a-4e00-986b-a5c2287aed7b",
+          "name": "Action Unlock Doors",
+          "request": {
+            "name": "Action Unlock Doors",
+            "description": {
+              "content": "Create a `UNLOCK_DOORS` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\nCreate a `UNLOCK_DOORS` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "command-execution:unlock-doors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "65d4a75d-8650-48a6-8f6c-b06a6ada0097",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "command-execution:unlock-doors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"command\": \"START_HVAC_SYSTEM\",\n  \"id\": \"string\",\n  \"commandArguments\": {\n    \"key_0\": 9048.311996677689,\n    \"key_1\": 9064,\n    \"key_2\": 7842.440795188984\n  },\n  \"timeout\": 5922,\n  \"executedAt\": \"1976-04-01T07:04:11.927Z\",\n  \"status\": \"FAILED\",\n  \"failedReason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7ddedb9e-4647-427a-8b88-31ec3832462b",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Command Executions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

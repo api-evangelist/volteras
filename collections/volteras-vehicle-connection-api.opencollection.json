@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicle Connection API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Connection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Action Disconnect",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint allows you to disconnect a specific vehicle from your organization, ceasing the synchronization of its data.\nAfter disconnection, the vehicle will no longer be accessible through your organization's account.\nNote that it can take a few minutes for the disconnection to be processed.\n\n**Note:**\n- Disconnecting a vehicle is an irreversible action, and the vehicle's data will no longer be synchronized with your organization.\n\n\nPossible Codes in Error Response (see [Errors](https://docs"
+        },
+        {
+          "info": {
+            "name": "Bulk Vin Connect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/connect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Connect multiple VINs to the current organization.\nBy default this endpoint is not enabled for organizations, please contact us to get access.\nLimited to 100 VINs per request.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- DEVICE_LIMIT_REACHED\n- NOT_PERMITTED\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        },
+        {
+          "info": {
+            "name": "Bulk Vehicle Connect Group Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/connect/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This returns the overall status of the connection request for all VINs.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        },
+        {
+          "info": {
+            "name": "Bulk Vehicle Connect Vin Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/connect/:id/results",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "maxPageSize",
+                "value": "",
+                "type": "query",
+                "description": "Max size of the returned list."
+              },
+              {
+                "name": "currentPage",
+                "value": "",
+                "type": "query",
+                "description": "Current page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get details of individual VINs that were sent in the connection request.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

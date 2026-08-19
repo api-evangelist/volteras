@@ -1,0 +1,144 @@
+{
+  "item": [
+    {
+      "id": "67401db2-eafd-4dbd-b2f4-4e5eec1ffaaf",
+      "name": "Vehicle Telemetry",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1581933b-f8fc-4137-b588-ed9165971f6d",
+          "name": "Get Vehicle Telemetry",
+          "request": {
+            "name": "Get Vehicle Telemetry",
+            "description": {
+              "content": "Retrieve telemetry data for the specified vehicle. The telemetry data provides essential information about the vehicle's status and performance.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve telemetry data for.\n\n**Returns:**\n- Telemetry data for the vehicle.\n\nTelemetry Information returned might include:\n- Odometer: The total distance traveled by the vehicle, recorded in kilometers. The timestamp indicates when the odometer reading was taken.\n- Location: The current latitude and longitude coordinates of the vehicle's position on Earth's surface. The timestamp indicates when the location reading was captured.\n- Elevation: The vehicle's altitude above sea level, measured in meters. The timestamp shows when the elevation reading was recorded.\n- State of Charge: The battery's state of charge, expressed as a percentage. The timestamp indicates when the charge level was last updated.\n- Charging State: Indicates whether the vehicle is actively charging or not. The timestamp reveals the time of the charging state observation.\n- Range: The estimated driving range of the vehicle on its current battery charge, provided in kilometers. The timestamp shows when the range reading was taken.\n\n**Note:**\n- The `vehicle_id` should correspond to a valid and existing vehicle identifier.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "telemetry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7f71f8e5-0e17-4f61-a7aa-29e0d3bf0fc1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "telemetry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"odometer\": {\n    \"value\": 6642.772994509384,\n    \"unit\": \"string\",\n    \"timestamp\": \"2008-02-20T02:39:42.881Z\"\n  },\n  \"location\": {\n    \"latitude\": 3936.4644603026213,\n    \"longitude\": 7566.936866725813,\n    \"timestamp\": \"1978-11-06T20:43:28.972Z\"\n  },\n  \"elevation\": {\n    \"value\": 5602.6438853794825,\n    \"unit\": \"string\",\n    \"timestamp\": \"2015-01-18T09:22:16.080Z\"\n  },\n  \"speed\": {\n    \"value\": 2883.231476408712,\n    \"unit\": \"string\",\n    \"timestamp\": \"1984-04-15T11:50:20.840Z\"\n  },\n  \"heading\": {\n    \"value\": 2402.419451993646,\n    \"unit\": \"string\",\n    \"timestamp\": \"1990-08-22T13:50:59.119Z\"\n  },\n  \"stateOfCharge\": {\n    \"value\": 8484.021179883423,\n    \"unit\": \"string\",\n    \"timestamp\": \"1984-06-17T09:13:25.919Z\"\n  },\n  \"chargingState\": {\n    \"chargingState\": \"INVALID\",\n    \"timestamp\": \"1961-05-30T13:38:15.785Z\",\n    \"chargePortDoorOpen\": false,\n    \"chargePortLatch\": \"ENGAGED\"\n  },\n  \"range\": {\n    \"value\": 7020.3573254929015,\n    \"unit\": \"string\",\n    \"timestamp\": \"1987-09-10T23:04:25.119Z\"\n  },\n  \"tirePressure\": {\n    \"frontRightTire\": 331.77588807822957,\n    \"frontLeftTire\": 9218.075005144647,\n    \"rearRightTire\": 7911.278703215689,\n    \"rearLeftTire\": 160.81073331614348,\n    \"unit\": \"string\",\n    \"timestamp\": \"2003-02-25T23:05:12.722Z\"\n  },\n  \"security\": {\n    \"locked\": false,\n    \"frontRightDoor\": \"OPEN\",\n    \"frontLeftDoor\": \"OPEN\",\n    \"rearRightDoor\": \"CLOSED\",\n    \"rearLeftDoor\": \"OPEN\",\n    \"frontRightWindow\": \"CLOSED\",\n    \"frontLeftWindow\": \"OPEN\",\n    \"rearLeftWindow\": \"OPEN\",\n    \"rearRightWindow\": \"CLOSED\",\n    \"frontTrunk\": \"CLOSED\",\n    \"rearTrunk\": \"CLOSED\",\n    \"sunRoof\": \"CLOSED\",\n    \"timestamp\": \"2023-10-12T07:24:52.507Z\"\n  },\n  \"metadata\": {\n    \"lastSeenAt\": \"1959-07-17T22:37:42.122Z\",\n    \"consentId\": \"string\",\n    \"accountId\": \"string\",\n    \"registrationDate\": \"1994-03-18\"\n  },\n  \"realRange\": {\n    \"value\": 7453.678563026819,\n    \"unit\": \"string\",\n    \"timestamp\": \"1963-07-01T15:54:34.733Z\"\n  },\n  \"maxStateOfCharge\": {\n    \"value\": 1545.9509691777507,\n    \"timestamp\": \"2009-10-16T15:01:22.756Z\",\n    \"unit\": \"percent\"\n  },\n  \"chargeRemainingTime\": {\n    \"value\": 9981,\n    \"timestamp\": \"1992-07-01T15:28:31.572Z\",\n    \"unit\": \"minutes\"\n  },\n  \"chargePowerLevel\": {\n    \"value\": 7942.860693605505,\n    \"timestamp\": \"1957-03-21T17:04:46.953Z\",\n    \"unit\": \"kw\"\n  },\n  \"chargeCurrentLimit\": {\n    \"value\": 4174.922281829789,\n    \"timestamp\": \"1993-05-11T06:40:16.584Z\",\n    \"unit\": \"amps\"\n  },\n  \"energyRemaining\": {\n    \"value\": 9118.05889517548,\n    \"unit\": \"string\",\n    \"timestamp\": \"1951-10-11T17:45:23.487Z\"\n  },\n  \"minStateOfCharge\": {\n    \"value\": 1441.0759199175393,\n    \"timestamp\": \"1981-12-21T19:05:29.163Z\",\n    \"unit\": \"percent\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "12824f53-2165-4b7a-af1e-9c0d61bcec49",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Telemetry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

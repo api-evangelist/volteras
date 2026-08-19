@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicle Charging History API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Charging History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vehicle Charging History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/charging-history",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              },
+              {
+                "name": "maxPageSize",
+                "value": "",
+                "type": "query",
+                "description": "Max size of the returned list."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Page token used for pagination."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Listing filter schema."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a list of charging history sessions for the provided vehicle.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve charging history for.\n\n**Returns:**\n- A paginated list of vehicle charging history sessions.\n\nThis endpoint allows you to retrieve a paginated list of charging history sessions for a specific vehicle identified by its unique `vehicle_id`.\nThe list is ordered by the starting time of each charging session, with the most recent sessions appear"
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Charging History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/charging-history/:vehicle_charging_session_id",
+            "params": [
+              {
+                "name": "vehicle_charging_session_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vehicle charging history."
+              },
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve details of a vehicle charging session based on its unique ID.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle associated with the charging session.\n- `vehicle_charging_session_id`: The unique identifier (ID) of the vehicle charging session to retrieve.\n\n**Returns:**\n- Details of the vehicle charging session.\n\nThis endpoint allows you to retrieve details of a specific vehicle charging session based on its unique `vehicle_charging_session_id`.\nThe session detail"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

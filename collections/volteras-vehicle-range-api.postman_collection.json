@@ -1,0 +1,144 @@
+{
+  "item": [
+    {
+      "id": "e2bdf2bc-1a1a-4372-874c-d2577e2c758e",
+      "name": "Vehicle Range",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04a62710-4af9-48f3-b0bc-0125fa55d495",
+          "name": "Get Vehicle Range",
+          "request": {
+            "name": "Get Vehicle Range",
+            "description": {
+              "content": "Retrieves both nominal and real-world maximum range information for specified vehicles. It enables accurate vehicle\nrange analysis by drawing on historical data and usage patterns for the specified vehicle.\n\n**Parameters:**\n- `vehicle_id`: A unique identifier for the vehicle, which must correspond to a vehicle registered in our system.\n\n**Returns:**\n- A vehicle range instance encapsulating detailed range information for the vehicle. The data includes both the\nstandard (nominal) range and the real (observed) maximum range based on data retrieved directly from the vehicle\nand the specifications published by the OEMs.\n\n**Raises:**\n- `APIException`: Raised when the system cannot locate the vehicle's range details, due to an invalid 'vehicle_id'\nor absence of range data. This results in a 404 Not Found status code.\n\n**Note:**\n- The first availability of `real_max_range` depends on the first instance of data retrieved from the vehicle where\nthe State of Charge is above 40%. As more data is collected, the endpoint is updated on a rolling basis, always\nproviding the most accurate information available.\n- We recommend charging the vehicle to a State of Charge greater than 40% should the endpoint not be available.\n- The inclusion of `nominal_max_range` is reliant on the availability of the trim of the vehicle.\n- The endpoint's accuracy and availability depend upon the reliability of data sourced from and published by OEMs.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "39a2c1d1-459a-4734-b42a-16a09b1e232f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"unit\": \"string\",\n  \"calculationDate\": \"2025-12-15\",\n  \"range\": {\n    \"nominal\": {\n      \"key_0\": 5497,\n      \"key_1\": 4248\n    },\n    \"score\": {\n      \"key_0\": \"0000000000.1\",\n      \"key_1\": \"00075644.101861757\"\n    },\n    \"real\": \"00000563774865\",\n    \"realWarmerRange\": \"00000000069\",\n    \"realColderRange\": \"+00000000078360218397\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4a93b2fd-1fb8-42ba-8cfd-6da3323730ce",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Range API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

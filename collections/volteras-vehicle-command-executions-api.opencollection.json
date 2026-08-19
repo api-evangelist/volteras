@@ -1,0 +1,470 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicle Command Executions API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Command Executions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vehicle Command Executions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-executions",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              },
+              {
+                "name": "maxPageSize",
+                "value": "",
+                "type": "query",
+                "description": "Max size of the returned list."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Page token used for pagination."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Listing filter schema."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a paginated list of vehicle command executions for specific vehicle based on its unique identifier (ID).\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve the command executions.\n\n**Returns:**\n- A paginated response containing a list of vehicle command executions.\n\n_Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/er"
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Command Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-executions/:vehicle_command_execution_id",
+            "params": [
+              {
+                "name": "vehicle_command_execution_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vehicle command execution."
+              },
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve detailed information about a vehicle command execution by specifying its unique identifier (ID).\n\n **Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle.\n- `vehicle_command_execution_id`: The unique identifier (ID) of the vehicle command execution.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and"
+        },
+        {
+          "info": {
+            "name": "Action Actuate Front Trunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:actuate-front-trunk",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `ACTUATE_FRONT_TRUNK` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVE"
+        },
+        {
+          "info": {
+            "name": "Action Actuate Rear Trunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:actuate-rear-trunk",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `ACTUATE_REAR_TRUNK` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER"
+        },
+        {
+          "info": {
+            "name": "Action Climate Off",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:climate-off",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `CLIMATE_OFF` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n"
+        },
+        {
+          "info": {
+            "name": "Action Climate On",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:climate-on",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `CLIMATE_ON` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\n"
+        },
+        {
+          "info": {
+            "name": "Action Close Charge Port",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:close-charge-port",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `CLOSE_CHARGE_PORT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_"
+        },
+        {
+          "info": {
+            "name": "Action Lock Doors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:lock-doors",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `LOCK_DOORS` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n\n"
+        },
+        {
+          "info": {
+            "name": "Action Open Charge Port",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:open-charge-port",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `OPEN_CHARGE_PORT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_E"
+        },
+        {
+          "info": {
+            "name": "Action Set Charge Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:set-charge-limit",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `SET_CHARGE_LIMIT` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_E"
+        },
+        {
+          "info": {
+            "name": "Action Set Temperature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:set-temperature",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `SET_TEMPERATURE` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ER"
+        },
+        {
+          "info": {
+            "name": "Action Start Charging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:start-charging",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `START_CHARGING` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERR"
+        },
+        {
+          "info": {
+            "name": "Action Start Hvac System",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:start-hvac-system",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `START_HVAC_SYSTEM` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_"
+        },
+        {
+          "info": {
+            "name": "Action Stop Charging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:stop-charging",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `STOP_CHARGING` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERRO"
+        },
+        {
+          "info": {
+            "name": "Action Unlock Doors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/command-execution:unlock-doors",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a `UNLOCK_DOORS` command execution.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to execute the command.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- COMMAND_ALREADY_IN_PROGRESS\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

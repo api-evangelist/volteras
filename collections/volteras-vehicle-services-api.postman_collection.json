@@ -1,0 +1,146 @@
+{
+  "item": [
+    {
+      "id": "0f5cf4be-0aa1-404e-8264-8553faa714e9",
+      "name": "Vehicle Services",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1459e8ae-dbf0-4fee-82e4-f206a10a63da",
+          "name": "Get Vehicle Services",
+          "request": {
+            "name": "Get Vehicle Services",
+            "description": {
+              "content": "Retrieves the list of services currently recommended for the vehicle.\n\nThis can include services for different components (e.g. brakes) but also statutory inspections\n(such as MOT in the UK or TÜV in Germany).\n\nThe service data may include the due date for the service, or the number of kilometers the vehicle can do\nbefore that particular service is due, or both.\nIt may also include the date when the service was last performed.\n\n**Returns:**\n- The list of services for the vehicle.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "maintenance",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b07cccb8-f890-417d-a746-39a9a1f1b93b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "maintenance",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"services\": [\n    {\n      \"component\": \"LOCKS\",\n      \"type\": \"HEALTH_CHECK\",\n      \"kmToNextService\": \"0000000000566\",\n      \"dateOfNextServiceAt\": \"1961-11-17T00:27:09.838Z\",\n      \"dateOfLastServiceAt\": \"1980-05-21T07:29:58.885Z\",\n      \"odometerKmAtLastService\": \"+00000091941495379418894\",\n      \"status\": \"IN_SERVICE\"\n    },\n    {\n      \"component\": \"BODY\",\n      \"type\": \"HEALTH_CHECK\",\n      \"kmToNextService\": \"+0007685671258\",\n      \"dateOfNextServiceAt\": \"2010-07-19T02:46:02.467Z\",\n      \"dateOfLastServiceAt\": \"1952-12-31T13:35:36.060Z\",\n      \"odometerKmAtLastService\": \"+000000596772906\",\n      \"status\": \"IN_SERVICE\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e837bf66-1df0-4823-a7e1-e33a956ba771",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Services API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

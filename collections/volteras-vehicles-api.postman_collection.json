@@ -1,0 +1,641 @@
+{
+  "item": [
+    {
+      "id": "91e7279b-ec4c-4e1b-9aee-77c823447b5c",
+      "name": "Vehicles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "69918405-2ad7-4bb1-a1d8-17fa373fb519",
+          "name": "List Vehicles",
+          "request": {
+            "name": "List Vehicles",
+            "description": {
+              "content": "Retrieve a paginated list of vehicles associated with your organization.\n\nThe endpoint lists vehicles based on the following criteria:\n- Includes only vehicles that have enabled synchronization during the account connection process.\n- Excludes disconnected vehicles or those not included in the OEM account.\n\n**Returns:**\n- A paginated response containing a list of vehicles.\n\n**Note:**\n- This endpoint provides a summary of each vehicle's basic details. For comprehensive vehicle data, please refer to the individual vehicle detail endpoints.\n\n_Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- PAGE_SIZE_TOO_LARGE\n- PAGINATED_QUERY_FILTER_CHANGED\n- REQUEST_VALIDATION_ERROR\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxPageSize",
+                  "value": "<integer>",
+                  "description": "Max size of the returned list."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Page token used for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Listing filter schema."
+                },
+                {
+                  "disabled": false,
+                  "key": "tagKey",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tagValue",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eb097734-707b-42e0-b5bb-612cb298bda3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxPageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tagKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tagValue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"make\": \"string\",\n      \"vin\": \"string\",\n      \"id\": \"string\",\n      \"metadata\": {\n        \"lastSeenAt\": \"2001-04-25T15:01:37.325Z\",\n        \"consentId\": \"string\",\n        \"accountId\": \"string\",\n        \"registrationDate\": \"2020-06-22\"\n      },\n      \"model\": \"string\",\n      \"trim\": \"string\",\n      \"modelYear\": \"string\",\n      \"registrationPlate\": \"string\",\n      \"isRegNoValidated\": true,\n      \"regNoValidatedAt\": \"1971-11-01T11:28:08.282Z\",\n      \"isListening\": true,\n      \"listeningLastUpdated\": \"1958-12-31T04:12:04.165Z\",\n      \"connectionStatus\": \"string\",\n      \"connectionErrorCode\": \"string\",\n      \"connectionErrorMessage\": \"string\",\n      \"actionCategory\": \"string\"\n    },\n    {\n      \"make\": \"string\",\n      \"vin\": \"string\",\n      \"id\": \"string\",\n      \"metadata\": {\n        \"lastSeenAt\": \"2026-03-20T22:14:31.320Z\",\n        \"consentId\": \"string\",\n        \"accountId\": \"string\",\n        \"registrationDate\": \"1997-01-14\"\n      },\n      \"model\": \"string\",\n      \"trim\": \"string\",\n      \"modelYear\": \"string\",\n      \"registrationPlate\": \"string\",\n      \"isRegNoValidated\": true,\n      \"regNoValidatedAt\": \"1998-07-09T03:53:59.584Z\",\n      \"isListening\": true,\n      \"listeningLastUpdated\": \"1959-05-14T13:09:55.833Z\",\n      \"connectionStatus\": \"string\",\n      \"connectionErrorCode\": \"string\",\n      \"connectionErrorMessage\": \"string\",\n      \"actionCategory\": \"string\"\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalResults\": 6123\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58187759-34f4-4b73-9500-dfeb8495c904",
+          "name": "Get Vehicle",
+          "request": {
+            "name": "Get Vehicle",
+            "description": {
+              "content": "Retrieve detailed information about a vehicle by specifying its unique identifier (ID).\n\n**Returns:**\n- A response containing detailed information about the vehicle.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2eef5e9d-e46e-402e-b786-fd57badca095",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"make\": \"string\",\n  \"vin\": \"string\",\n  \"id\": \"string\",\n  \"metadata\": {\n    \"lastSeenAt\": \"1970-09-20T16:07:47.485Z\",\n    \"consentId\": \"string\",\n    \"accountId\": \"string\",\n    \"registrationDate\": \"2022-01-21\"\n  },\n  \"model\": \"string\",\n  \"trim\": \"string\",\n  \"modelYear\": \"string\",\n  \"registrationPlate\": \"string\",\n  \"isRegNoValidated\": true,\n  \"regNoValidatedAt\": \"2012-03-23T17:38:22.623Z\",\n  \"isListening\": true,\n  \"listeningLastUpdated\": \"1985-08-29T10:48:46.607Z\",\n  \"connectionStatus\": \"string\",\n  \"connectionErrorCode\": \"string\",\n  \"connectionErrorMessage\": \"string\",\n  \"actionCategory\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7d8f3c0-c4e2-40c1-a07b-c1e55ac7ff61",
+          "name": "Get Vehicle Options",
+          "request": {
+            "name": "Get Vehicle Options",
+            "description": {
+              "content": "Retrieves the options data for a specific Tesla vehicle based on its unique identifier (ID).\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve the options.\n\n**Returns:**\n- A response containing options data for the vehicle.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR\n- UNSUPPORTED_OEM",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "options"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "555ae1d9-1a79-4be0-b8d8-c4986d56446b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"vehicleConfig\": {\n    \"exteriorColor\": \"string\",\n    \"chargePortType\": \"string\",\n    \"driverAssist\": \"string\",\n    \"efficiencyPackage\": \"string\",\n    \"hasAirSuspension\": true,\n    \"hasLudicrousMode\": false,\n    \"hasSeatCooling\": true,\n    \"headlampType\": \"string\",\n    \"interiorTrimType\": \"string\",\n    \"motorizedChargePort\": true,\n    \"rearDriveUnit\": \"string\",\n    \"rhd\": false,\n    \"spoilerType\": \"string\",\n    \"wheelType\": \"string\"\n  },\n  \"options\": [\n    {\n      \"code\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "858567ab-c70c-4c2b-85af-e53df5595f93",
+          "name": "Update Registration Plate",
+          "request": {
+            "name": "Update Registration Plate",
+            "description": {
+              "content": "Update the registration plate of the specified vehicle.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to update.\n\n**Returns:**\n- A response containing the updated vehicle information.\n\n**Note:**\n- The `vehicle_id` should correspond to a valid and existing vehicle identifier.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "registration-plate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"registrationPlate\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5515e66f-df83-4184-a9ae-9bdc8d7bf172",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "registration-plate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"registrationPlate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"make\": \"string\",\n  \"vin\": \"string\",\n  \"id\": \"string\",\n  \"metadata\": {\n    \"lastSeenAt\": \"1970-09-20T16:07:47.485Z\",\n    \"consentId\": \"string\",\n    \"accountId\": \"string\",\n    \"registrationDate\": \"2022-01-21\"\n  },\n  \"model\": \"string\",\n  \"trim\": \"string\",\n  \"modelYear\": \"string\",\n  \"registrationPlate\": \"string\",\n  \"isRegNoValidated\": true,\n  \"regNoValidatedAt\": \"2012-03-23T17:38:22.623Z\",\n  \"isListening\": true,\n  \"listeningLastUpdated\": \"1985-08-29T10:48:46.607Z\",\n  \"connectionStatus\": \"string\",\n  \"connectionErrorCode\": \"string\",\n  \"connectionErrorMessage\": \"string\",\n  \"actionCategory\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b95d3285-83b0-48e5-9674-784e1d825929",
+          "name": "Get Vehicle Specifications",
+          "request": {
+            "name": "Get Vehicle Specifications",
+            "description": {
+              "content": "Obtain detailed specifications for a vehicle.\n\nThis endpoint allows you to retrieve more detailed specifications (if available) for a specific vehicle identified by its unique 'vehicle_id'.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "specifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "70a9c4c2-19d8-453b-84aa-930c75c041db",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "specifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"string\",\n  \"make\": \"string\",\n  \"modelYear\": 2958,\n  \"batteryCapacity\": 1226.7855805974536,\n  \"batteryCapacityNet\": 1846.708993178735,\n  \"standardEvr\": \"string\",\n  \"allElectricRange\": \"string\",\n  \"allElectricRangeMin\": 8626\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c1b77efa-e217-47a4-995c-2c1299ae43a4",
+    "name": "VOLTERAS CONNECT Accounts Vehicles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

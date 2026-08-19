@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicle Services API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vehicle Services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/maintenance/services",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the list of services currently recommended for the vehicle.\n\nThis can include services for different components (e.g. brakes) but also statutory inspections\n(such as MOT in the UK or TÜV in Germany).\n\nThe service data may include the due date for the service, or the number of kilometers the vehicle can do\nbefore that particular service is due, or both.\nIt may also include the date when the service was last performed.\n\n**Returns:**\n- The list of services for the vehicle.\n\n\nPossible Code"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

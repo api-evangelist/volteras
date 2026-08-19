@@ -1,0 +1,144 @@
+{
+  "item": [
+    {
+      "id": "7807c91f-dfe4-4405-a3f0-a686c42cdc19",
+      "name": "Vehicle State of Health",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a4af7545-4f06-4ef0-8acd-b062cfda4269",
+          "name": "Get Vehicle State Of Health",
+          "request": {
+            "name": "Get Vehicle State Of Health",
+            "description": {
+              "content": "Retrieves state of health related information for the specified vehicle.\n- Nominal battery pack capacity refers to the total amount of energy in kWh that the battery pack of the vehicle can\nstore, as per its specifications.\n- Real battery pack capacity refers to the total amount of energy in kWh that the battery pack of the vehicle can\ncurrently store, it's reflective of the actual state of the battery rather than a specification.\n- State of health is defined as real battery pack capacity over nominal battery pack capacity, as percentage.\n\n**Parameters:**\n- `vehicle_id`: A unique identifier for the vehicle, which must correspond to a vehicle registered in our system.\n\n**Returns:**\n- A vehicle state of health instance encapsulating detailed battery pack information for the vehicle. The data\nincludes both the nominal battery pack capacity and the real (observed) maximum battery pack capacity based on data\nretrieved directly from the vehicle and the specifications published by the OEMs.\n\n**Raises:**\n- `APIException`: Raised when the system cannot locate the vehicle's state of health details, due to an invalid\n'vehicle_id' or absence of battery data. This results in a 404 Not Found status code.\n\n**Note:**\n- Endpoint is first available after observing a charging session that added at least 15% of state of charge and was\nstarted above 20% state of charge.\n- We recommend charging the vehicle overnight should the endpoint not be available immediately.\n- This endpoint is reliant on the availability of the trim of the vehicle and supports certain OEMs.\nPlease see [state of health](/overview/state-of-health#supported-oems) for a list of supported OEMs\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "state-of-health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "117813c9-5027-4c77-b252-bd22383b46b9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "state-of-health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vehicleId\": \"string\",\n  \"calculationDate\": \"2012-09-24\",\n  \"stateOfHealth\": \"-00000000000\",\n  \"batteryCapacity\": {\n    \"nominal\": \"034240.7385269\",\n    \"real\": \"00000034669.2\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e4a6d250-504c-48fd-905b-8b28d80206f0",
+    "name": "VOLTERAS CONNECT Accounts Vehicle State of Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

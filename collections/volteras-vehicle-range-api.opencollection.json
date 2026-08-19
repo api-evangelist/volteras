@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VOLTERAS CONNECT Accounts Vehicle Range API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Range",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vehicle Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.volteras.com/v1/vehicles/:vehicle_id/range",
+            "params": [
+              {
+                "name": "vehicle_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique internal identifier for the vehicle."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves both nominal and real-world maximum range information for specified vehicles. It enables accurate vehicle\nrange analysis by drawing on historical data and usage patterns for the specified vehicle.\n\n**Parameters:**\n- `vehicle_id`: A unique identifier for the vehicle, which must correspond to a vehicle registered in our system.\n\n**Returns:**\n- A vehicle range instance encapsulating detailed range information for the vehicle. The data includes both the\nstandard (nominal) range and the rea"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

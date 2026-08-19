@@ -2,63 +2,68 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/volteras-connect-openapi-original.json
-description: >-
-  No official Volteras-hosted MCP server was found (web search + docs +
-  GitHub org volteras have no public MCP surface as of 2026-07-21). This is a
-  candidate tool list derived from the Volteras Connect OpenAPI operations.
+description: No official Volteras-hosted MCP server was found (web search + docs + GitHub org volteras
+  have no public MCP surface as of 2026-07-21). This is a candidate tool list derived from the Volteras
+  Connect OpenAPI operations.
 server:
   name: volteras
   transport: http
   url: null
 tools:
-  - name: list_vehicles
-    description: Retrieve a paginated list of vehicles associated with your organization.
-    source_operation: openapi/volteras-connect-openapi-original.json#list_vehicles_v1_vehicles_get
-  - name: get_vehicle
-    description: Retrieve detailed information about a vehicle by its unique identifier.
-    source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_v1_vehicles__vehicle_id__get
-  - name: get_vehicle_telemetry
-    description: Retrieve telemetry data (status and performance) for a vehicle.
-    source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_telemetry_v1_vehicles__vehicle_id__telemetry_get
-  - name: get_vehicle_specifications
-    description: Obtain detailed specifications for a vehicle.
-    source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_specifications_v1_vehicles__vehicle_id__specifications_get
-  - name: get_vehicle_range
-    description: Retrieve nominal and real-world maximum range information for a vehicle.
-    source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_range_v1_vehicles__vehicle_id__range_get
-  - name: get_vehicle_state_of_health
-    description: Retrieve battery state-of-health information for a vehicle.
-    source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_state_of_health_v1_vehicles__vehicle_id__state_of_health_get
-  - name: list_vehicle_charging_history
-    description: Retrieve charging history sessions for a vehicle.
-    source_operation: openapi/volteras-connect-openapi-original.json#list_vehicle_charging_history_v1_vehicles__vehicle_id__charging_history_get
-  - name: list_vehicle_journeys
-    description: Retrieve a paginated list of journeys for a vehicle.
-    source_operation: openapi/volteras-connect-openapi-original.json#list_vehicle_journeys_v1_vehicles__vehicle_id__journeys_get
-  - name: bulk_vin_connect
-    description: Connect multiple VINs (up to 100 per request) to the organization.
-    source_operation: openapi/volteras-connect-openapi-original.json#Bulk_VIN_connect_v1_vehicles_connect_post
-  - name: bulk_vin_eligibility_check
-    description: Check the eligibility of multiple VINs before connecting.
-    source_operation: openapi/volteras-connect-openapi-original.json#Bulk_VIN_eligibility_check_v1_vehicles_eligibility_post
-  - name: start_charging
-    description: Create a START_CHARGING command execution for a vehicle (async).
-    source_operation: openapi/volteras-connect-openapi-original.json#action_start_charging_v1_vehicles__vehicle_id__command_execution_start_charging_post
-  - name: stop_charging
-    description: Create a STOP_CHARGING command execution for a vehicle (async).
-    source_operation: openapi/volteras-connect-openapi-original.json#action_stop_charging_v1_vehicles__vehicle_id__command_execution_stop_charging_post
-  - name: set_charge_limit
-    description: Create a SET_CHARGE_LIMIT command execution for a vehicle (async).
-    source_operation: openapi/volteras-connect-openapi-original.json#action_set_charge_limit_v1_vehicles__vehicle_id__command_execution_set_charge_limit_post
-  - name: lock_doors
-    description: Create a LOCK_DOORS command execution for a vehicle (async).
-    source_operation: openapi/volteras-connect-openapi-original.json#action_lock_doors_v1_vehicles__vehicle_id__command_execution_lock_doors_post
-  - name: unlock_doors
-    description: Create an UNLOCK_DOORS command execution for a vehicle (async).
-    source_operation: openapi/volteras-connect-openapi-original.json#action_unlock_doors_v1_vehicles__vehicle_id__command_execution_unlock_doors_post
-  - name: get_vehicle_command_execution
-    description: Retrieve the status/result of an asynchronous vehicle command execution.
-    source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_command_execution_v1_vehicles__vehicle_id__command_executions__vehicle_command_execution_id__get
-  - name: get_rate_limits
-    description: Get the live rate limits applied to a specific entity (e.g. a vehicle).
-    source_operation: openapi/volteras-connect-openapi-original.json#get_rate_limits_v1_rate_limits_get
+- name: list_vehicles
+  description: Retrieve a paginated list of vehicles associated with your organization.
+  source_operation: openapi/volteras-connect-openapi-original.json#list_vehicles_v1_vehicles_get
+- name: get_vehicle
+  description: Retrieve detailed information about a vehicle by its unique identifier.
+  source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_v1_vehicles__vehicle_id__get
+- name: get_vehicle_telemetry
+  description: Retrieve telemetry data (status and performance) for a vehicle.
+  source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_telemetry_v1_vehicles__vehicle_id__telemetry_get
+- name: get_vehicle_specifications
+  description: Obtain detailed specifications for a vehicle.
+  source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_specifications_v1_vehicles__vehicle_id__specifications_get
+- name: get_vehicle_range
+  description: Retrieve nominal and real-world maximum range information for a vehicle.
+  source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_range_v1_vehicles__vehicle_id__range_get
+- name: get_vehicle_state_of_health
+  description: Retrieve battery state-of-health information for a vehicle.
+  source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_state_of_health_v1_vehicles__vehicle_id__state_of_health_get
+- name: list_vehicle_charging_history
+  description: Retrieve charging history sessions for a vehicle.
+  source_operation: openapi/volteras-connect-openapi-original.json#list_vehicle_charging_history_v1_vehicles__vehicle_id__charging_history_get
+- name: list_vehicle_journeys
+  description: Retrieve a paginated list of journeys for a vehicle.
+  source_operation: openapi/volteras-connect-openapi-original.json#list_vehicle_journeys_v1_vehicles__vehicle_id__journeys_get
+- name: bulk_vin_connect
+  description: Connect multiple VINs (up to 100 per request) to the organization.
+  source_operation: openapi/volteras-connect-openapi-original.json#Bulk_VIN_connect_v1_vehicles_connect_post
+- name: bulk_vin_eligibility_check
+  description: Check the eligibility of multiple VINs before connecting.
+  source_operation: openapi/volteras-connect-openapi-original.json#Bulk_VIN_eligibility_check_v1_vehicles_eligibility_post
+- name: start_charging
+  description: Create a START_CHARGING command execution for a vehicle (async).
+  source_operation: openapi/volteras-connect-openapi-original.json#action_start_charging_v1_vehicles__vehicle_id__command_execution_start_charging_post
+- name: stop_charging
+  description: Create a STOP_CHARGING command execution for a vehicle (async).
+  source_operation: openapi/volteras-connect-openapi-original.json#action_stop_charging_v1_vehicles__vehicle_id__command_execution_stop_charging_post
+- name: set_charge_limit
+  description: Create a SET_CHARGE_LIMIT command execution for a vehicle (async).
+  source_operation: openapi/volteras-connect-openapi-original.json#action_set_charge_limit_v1_vehicles__vehicle_id__command_execution_set_charge_limit_post
+- name: lock_doors
+  description: Create a LOCK_DOORS command execution for a vehicle (async).
+  source_operation: openapi/volteras-connect-openapi-original.json#action_lock_doors_v1_vehicles__vehicle_id__command_execution_lock_doors_post
+- name: unlock_doors
+  description: Create an UNLOCK_DOORS command execution for a vehicle (async).
+  source_operation: openapi/volteras-connect-openapi-original.json#action_unlock_doors_v1_vehicles__vehicle_id__command_execution_unlock_doors_post
+- name: get_vehicle_command_execution
+  description: Retrieve the status/result of an asynchronous vehicle command execution.
+  source_operation: openapi/volteras-connect-openapi-original.json#get_vehicle_command_execution_v1_vehicles__vehicle_id__command_executions__vehicle_command_execution_id__get
+- name: get_rate_limits
+  description: Get the live rate limits applied to a specific entity (e.g. a vehicle).
+  source_operation: openapi/volteras-connect-openapi-original.json#get_rate_limits_v1_rate_limits_get
+deployment:
+  mode: none
+  verified: derived
+  tools: 17
+  checked: '2026-08-12'
+  source: catalog MCP census

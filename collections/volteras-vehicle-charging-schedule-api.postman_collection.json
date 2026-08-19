@@ -1,0 +1,256 @@
+{
+  "item": [
+    {
+      "id": "71dd3863-bc73-460e-92ef-235073319a0b",
+      "name": "Vehicle Charging Schedule",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "364f8bc4-bcf6-472b-8100-f24f32b474a7",
+          "name": "List Vehicle Departure Times",
+          "request": {
+            "name": "List Vehicle Departure Times",
+            "description": {
+              "content": "Retrieve a list of departure times for the provided vehicle.\n\nDeparture times determine when the vehicle needs to charge by, working with the target state of charge,\nwhich determines the charging behavior. So for example, if the target state of charge is 80%,\nthe departure time is 10:00, the vehicle is at 70%, and the rate of charge is 10% per hour,\nthe vehicle might start charging at 9:00 to reach 80% by 10:00.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "departure-times"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c81bb673-0243-4155-929f-e49412807986",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "departure-times"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"departureTimes\": [\n    {\n      \"hour\": 1165,\n      \"minute\": 4735,\n      \"daysOfWeek\": [\n        \"SATURDAY\",\n        \"TUESDAY\"\n      ],\n      \"localTimeOffset\": 7432\n    },\n    {\n      \"hour\": 3091,\n      \"minute\": 5551,\n      \"daysOfWeek\": [\n        \"TUESDAY\",\n        \"SATURDAY\"\n      ],\n      \"localTimeOffset\": 6384\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8233c116-24f8-4f99-9253-6e3dda23d090",
+          "name": "List Charging Windows",
+          "request": {
+            "name": "List Charging Windows",
+            "description": {
+              "content": "Retrieve a list of charging windows for the provided vehicle.\n\nCharging windows determine the start and stop times for the vehicle to charge, for example so that\nthe vehicle can be set to charge during electricity off-peak times.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "charging-windows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "01ba00df-bbe6-4ca5-9047-a1d95fe93bbe",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "charging-windows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chargingWindows\": [\n    {\n      \"startHour\": 1902,\n      \"startMinute\": 9133,\n      \"endHour\": 9647,\n      \"endMinute\": 7151,\n      \"daysOfWeek\": [\n        \"TUESDAY\",\n        \"MONDAY\"\n      ],\n      \"localTimeOffset\": 2316,\n      \"windowLocation\": {\n        \"longitude\": 5259.055697016662,\n        \"latitude\": 8459.79760213993\n      }\n    },\n    {\n      \"startHour\": 3261,\n      \"startMinute\": 3629,\n      \"endHour\": 1457,\n      \"endMinute\": 9477,\n      \"daysOfWeek\": [\n        \"SUNDAY\",\n        \"FRIDAY\"\n      ],\n      \"localTimeOffset\": 4102,\n      \"windowLocation\": {\n        \"longitude\": 9863.180670512025,\n        \"latitude\": 5166.69812720696\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bf7afd33-1d37-428d-b9f7-64ab3af3e34d",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Charging Schedule API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

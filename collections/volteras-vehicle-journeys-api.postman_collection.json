@@ -1,0 +1,176 @@
+{
+  "item": [
+    {
+      "id": "ab9b707b-e6fe-40cb-bab3-4b4cecc41c8e",
+      "name": "Vehicle Journeys",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7dfed8bd-a4e1-4130-9bbd-e0fb9a9a56dd",
+          "name": "List Vehicle Journeys",
+          "request": {
+            "name": "List Vehicle Journeys",
+            "description": {
+              "content": "Retrieve a paginated list of journeys for the provided vehicle.\n\n**Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle to retrieve journeys for.\n- Pagination parameters as query params.\n- Filter parameters on any of the journey fields - see https://docs.volteras.com/overview/listing-filter-json for how to construct.\n\n**Returns:**\n- A paginated list of vehicle journeys.\n\nThis endpoint allows you to retrieve a paginated list of journeys for a specific vehicle identified by its unique `vehicle_id`.\nThe list is ordered by the start timestamp of each journey, with the most recent journeys appearing first.\n\n**Note:**\n- The `vehicle_id` should correspond to a valid and existing vehicle identifier.\n- This endpoint returns the estimated total result count.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- PAGE_SIZE_TOO_LARGE\n- PAGINATED_QUERY_FILTER_CHANGED\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vehicles",
+                ":vehicle_id",
+                "journeys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxPageSize",
+                  "value": "<integer>",
+                  "description": "Max size of the returned list."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Page token used for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Listing filter schema."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicle_id",
+                  "description": "(Required) Unique internal identifier for the vehicle."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/v1/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bf592994-92ab-4aaf-903b-42c525606ca2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vehicles",
+                    ":vehicle_id",
+                    "journeys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxPageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicle_id",
+                      "description": "(Required) Unique internal identifier for the vehicle."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"vehicleId\": \"string\",\n      \"startTimestamp\": \"1983-07-17T21:47:36.268Z\",\n      \"vin\": \"string\",\n      \"distanceTravelledKm\": 4813.304550733322,\n      \"odometerStart\": 4869.220734131991,\n      \"odometerEnd\": 5878.180537670024,\n      \"energyUsedKwh\": 181.75844112304108,\n      \"energyStartKwh\": 2939.0570631317646,\n      \"energyEndKwh\": 5490.001811470222,\n      \"socUsed\": 6366.559946471811,\n      \"socStart\": 192.0374606946096,\n      \"socEnd\": 8970.341673746649,\n      \"stopTimestamp\": \"1977-07-10T14:21:51.215Z\",\n      \"startLatitude\": 1824.8453577868129,\n      \"startLongitude\": 2506.0649202551176,\n      \"stopLatitude\": 8934.647631732929,\n      \"stopLongitude\": 5561.554718573497\n    },\n    {\n      \"id\": \"string\",\n      \"vehicleId\": \"string\",\n      \"startTimestamp\": \"1954-03-10T13:43:11.729Z\",\n      \"vin\": \"string\",\n      \"distanceTravelledKm\": 9429.143275953367,\n      \"odometerStart\": 7727.3004325508455,\n      \"odometerEnd\": 9955.322244697296,\n      \"energyUsedKwh\": 7983.56987962816,\n      \"energyStartKwh\": 7875.741948396901,\n      \"energyEndKwh\": 3521.8130785929934,\n      \"socUsed\": 1701.1691437373067,\n      \"socStart\": 3910.973436386571,\n      \"socEnd\": 3421.031443038333,\n      \"stopTimestamp\": \"2018-05-10T19:28:36.319Z\",\n      \"startLatitude\": 9415.522861161691,\n      \"startLongitude\": 7286.536670889088,\n      \"stopLatitude\": 1139.1320090972101,\n      \"stopLongitude\": 9727.284183835263\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"estimatedTotalResults\": 9468\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.volteras.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b8b31696-7248-46df-889c-1b0c2b01f437",
+    "name": "VOLTERAS CONNECT Accounts Vehicle Journeys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
