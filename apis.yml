@@ -57,6 +57,8 @@ apis:
   humanURL: https://docs.volteras.com
   baseURL: https://api.volteras.com
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -89,6 +91,8 @@ apis:
   humanURL: https://docs.volteras.com
   baseURL: https://api.volteras.com
   tags:
+  - Rate-Limit
+  tags_raw:
   - Rate Limit
   properties:
   - type: OpenAPI
