@@ -1,0 +1,25 @@
+slug: volteras
+provider: Volteras
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Power & Water Utilities
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Vehicle Charging Schedule
+  spec_file: volteras-vehicle-charging-schedule-api-openapi.yml
+  capability_id: BC-3840.40
+  capability_id_l1: BC-3840
+  capability_name: EV Grid Integration Management
+  confidence: 0.72
+  evidence: List Vehicle Departure Times; List Charging Windows; schemas ChargingWindow, VehicleDepartureTimes
+  reason: Departure times and charging windows are precisely the managed/smart-charging scheduling constructs
+    used to shape EV load, which is what EV Grid Integration Management covers. Slight uncertainty as
+    the endpoints are read-only.
