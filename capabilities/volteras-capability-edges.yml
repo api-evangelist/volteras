@@ -11,8 +11,32 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 1
+edge_count: 4
 edges:
+- tag: Vehicle Command Executions
+  spec_file: volteras-vehicle-command-executions-api-openapi.yml
+  capability_id: BC-3460
+  capability_id_l1: BC-3460
+  capability_name: Vehicle Connected Services Management
+  confidence: 0.75
+  evidence: POST /v1/vehicles/{vehicle_id}/command-execution:lock-doors; :climate-on; :start-charging;
+    :set-charge-limit; schema VehicleCommandExecution
+  reason: Asynchronous remote commands to connected vehicles (locks, climate, charging) are plainly connected
+    vehicle service operations; no single L2 in the list covers remote command execution, so only the
+    L1 is asserted.
+  recovered_from: vertical-automotive-mobility-edges.json
+- tag: Vehicle Telemetry
+  spec_file: volteras-vehicle-telemetry-api-openapi.yml
+  capability_id: BC-3460.40
+  capability_id_l1: BC-3460
+  capability_name: Vehicle Data Platform Operations
+  confidence: 0.75
+  evidence: GET /v1/vehicles/{vehicle_id}/telemetry — "Get Vehicle Telemetry"; schemas VehicleTelemetry,
+    VehicleTelemetryLocation, VehicleOdometer, VehicleStateOfCharge
+  reason: Core vehicle-to-cloud telemetry retrieval (location, odometer, charge state, speed) served to
+    consumers — squarely connected-vehicle data platform operations. Ambiguity only between the connectivity-platform
+    and data-platform sub-capabilities; Volteras operates the data layer, not SIMs.
+  recovered_from: vertical-automotive-mobility-edges.json
 - tag: Vehicle Charging Schedule
   spec_file: volteras-vehicle-charging-schedule-api-openapi.yml
   capability_id: BC-3840.40
@@ -23,3 +47,14 @@ edges:
   reason: Departure times and charging windows are precisely the managed/smart-charging scheduling constructs
     used to shape EV load, which is what EV Grid Integration Management covers. Slight uncertainty as
     the endpoints are read-only.
+- tag: Accounts
+  spec_file: volteras-accounts-api-openapi.yml
+  capability_id: BC-3460.40
+  capability_id_l1: BC-3460
+  capability_name: Vehicle Data Platform Operations
+  confidence: 0.7
+  evidence: 'POST /v1/accounts:connect Action Connect; schemas: OEMAccount, AccountConnect, ConsentFlowIntegration'
+  reason: Accounts here are OEM manufacturer data accounts linked/unlinked with a consent flow so vehicle
+    data can be shared — this is vehicle data platform operation with consent management, not generic
+    CRM account management.
+  recovered_from: vertical-automotive-mobility-edges.json
