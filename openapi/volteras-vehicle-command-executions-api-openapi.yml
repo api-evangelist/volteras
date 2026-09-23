@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Vehicle Command Executions API
+  title: VOLTERAS CONNECT Vehicle Command Executions API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -26,11 +26,10 @@ paths:
         - A paginated response containing a list of vehicle command executions.
 
 
-        _Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._
+        _Find details on list filter syntax in our documentation here._
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -102,7 +101,31 @@ paths:
       tags:
       - Vehicle Command Executions
       summary: Get Vehicle Command Execution
-      description: "Retrieve detailed information about a vehicle command execution by specifying its unique identifier (ID).\n\n **Parameters:**\n- `vehicle_id`: The unique identifier (ID) of the vehicle.\n- `vehicle_command_execution_id`: The unique identifier (ID) of the vehicle command execution.\n\n**Returns:**\n- A response containing detailed information about the vehicle command execution.\n\n\nPossible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):\n\n- AUTHENTICATION_ERROR\n- REQUEST_VALIDATION_ERROR\n- RESOURCE_NOT_FOUND\n- SERVER_ERROR"
+      description: 'Retrieve detailed information about a vehicle command execution by specifying its unique identifier (ID).
+
+
+        **Parameters:**
+
+        - `vehicle_id`: The unique identifier (ID) of the vehicle.
+
+        - `vehicle_command_execution_id`: The unique identifier (ID) of the vehicle command execution.
+
+
+        **Returns:**
+
+        - A response containing detailed information about the vehicle command execution.
+
+
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
+
+
+        - AUTHENTICATION_ERROR
+
+        - REQUEST_VALIDATION_ERROR
+
+        - RESOURCE_NOT_FOUND
+
+        - SERVER_ERROR'
       operationId: get_vehicle_command_execution_v1_vehicles__vehicle_id__command_executions__vehicle_command_execution_id__get
       security:
       - OAuth2ClientCredentialsBearer: []
@@ -150,8 +173,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -217,8 +239,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -284,8 +305,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -351,8 +371,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -418,8 +437,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -485,8 +503,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -552,8 +569,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -619,8 +635,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -692,8 +707,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -765,8 +779,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -832,8 +845,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -899,8 +911,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -966,8 +977,7 @@ paths:
         - A response containing detailed information about the vehicle command execution.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -1017,6 +1027,32 @@ paths:
       - COMMAND_ALREADY_IN_PROGRESS
 components:
   schemas:
+    VehicleCommandEnum:
+      type: string
+      enum:
+      - WAKE_UP
+      - UNLOCK_DOORS
+      - LOCK_DOORS
+      - HONK_HORN
+      - FLASH_LIGHTS
+      - START_HVAC_SYSTEM
+      - CLIMATE_ON
+      - CLIMATE_OFF
+      - SET_TEMPERATURE
+      - SET_CHARGE_LIMIT
+      - ACTUATE_FRONT_TRUNK
+      - ACTUATE_REAR_TRUNK
+      - OPEN_CHARGE_PORT
+      - CLOSE_CHARGE_PORT
+      - START_CHARGING
+      - STOP_CHARGING
+      - SET_VEHICLE_NAME
+      - SCHEDULE_SOFTWARE_UPDATE
+      - CANCEL_SOFTWARE_UPDATE
+      - WINDOW_HEATING_ON
+      - WINDOW_HEATING_OFF
+      title: VehicleCommandEnum
+      description: Enum for available commands.
     VehicleCommandExecution:
       properties:
         id:
@@ -1122,40 +1158,6 @@ components:
       - nextPageToken
       - totalResults
       title: Page[VehicleCommandExecution]
-    OEMDeviceCommandExecutionStatus:
-      type: string
-      enum:
-      - PENDING
-      - EXECUTED
-      - FAILED
-      title: OEMDeviceCommandExecutionStatus
-      description: Enum for command execution status.
-    VehicleCommandEnum:
-      type: string
-      enum:
-      - WAKE_UP
-      - UNLOCK_DOORS
-      - LOCK_DOORS
-      - HONK_HORN
-      - FLASH_LIGHTS
-      - START_HVAC_SYSTEM
-      - CLIMATE_ON
-      - CLIMATE_OFF
-      - SET_TEMPERATURE
-      - SET_CHARGE_LIMIT
-      - ACTUATE_FRONT_TRUNK
-      - ACTUATE_REAR_TRUNK
-      - OPEN_CHARGE_PORT
-      - CLOSE_CHARGE_PORT
-      - START_CHARGING
-      - STOP_CHARGING
-      - SET_VEHICLE_NAME
-      - SCHEDULE_SOFTWARE_UPDATE
-      - CANCEL_SOFTWARE_UPDATE
-      - WINDOW_HEATING_ON
-      - WINDOW_HEATING_OFF
-      title: VehicleCommandEnum
-      description: Enum for available commands.
     SetTemperaturePayload:
       properties:
         driverTemperature:
@@ -1178,6 +1180,14 @@ components:
       required:
       - limit
       title: SetChargeLimitPayload
+    OEMDeviceCommandExecutionStatus:
+      type: string
+      enum:
+      - PENDING
+      - EXECUTED
+      - FAILED
+      title: OEMDeviceCommandExecutionStatus
+      description: Enum for command execution status.
   securitySchemes:
     HTTPBasic:
       type: http

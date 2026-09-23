@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Authentication API
+  title: VOLTERAS CONNECT Authentication API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -35,8 +35,7 @@ paths:
         not recommended.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -68,8 +67,7 @@ paths:
       description: 'This endpoint validates the access token and retrieves the associated `clientId` and `organizationId`.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -116,22 +114,6 @@ components:
       - refresh_token
       title: APIAccessToken
       description: Schema of the APIAccessToken, returned by the authentication or refresh token
-    APIAccess:
-      properties:
-        clientId:
-          type: string
-          title: Client ID
-          description: Your client ID.
-        organizationId:
-          type: string
-          title: Organization ID
-          description: ID of your organization.
-      type: object
-      required:
-      - clientId
-      - organizationId
-      title: APIAccess
-      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
     Body_auth_token_v1_oauth2_token_post:
       properties:
         client_id:
@@ -158,6 +140,22 @@ components:
           description: OAuth 2.0 grant type.
       type: object
       title: Body_auth_token_v1_oauth2_token_post
+    APIAccess:
+      properties:
+        clientId:
+          type: string
+          title: Client ID
+          description: Your client ID.
+        organizationId:
+          type: string
+          title: Organization ID
+          description: ID of your organization.
+      type: object
+      required:
+      - clientId
+      - organizationId
+      title: APIAccess
+      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
   securitySchemes:
     HTTPBasic:
       type: http

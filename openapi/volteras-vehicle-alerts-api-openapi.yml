@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Vehicle Alerts API
+  title: VOLTERAS CONNECT Vehicle Alerts API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -16,8 +16,7 @@ paths:
       description: 'Retrieve alerts for a vehicle based on its unique ID.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -86,40 +85,6 @@ paths:
       - PAGE_SIZE_TOO_LARGE
 components:
   schemas:
-    AlertStepDefinition:
-      properties:
-        id:
-          type: string
-          title: Id
-        description:
-          type: string
-          title: Description
-        order:
-          type: integer
-          title: Order
-      type: object
-      required:
-      - id
-      - description
-      - order
-      title: AlertStepDefinition
-    AlertResolutionDefinition:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-      type: object
-      required:
-      - id
-      - name
-      - description
-      title: AlertResolutionDefinition
     Page_VehicleAlertResponse_:
       properties:
         results:
@@ -144,27 +109,101 @@ components:
       - nextPageToken
       - totalResults
       title: Page[VehicleAlertResponse]
-    AlertResolutionInstanceSchema:
+    AlertMetadata:
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+        updatedAt:
+          type: string
+          format: date-time
+          title: Updatedat
+      type: object
+      required:
+      - createdAt
+      - updatedAt
+      title: AlertMetadata
+    AlertStepDefinition:
       properties:
         id:
           type: string
           title: Id
-        definition:
-          $ref: '#/components/schemas/AlertResolutionDefinition'
-        status:
-          $ref: '#/components/schemas/AlertResolutionStatus'
-        steps:
-          items:
-            $ref: '#/components/schemas/AlertStepInstance'
-          type: array
-          title: Steps
+        description:
+          type: string
+          title: Description
+        order:
+          type: integer
+          title: Order
       type: object
       required:
       - id
-      - definition
+      - description
+      - order
+      title: AlertStepDefinition
+    AlertStepInstance:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/AlertStepStatus'
+        definition:
+          $ref: '#/components/schemas/AlertStepDefinition'
+      type: object
+      required:
+      - id
       - status
-      - steps
-      title: AlertResolutionInstanceSchema
+      - definition
+      title: AlertStepInstance
+    AlertResolutionStatus:
+      type: string
+      enum:
+      - PENDING
+      - COMPLETED
+      title: AlertResolutionStatus
+    AlertCategory:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - id
+      - name
+      - description
+      title: AlertCategory
+    AlertStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - RESOLVED
+      title: AlertStatus
+    AlertResolutionDefinition:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+      type: object
+      required:
+      - id
+      - name
+      - description
+      title: AlertResolutionDefinition
     AlertDefinitionBase:
       properties:
         id:
@@ -189,63 +228,6 @@ components:
       - message
       - category
       title: AlertDefinitionBase
-    AlertStepInstance:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/AlertStepStatus'
-        definition:
-          $ref: '#/components/schemas/AlertStepDefinition'
-      type: object
-      required:
-      - id
-      - status
-      - definition
-      title: AlertStepInstance
-    AlertCategory:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - id
-      - name
-      - description
-      title: AlertCategory
-    AlertMetadata:
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-        updatedAt:
-          type: string
-          format: date-time
-          title: Updatedat
-      type: object
-      required:
-      - createdAt
-      - updatedAt
-      title: AlertMetadata
-    AlertSeverity:
-      type: string
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      - CRITICAL
-      title: AlertSeverity
     VehicleAlertResponse:
       properties:
         id:
@@ -307,24 +289,41 @@ components:
       - definition
       - metadata
       title: VehicleAlertResponse
-    AlertStatus:
+    AlertSeverity:
       type: string
       enum:
-      - ACTIVE
-      - RESOLVED
-      title: AlertStatus
-    AlertResolutionStatus:
-      type: string
-      enum:
-      - PENDING
-      - COMPLETED
-      title: AlertResolutionStatus
+      - LOW
+      - MEDIUM
+      - HIGH
+      - CRITICAL
+      title: AlertSeverity
     AlertStepStatus:
       type: string
       enum:
       - PENDING
       - COMPLETED
       title: AlertStepStatus
+    AlertResolutionInstanceSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        definition:
+          $ref: '#/components/schemas/AlertResolutionDefinition'
+        status:
+          $ref: '#/components/schemas/AlertResolutionStatus'
+        steps:
+          items:
+            $ref: '#/components/schemas/AlertStepInstance'
+          type: array
+          title: Steps
+      type: object
+      required:
+      - id
+      - definition
+      - status
+      - steps
+      title: AlertResolutionInstanceSchema
   securitySchemes:
     HTTPBasic:
       type: http

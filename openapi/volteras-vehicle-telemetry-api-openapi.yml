@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Vehicle Telemetry API
+  title: VOLTERAS CONNECT Vehicle Telemetry API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -46,8 +46,7 @@ paths:
         - The `vehicle_id` should correspond to a valid and existing vehicle identifier.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -90,542 +89,6 @@ components:
       - INVALID
       title: VehicleChargePortLatchStateEnum
       description: Enum for charge port latch status.
-    VehicleStateOfCharge:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: State of charge reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: No unit. Percentage indicating the state of charge of the battery pack.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - unit
-      - timestamp
-      title: VehicleStateOfCharge
-    VehicleHeading:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Heading reading in degrees.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: Unit of angle. Defaults to 'degree'.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - unit
-      - timestamp
-      title: VehicleHeading
-    VehicleSpeed:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Speed reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: Unit of length. Defaults to SI unit 'm/s'.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - unit
-      - timestamp
-      title: VehicleSpeed
-    connect_models__schemas__vehicle__vehicle_telemetry__VehicleRange:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Range reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: Unit of length. Defaults to SI unit 'km'.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - unit
-      - timestamp
-      title: VehicleRange
-    VehicleChargeRemainingTime:
-      properties:
-        value:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Value
-          description: Remaining time to full charge in minutes.
-        unit:
-          type: string
-          const: minutes
-          title: Unit
-          default: minutes
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - timestamp
-      title: VehicleChargeRemainingTime
-    VehicleElevation:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Elevation reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: Unit of length. Defaults to SI unit 'm'.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - unit
-      - timestamp
-      title: VehicleElevation
-    VehicleTirePressure:
-      properties:
-        frontRightTire:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Frontrighttire
-          description: Front right tire pressure reading.
-        frontLeftTire:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Frontlefttire
-          description: Front left tire pressure reading.
-        rearRightTire:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Rearrighttire
-          description: Rear right tire pressure reading.
-        rearLeftTire:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Rearlefttire
-          description: Rear left tire pressure reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: Unit of pressure. Defaults to SI unit 'kPa'.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - frontRightTire
-      - frontLeftTire
-      - rearRightTire
-      - rearLeftTire
-      - unit
-      - timestamp
-      title: VehicleTirePressure
-    VehicleChargingState:
-      properties:
-        chargingState:
-          anyOf:
-          - $ref: '#/components/schemas/VehicleChargeStateEnum'
-          - type: 'null'
-          description: Charging state reading.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-        chargePortDoorOpen:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Chargeportdooropen
-          description: Whether the charge port door is open.
-        chargePortLatch:
-          anyOf:
-          - $ref: '#/components/schemas/VehicleChargePortLatchStateEnum'
-          - type: 'null'
-          description: Whether the charge port latch is closed.
-      type: object
-      required:
-      - chargingState
-      - timestamp
-      - chargePortDoorOpen
-      - chargePortLatch
-      title: VehicleChargingState
-    VehicleOdometer:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Odometer reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: Unit of length. Defaults to SI unit 'km'.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - unit
-      - timestamp
-      title: VehicleOdometer
-    VehicleTelemetry:
-      properties:
-        id:
-          type: string
-          title: Id
-        odometer:
-          $ref: '#/components/schemas/VehicleOdometer'
-        location:
-          $ref: '#/components/schemas/VehicleTelemetryLocation'
-        elevation:
-          $ref: '#/components/schemas/VehicleElevation'
-        speed:
-          $ref: '#/components/schemas/VehicleSpeed'
-        heading:
-          $ref: '#/components/schemas/VehicleHeading'
-        stateOfCharge:
-          $ref: '#/components/schemas/VehicleStateOfCharge'
-        chargingState:
-          $ref: '#/components/schemas/VehicleChargingState'
-        range:
-          $ref: '#/components/schemas/connect_models__schemas__vehicle__vehicle_telemetry__VehicleRange'
-        tirePressure:
-          $ref: '#/components/schemas/VehicleTirePressure'
-        security:
-          $ref: '#/components/schemas/VehicleSecurity'
-        metadata:
-          $ref: '#/components/schemas/VehicleMetaData'
-        realRange:
-          $ref: '#/components/schemas/VehicleRealRange'
-        maxStateOfCharge:
-          $ref: '#/components/schemas/VehicleChargeMaxStateOfCharge'
-        chargeRemainingTime:
-          $ref: '#/components/schemas/VehicleChargeRemainingTime'
-        chargePowerLevel:
-          $ref: '#/components/schemas/VehicleChargePowerLevel'
-        chargeCurrentLimit:
-          $ref: '#/components/schemas/VehicleChargeCurrentLimit'
-        energyRemaining:
-          $ref: '#/components/schemas/VehicleEnergyRemainingKwh'
-        minStateOfCharge:
-          $ref: '#/components/schemas/VehicleChargeMinStateOfCharge'
-      type: object
-      required:
-      - id
-      - odometer
-      - location
-      - elevation
-      - speed
-      - heading
-      - stateOfCharge
-      - chargingState
-      - range
-      - tirePressure
-      - security
-      - metadata
-      - realRange
-      - maxStateOfCharge
-      - chargeRemainingTime
-      - chargePowerLevel
-      - chargeCurrentLimit
-      - energyRemaining
-      - minStateOfCharge
-      title: VehicleTelemetry
-    VehicleChargeCurrentLimit:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Current limit of the charger in amps.
-        unit:
-          type: string
-          const: amps
-          title: Unit
-          default: amps
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - timestamp
-      title: VehicleChargeCurrentLimit
-    VehicleChargePowerLevel:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Power level of the charger in kW.
-        unit:
-          type: string
-          const: kw
-          title: Unit
-          default: kw
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - timestamp
-      title: VehicleChargePowerLevel
-    VehicleChargeStateEnum:
-      type: string
-      enum:
-      - STARTING
-      - STOPPED
-      - CHARGING
-      - COMPLETE
-      - DISCONNECTED
-      - NO_POWER
-      - CONNECTED
-      - INVALID
-      title: VehicleChargeStateEnum
-      description: Enum for charging status.
-    VehicleMetaData:
-      properties:
-        lastSeenAt:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Lastseenat
-          description: 'The last recorded interaction with the vehicle endpoints. This is a timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-        consentId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Consentid
-          description: Unique identifier for the consent that was used to retrieve the vehicle data.
-        accountId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Accountid
-          description: Unique identifier for the account that was used to retrieve the vehicle data.
-        registrationDate:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Registrationdate
-          description: Vehicle registration date (ISO 8601, day granularity). Captured at vehicle upload; used as the date-axis baseline for service-interval alerts.
-      type: object
-      required:
-      - lastSeenAt
-      - consentId
-      - accountId
-      title: VehicleMetaData
-    VehicleRealRange:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Range reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: Unit of length.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      title: VehicleRealRange
-    VehicleLockStateEnum:
-      type: string
-      enum:
-      - OPEN
-      - CLOSED
-      title: VehicleLockStateEnum
-      description: Enum for lock status.
-    VehicleChargeMinStateOfCharge:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Minimum state of charge set in the vehicle. If this is present, the vehicle will always charge immediately when plugged in until the minimum state of charge is reached.
-        unit:
-          type: string
-          const: percent
-          title: Unit
-          default: percent
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - timestamp
-      title: VehicleChargeMinStateOfCharge
-    VehicleTelemetryLocation:
-      properties:
-        latitude:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Latitude
-          description: Latitude ranges between -90 and 90 degrees, inclusive. Coordinate reference system is WGS84.
-        longitude:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Longitude
-          description: Longitude ranges between -180 and 180 degrees, inclusive. Coordinate reference system is WGS84.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Location timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - latitude
-      - longitude
-      - timestamp
-      title: VehicleTelemetryLocation
-    VehicleEnergyRemainingKwh:
-      properties:
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-          description: Energy remaining reading.
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: No unit. Energy remaining of the battery pack in kWh.
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-      type: object
-      required:
-      - value
-      - unit
-      - timestamp
-      title: VehicleEnergyRemainingKwh
     VehicleSecurity:
       properties:
         locked:
@@ -712,6 +175,264 @@ components:
       - sunRoof
       - timestamp
       title: VehicleSecurity
+    VehicleSpeed:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Speed reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: Unit of length. Defaults to SI unit 'm/s'.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - unit
+      - timestamp
+      title: VehicleSpeed
+    VehicleTelemetry:
+      properties:
+        id:
+          type: string
+          title: Id
+        odometer:
+          $ref: '#/components/schemas/VehicleOdometer'
+        location:
+          $ref: '#/components/schemas/VehicleTelemetryLocation'
+        elevation:
+          $ref: '#/components/schemas/VehicleElevation'
+        speed:
+          $ref: '#/components/schemas/VehicleSpeed'
+        heading:
+          $ref: '#/components/schemas/VehicleHeading'
+        stateOfCharge:
+          $ref: '#/components/schemas/VehicleStateOfCharge'
+        chargingState:
+          $ref: '#/components/schemas/VehicleChargingState'
+        range:
+          $ref: '#/components/schemas/connect_models__schemas__vehicle__vehicle_telemetry__VehicleRange'
+        tirePressure:
+          $ref: '#/components/schemas/VehicleTirePressure'
+        security:
+          $ref: '#/components/schemas/VehicleSecurity'
+        metadata:
+          $ref: '#/components/schemas/VehicleMetaData'
+        realRange:
+          $ref: '#/components/schemas/VehicleRealRange'
+        maxStateOfCharge:
+          $ref: '#/components/schemas/VehicleChargeMaxStateOfCharge'
+        chargeRemainingTime:
+          $ref: '#/components/schemas/VehicleChargeRemainingTime'
+        chargePowerLevel:
+          $ref: '#/components/schemas/VehicleChargePowerLevel'
+        chargeCurrentLimit:
+          $ref: '#/components/schemas/VehicleChargeCurrentLimit'
+        energyRemaining:
+          $ref: '#/components/schemas/VehicleEnergyRemainingKwh'
+        minStateOfCharge:
+          $ref: '#/components/schemas/VehicleChargeMinStateOfCharge'
+      type: object
+      required:
+      - id
+      - odometer
+      - location
+      - elevation
+      - speed
+      - heading
+      - stateOfCharge
+      - chargingState
+      - range
+      - tirePressure
+      - security
+      - metadata
+      - realRange
+      - maxStateOfCharge
+      - chargeRemainingTime
+      - chargePowerLevel
+      - chargeCurrentLimit
+      - energyRemaining
+      - minStateOfCharge
+      title: VehicleTelemetry
+    VehicleLockStateEnum:
+      type: string
+      enum:
+      - OPEN
+      - CLOSED
+      title: VehicleLockStateEnum
+      description: Enum for lock status.
+    VehicleChargingState:
+      properties:
+        chargingState:
+          anyOf:
+          - $ref: '#/components/schemas/VehicleChargeStateEnum'
+          - type: 'null'
+          description: Charging state reading.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+        chargePortDoorOpen:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Chargeportdooropen
+          description: Whether the charge port door is open.
+        chargePortLatch:
+          anyOf:
+          - $ref: '#/components/schemas/VehicleChargePortLatchStateEnum'
+          - type: 'null'
+          description: Whether the charge port latch is closed.
+      type: object
+      required:
+      - chargingState
+      - timestamp
+      - chargePortDoorOpen
+      - chargePortLatch
+      title: VehicleChargingState
+    VehicleRealRange:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Range reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: Unit of length.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      title: VehicleRealRange
+    VehicleElevation:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Elevation reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: Unit of length. Defaults to SI unit 'm'.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - unit
+      - timestamp
+      title: VehicleElevation
+    VehicleEnergyRemainingKwh:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Energy remaining reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: No unit. Energy remaining of the battery pack in kWh.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - unit
+      - timestamp
+      title: VehicleEnergyRemainingKwh
+    VehicleHeading:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Heading reading in degrees.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: Unit of angle. Defaults to 'degree'.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - unit
+      - timestamp
+      title: VehicleHeading
+    VehicleChargeCurrentLimit:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Current limit of the charger in amps.
+        unit:
+          type: string
+          const: amps
+          title: Unit
+          default: amps
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - timestamp
+      title: VehicleChargeCurrentLimit
     VehicleChargeMaxStateOfCharge:
       properties:
         value:
@@ -737,6 +458,284 @@ components:
       - value
       - timestamp
       title: VehicleChargeMaxStateOfCharge
+    VehicleTelemetryLocation:
+      properties:
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+          description: Latitude ranges between -90 and 90 degrees, inclusive. Coordinate reference system is WGS84.
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+          description: Longitude ranges between -180 and 180 degrees, inclusive. Coordinate reference system is WGS84.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Location timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - latitude
+      - longitude
+      - timestamp
+      title: VehicleTelemetryLocation
+    VehicleStateOfCharge:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: State of charge reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: No unit. Percentage indicating the state of charge of the battery pack.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - unit
+      - timestamp
+      title: VehicleStateOfCharge
+    VehicleChargeStateEnum:
+      type: string
+      enum:
+      - STARTING
+      - STOPPED
+      - CHARGING
+      - COMPLETE
+      - DISCONNECTED
+      - NO_POWER
+      - CONNECTED
+      - INVALID
+      title: VehicleChargeStateEnum
+      description: Enum for charging status.
+    VehicleTirePressure:
+      properties:
+        frontRightTire:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frontrighttire
+          description: Front right tire pressure reading.
+        frontLeftTire:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frontlefttire
+          description: Front left tire pressure reading.
+        rearRightTire:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Rearrighttire
+          description: Rear right tire pressure reading.
+        rearLeftTire:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Rearlefttire
+          description: Rear left tire pressure reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: Unit of pressure. Defaults to SI unit 'kPa'.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - frontRightTire
+      - frontLeftTire
+      - rearRightTire
+      - rearLeftTire
+      - unit
+      - timestamp
+      title: VehicleTirePressure
+    VehicleOdometer:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Odometer reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: Unit of length. Defaults to SI unit 'km'.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - unit
+      - timestamp
+      title: VehicleOdometer
+    VehicleChargePowerLevel:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Power level of the charger in kW.
+        unit:
+          type: string
+          const: kw
+          title: Unit
+          default: kw
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - timestamp
+      title: VehicleChargePowerLevel
+    VehicleMetaData:
+      properties:
+        lastSeenAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Lastseenat
+          description: 'The last recorded interaction with the vehicle endpoints. This is a timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+        consentId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Consentid
+          description: Unique identifier for the consent that was used to retrieve the vehicle data.
+        accountId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accountid
+          description: Unique identifier for the account that was used to retrieve the vehicle data.
+        registrationDate:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Registrationdate
+          description: Vehicle registration date (ISO 8601, day granularity). Captured at vehicle upload; used as the date-axis baseline for service-interval alerts.
+      type: object
+      required:
+      - lastSeenAt
+      - consentId
+      - accountId
+      title: VehicleMetaData
+    VehicleChargeRemainingTime:
+      properties:
+        value:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Value
+          description: Remaining time to full charge in minutes.
+        unit:
+          type: string
+          const: minutes
+          title: Unit
+          default: minutes
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - timestamp
+      title: VehicleChargeRemainingTime
+    VehicleChargeMinStateOfCharge:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Minimum state of charge set in the vehicle. If this is present, the vehicle will always charge immediately when plugged in until the minimum state of charge is reached.
+        unit:
+          type: string
+          const: percent
+          title: Unit
+          default: percent
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - timestamp
+      title: VehicleChargeMinStateOfCharge
+    connect_models__schemas__vehicle__vehicle_telemetry__VehicleRange:
+      properties:
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+          description: Range reading.
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: Unit of length. Defaults to SI unit 'km'.
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: 'Timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+      type: object
+      required:
+      - value
+      - unit
+      - timestamp
+      title: VehicleRange
   securitySchemes:
     HTTPBasic:
       type: http

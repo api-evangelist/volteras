@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Vehicle Journeys API
+  title: VOLTERAS CONNECT Vehicle Journeys API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -42,8 +42,7 @@ paths:
         - This endpoint returns the estimated total result count.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR

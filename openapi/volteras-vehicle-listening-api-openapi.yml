@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Vehicle Listening API
+  title: VOLTERAS CONNECT Vehicle Listening API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -39,8 +39,7 @@ paths:
         current state.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -91,8 +90,7 @@ paths:
       description: 'Retrieve the listening-state history for a vehicle, ordered by the time entries were recorded.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -190,6 +188,27 @@ components:
       required:
       - isListening
       title: VehicleListeningRequest
+    VehicleListeningResponse:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier of the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Reflects the requested listening state.
+        lastUpdated:
+          type: string
+          format: date-time
+          title: Lastupdated
+          description: Timestamp (UTC) representing when the listening state was last updated.
+      type: object
+      required:
+      - vehicleId
+      - isListening
+      - lastUpdated
+      title: VehicleListeningResponse
     Page_VehicleListeningAuditEntry_:
       properties:
         results:
@@ -235,27 +254,6 @@ components:
       - isListening
       - timestamp
       title: VehicleListeningAuditEntry
-    VehicleListeningResponse:
-      properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-          description: Unique identifier of the vehicle.
-        isListening:
-          type: boolean
-          title: Islistening
-          description: Reflects the requested listening state.
-        lastUpdated:
-          type: string
-          format: date-time
-          title: Lastupdated
-          description: Timestamp (UTC) representing when the listening state was last updated.
-      type: object
-      required:
-      - vehicleId
-      - isListening
-      - lastUpdated
-      title: VehicleListeningResponse
   securitySchemes:
     HTTPBasic:
       type: http

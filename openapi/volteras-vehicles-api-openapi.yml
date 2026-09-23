@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Vehicles API
+  title: VOLTERAS CONNECT Vehicles API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -33,11 +33,10 @@ paths:
         - This endpoint provides a summary of each vehicle''s basic details. For comprehensive vehicle data, please refer to the individual vehicle detail endpoints.
 
 
-        _Find details on list filter syntax in our documentation [here](/overview/listing-filter-json)._
+        _Find details on list filter syntax in our documentation here._
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -122,8 +121,7 @@ paths:
         - A response containing detailed information about the vehicle.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -172,8 +170,7 @@ paths:
         - A response containing options data for the vehicle.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -231,8 +228,7 @@ paths:
         - The `vehicle_id` should correspond to a valid and existing vehicle identifier.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -281,8 +277,7 @@ paths:
         This endpoint allows you to retrieve more detailed specifications (if available) for a specific vehicle identified by its unique ''vehicle_id''.
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -316,116 +311,51 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    VehicleUpdateRegistration:
+    VehicleSpecifications:
       properties:
-        registrationPlate:
-          anyOf:
-          - type: string
-            maxLength: 50
-            minLength: 1
-          - type: 'null'
-          title: Registrationplate
-      type: object
-      required:
-      - registrationPlate
-      title: VehicleUpdateRegistration
-    Vehicle:
-      properties:
-        make:
-          type: string
-          title: Make
-          description: Manufacturer of the vehicle.
         model:
           anyOf:
           - type: string
           - type: 'null'
           title: Model
-          description: Subcategory of the make, used to differentiate between different variations of a vehicle within the same make.
-        trim:
+        make:
           anyOf:
           - type: string
           - type: 'null'
-          title: Trim
-          description: Subcategory of the model, used to differentiate between different variations of a vehicle within the same model. Also referred to as version or generation.
+          title: Make
         modelYear:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
           title: Modelyear
-          description: Year the vehicle model was released. Could be different than the year the vehicle was manufactured.
-        vin:
-          type: string
-          title: Vin
-          description: Vehicle identification number. Unique identifier for the vehicle.
-        registrationPlate:
+        batteryCapacity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacity
+        batteryCapacityNet:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacitynet
+        standardEvr:
           anyOf:
           - type: string
           - type: 'null'
-          title: Registrationplate
-          description: Plate that is attached to a vehicle and displays a unique combination of letters and numbers assigned to the vehicle by a government agency. Also referred to as license plate or registration number.
-        isRegNoValidated:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Isregnovalidated
-          description: Indicates whether the registration plate has been validated
-        regNoValidatedAt:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Regnovalidatedat
-          description: Timestamp of when the registration plate was last validated
-        id:
-          type: string
-          title: Id
-          description: Unique internal identifier for the vehicle.
-        metadata:
-          $ref: '#/components/schemas/VehicleMetaData'
-          description: Additional information about the vehicle.
-        isListening:
-          type: boolean
-          title: Islistening
-          description: Indicates whether the vehicle is currently accepting data ingestion and commands. Defaults to True when no listening state entries have been recorded.
-          default: true
-        listeningLastUpdated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Listeninglastupdated
-          description: UTC timestamp for the most recent listening-state update, or null when no entries exist.
-        connectionStatus:
+          title: Standardevr
+        allElectricRange:
           anyOf:
           - type: string
           - type: 'null'
-          title: Connectionstatus
-          description: Connection status of the vehicle (e.g. CONNECTED, PENDING_CONNECTION, DISCONNECTED).
-        connectionErrorCode:
+          title: Allelectricrange
+        allElectricRangeMin:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
-          title: Connectionerrorcode
-          description: Error code if the vehicle has a connection issue.
-        connectionErrorMessage:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Connectionerrormessage
-          description: Human-readable error message for connection issues.
-        actionCategory:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Actioncategory
-          description: 'Who must act on the connection error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW.'
+          title: Allelectricrangemin
       type: object
-      required:
-      - make
-      - vin
-      - id
-      - metadata
-      title: Vehicle
+      title: VehicleSpecifications
+      description: Vehicle specifications schema
     VehicleOptions:
       properties:
         vehicleId:
@@ -444,6 +374,19 @@ components:
       - vehicleConfig
       - options
       title: VehicleOptions
+    VehicleUpdateRegistration:
+      properties:
+        registrationPlate:
+          anyOf:
+          - type: string
+            maxLength: 50
+            minLength: 1
+          - type: 'null'
+          title: Registrationplate
+      type: object
+      required:
+      - registrationPlate
+      title: VehicleUpdateRegistration
     VehicleConfig:
       properties:
         exteriorColor:
@@ -552,65 +495,6 @@ components:
       - consentId
       - accountId
       title: VehicleMetaData
-    Option:
-      properties:
-        code:
-          type: string
-          title: Code
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - code
-      title: Option
-    VehicleSpecifications:
-      properties:
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-        make:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Make
-        modelYear:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Modelyear
-        batteryCapacity:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Batterycapacity
-        batteryCapacityNet:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Batterycapacitynet
-        standardEvr:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Standardevr
-        allElectricRange:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Allelectricrange
-        allElectricRangeMin:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Allelectricrangemin
-      type: object
-      title: VehicleSpecifications
-      description: Vehicle specifications schema
     Page_Vehicle_:
       properties:
         results:
@@ -635,6 +519,117 @@ components:
       - nextPageToken
       - totalResults
       title: Page[Vehicle]
+    Option:
+      properties:
+        code:
+          type: string
+          title: Code
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - code
+      title: Option
+    Vehicle:
+      properties:
+        make:
+          type: string
+          title: Make
+          description: Manufacturer of the vehicle.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Subcategory of the make, used to differentiate between different variations of a vehicle within the same make.
+        trim:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trim
+          description: Subcategory of the model, used to differentiate between different variations of a vehicle within the same model. Also referred to as version or generation.
+        modelYear:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Modelyear
+          description: Year the vehicle model was released. Could be different than the year the vehicle was manufactured.
+        vin:
+          type: string
+          title: Vin
+          description: Vehicle identification number. Unique identifier for the vehicle.
+        registrationPlate:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Registrationplate
+          description: Plate that is attached to a vehicle and displays a unique combination of letters and numbers assigned to the vehicle by a government agency. Also referred to as license plate or registration number.
+        isRegNoValidated:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Isregnovalidated
+          description: Indicates whether the registration plate has been validated
+        regNoValidatedAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Regnovalidatedat
+          description: Timestamp of when the registration plate was last validated
+        id:
+          type: string
+          title: Id
+          description: Unique internal identifier for the vehicle.
+        metadata:
+          $ref: '#/components/schemas/VehicleMetaData'
+          description: Additional information about the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Indicates whether the vehicle is currently accepting data ingestion and commands. Defaults to True when no listening state entries have been recorded.
+          default: true
+        listeningLastUpdated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Listeninglastupdated
+          description: UTC timestamp for the most recent listening-state update, or null when no entries exist.
+        connectionStatus:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connectionstatus
+          description: Connection status of the vehicle (e.g. CONNECTED, PENDING_CONNECTION, DISCONNECTED).
+        connectionErrorCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connectionerrorcode
+          description: Error code if the vehicle has a connection issue.
+        connectionErrorMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connectionerrormessage
+          description: Human-readable error message for connection issues.
+        actionCategory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Actioncategory
+          description: 'Who must act on the connection error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW.'
+      type: object
+      required:
+      - make
+      - vin
+      - id
+      - metadata
+      title: Vehicle
   securitySchemes:
     HTTPBasic:
       type: http

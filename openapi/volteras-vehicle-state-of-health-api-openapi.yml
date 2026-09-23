@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VOLTERAS CONNECT Accounts Vehicle State of Health API
+  title: VOLTERAS CONNECT Vehicle State of Health API
   version: 0.1.0
 servers:
 - url: https://api.volteras.com
@@ -57,11 +57,10 @@ paths:
 
         - This endpoint is reliant on the availability of the trim of the vehicle and supports certain OEMs.
 
-        Please see [state of health](/overview/state-of-health#supported-oems) for a list of supported OEMs
+        Please see state of health for a list of supported OEMs
 
 
-
-        Possible Codes in Error Response (see [Errors](https://docs.volteras.com/api-reference/errors) for error response schema and meaning of codes):
+        Possible Codes in Error Response (see Errors for error response schema and meaning of codes):
 
 
         - AUTHENTICATION_ERROR
@@ -95,25 +94,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    BatteryCapacity:
-      properties:
-        nominal:
-          anyOf:
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          - type: 'null'
-          title: Nominal
-        real:
-          anyOf:
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          - type: 'null'
-          title: Real
-      type: object
-      required:
-      - nominal
-      - real
-      title: BatteryCapacity
     VehicleStateOfHealth:
       properties:
         vehicleId:
@@ -138,6 +118,25 @@ components:
       - stateOfHealth
       - batteryCapacity
       title: VehicleStateOfHealth
+    BatteryCapacity:
+      properties:
+        nominal:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Nominal
+        real:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Real
+      type: object
+      required:
+      - nominal
+      - real
+      title: BatteryCapacity
   securitySchemes:
     HTTPBasic:
       type: http
