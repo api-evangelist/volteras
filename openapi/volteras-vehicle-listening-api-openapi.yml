@@ -178,37 +178,6 @@ paths:
       - PAGE_SIZE_TOO_LARGE
 components:
   schemas:
-    VehicleListeningRequest:
-      properties:
-        isListening:
-          type: boolean
-          title: Islistening
-          description: Indicates whether the vehicle should be marked as listening for data.
-      type: object
-      required:
-      - isListening
-      title: VehicleListeningRequest
-    VehicleListeningResponse:
-      properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-          description: Unique identifier of the vehicle.
-        isListening:
-          type: boolean
-          title: Islistening
-          description: Reflects the requested listening state.
-        lastUpdated:
-          type: string
-          format: date-time
-          title: Lastupdated
-          description: Timestamp (UTC) representing when the listening state was last updated.
-      type: object
-      required:
-      - vehicleId
-      - isListening
-      - lastUpdated
-      title: VehicleListeningResponse
     Page_VehicleListeningAuditEntry_:
       properties:
         results:
@@ -254,6 +223,37 @@ components:
       - isListening
       - timestamp
       title: VehicleListeningAuditEntry
+    VehicleListeningResponse:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier of the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Reflects the requested listening state.
+        lastUpdated:
+          type: string
+          format: date-time
+          title: Lastupdated
+          description: Timestamp (UTC) representing when the listening state was last updated.
+      type: object
+      required:
+      - vehicleId
+      - isListening
+      - lastUpdated
+      title: VehicleListeningResponse
+    VehicleListeningRequest:
+      properties:
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Indicates whether the vehicle should be marked as listening for data.
+      type: object
+      required:
+      - isListening
+      title: VehicleListeningRequest
   securitySchemes:
     HTTPBasic:
       type: http

@@ -311,82 +311,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    VehicleSpecifications:
-      properties:
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-        make:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Make
-        modelYear:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Modelyear
-        batteryCapacity:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Batterycapacity
-        batteryCapacityNet:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Batterycapacitynet
-        standardEvr:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Standardevr
-        allElectricRange:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Allelectricrange
-        allElectricRangeMin:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Allelectricrangemin
-      type: object
-      title: VehicleSpecifications
-      description: Vehicle specifications schema
-    VehicleOptions:
-      properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-        vehicleConfig:
-          $ref: '#/components/schemas/VehicleConfig'
-        options:
-          items:
-            $ref: '#/components/schemas/Option'
-          type: array
-          title: Options
-      type: object
-      required:
-      - vehicleId
-      - vehicleConfig
-      - options
-      title: VehicleOptions
-    VehicleUpdateRegistration:
-      properties:
-        registrationPlate:
-          anyOf:
-          - type: string
-            maxLength: 50
-            minLength: 1
-          - type: 'null'
-          title: Registrationplate
-      type: object
-      required:
-      - registrationPlate
-      title: VehicleUpdateRegistration
     VehicleConfig:
       properties:
         exteriorColor:
@@ -461,40 +385,6 @@ components:
           title: Wheeltype
       type: object
       title: VehicleConfig
-    VehicleMetaData:
-      properties:
-        lastSeenAt:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Lastseenat
-          description: 'The last recorded interaction with the vehicle endpoints. This is a timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
-        consentId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Consentid
-          description: Unique identifier for the consent that was used to retrieve the vehicle data.
-        accountId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Accountid
-          description: Unique identifier for the account that was used to retrieve the vehicle data.
-        registrationDate:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Registrationdate
-          description: Vehicle registration date (ISO 8601, day granularity). Captured at vehicle upload; used as the date-axis baseline for service-interval alerts.
-      type: object
-      required:
-      - lastSeenAt
-      - consentId
-      - accountId
-      title: VehicleMetaData
     Page_Vehicle_:
       properties:
         results:
@@ -519,20 +409,64 @@ components:
       - nextPageToken
       - totalResults
       title: Page[Vehicle]
-    Option:
+    VehicleUpdateRegistration:
       properties:
-        code:
-          type: string
-          title: Code
-        description:
+        registrationPlate:
+          anyOf:
+          - type: string
+            maxLength: 50
+            minLength: 1
+          - type: 'null'
+          title: Registrationplate
+      type: object
+      required:
+      - registrationPlate
+      title: VehicleUpdateRegistration
+    VehicleSpecifications:
+      properties:
+        model:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
+          title: Model
+        make:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Make
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+        batteryCapacity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacity
+        batteryCapacityNet:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacitynet
+        standardEvr:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Standardevr
+        allElectricRange:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Allelectricrange
+        allElectricRangeMin:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Allelectricrangemin
       type: object
-      required:
-      - code
-      title: Option
+      title: VehicleSpecifications
+      description: Vehicle specifications schema
     Vehicle:
       properties:
         make:
@@ -630,6 +564,72 @@ components:
       - id
       - metadata
       title: Vehicle
+    Option:
+      properties:
+        code:
+          type: string
+          title: Code
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - code
+      title: Option
+    VehicleMetaData:
+      properties:
+        lastSeenAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Lastseenat
+          description: 'The last recorded interaction with the vehicle endpoints. This is a timestamp in ISO 8601 format: YYYY-MM-DDThh:mm:ssTZD.'
+        consentId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Consentid
+          description: Unique identifier for the consent that was used to retrieve the vehicle data.
+        accountId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accountid
+          description: Unique identifier for the account that was used to retrieve the vehicle data.
+        registrationDate:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Registrationdate
+          description: Vehicle registration date (ISO 8601, day granularity). Captured at vehicle upload; used as the date-axis baseline for service-interval alerts.
+      type: object
+      required:
+      - lastSeenAt
+      - consentId
+      - accountId
+      title: VehicleMetaData
+    VehicleOptions:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+        vehicleConfig:
+          $ref: '#/components/schemas/VehicleConfig'
+        options:
+          items:
+            $ref: '#/components/schemas/Option'
+          type: array
+          title: Options
+      type: object
+      required:
+      - vehicleId
+      - vehicleConfig
+      - options
+      title: VehicleOptions
   securitySchemes:
     HTTPBasic:
       type: http

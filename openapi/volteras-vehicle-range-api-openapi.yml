@@ -109,15 +109,6 @@ components:
       - calculationDate
       - range
       title: VehicleRange
-    VehicleRangeStandardEnum:
-      type: string
-      enum:
-      - WLTP
-      - NEDC
-      - EPA
-      - UNKNOWN
-      title: VehicleRangeStandardEnum
-      description: Enum for standards applied to vehicle
     RangeDetail:
       properties:
         real:
@@ -162,6 +153,15 @@ components:
       - nominal
       - score
       title: RangeDetail
+    VehicleRangeStandardEnum:
+      type: string
+      enum:
+      - WLTP
+      - NEDC
+      - EPA
+      - UNKNOWN
+      title: VehicleRangeStandardEnum
+      description: Enum for standards applied to vehicle
   securitySchemes:
     HTTPBasic:
       type: http

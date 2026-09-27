@@ -202,17 +202,24 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    APIVehicleUploadStatus:
-      type: string
-      enum:
-      - CONNECTED
-      - PROCESSING
-      - PENDING
-      - CONNECTION_REQUIRED
-      - INCOMPATIBLE
-      - ERROR
-      title: APIVehicleUploadStatus
-      description: Status of a vehicle connection attempt.
+    BulkConnectStatusResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkConnectStatusResponse
+      description: Response for /connect/results/{id} endpoint
     BulkConnectVehicleRequest:
       properties:
         vehicles:
@@ -241,6 +248,159 @@ components:
           default: 0
       type: object
       title: PageResults[VehicleInputResponse]
+    VehicleInputResponse:
+      properties:
+        vehicleId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vehicleid
+          description: Vehicle ID of the connected vehicle. This will only be set if the vehicle was connected successfully
+        vehicleInputId:
+          type: string
+          title: Vehicleinputid
+          description: ID of the vehicle input (IE this specific attempt for the VIN upload).
+        status:
+          $ref: '#/components/schemas/APIVehicleUploadStatus'
+          description: 'Status of the vehicle connection attempt.
+
+            - `CONNECTED`: The vehicle was successfully connected.
+
+            - `PROCESSING`: The VIN is queued and waiting to be processed by the platform.
+
+            - `PENDING`: The VIN has been ingested and is being connected. Check the message field for any required actions (e.g. vehicle must be driven to complete connection).
+
+            - `CONNECTION_REQUIRED`: The vehicle owner needs to authenticate via our consent flow to complete the connection.
+
+            - `INCOMPATIBLE`: The VIN is not compatible with the OEM''s connected vehicle platform.
+
+            - `ERROR`: The connection failed — check the errors field for details.'
+        message:
+          type: string
+          title: Message
+          description: Message for the response.
+        errors:
+          items:
+            $ref: '#/components/schemas/VehicleInputResponseError'
+          type: array
+          title: Errors
+          description: Errors for the response, if any were raised
+          default: []
+        canRetry:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Canretry
+          description: Whether the client can retry the upload on error.
+        vin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Vin
+          description: The VIN
+        make:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Make
+          description: The vehicle make
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The vehicle model
+        countryCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countrycode
+          description: ISO two-character country code of the vehicle captured during upload, if provided.
+        registrationPlate:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Registrationplate
+          description: Vehicle registration plate captured during upload, if provided.
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+          description: Vehicle model year captured during upload, if provided.
+        registrationDate:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Registrationdate
+          description: Vehicle registration date captured during upload, if provided.
+        owners:
+          items:
+            type: string
+          type: array
+          title: Owners
+          description: Owner identifiers (emails or group names) captured during upload.
+        tags:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          title: Tags
+          description: Tags provided during the upload.
+        wasAlreadyConnected:
+          type: boolean
+          title: Wasalreadyconnected
+          description: True when this row landed on a vehicle that was already enrolled — i.e. a re-upload that updated existing tags/owners/etc. False for a fresh enrolment. Always false unless the row completed successfully on an existing vehicle.
+          default: false
+      type: object
+      required:
+      - vehicleInputId
+      - status
+      - message
+      title: VehicleInputResponse
+    VehicleInputResponseError:
+      properties:
+        code:
+          type: string
+          enum:
+          - OEM_INCORRECT_REGION
+          - OEM_VEHICLE_OFFLINE
+          - OEM_VEHICLE_REMOTE_ACCESS_DISABLED
+          - OEM_VEHICLE_DATA_SHARING_DISABLED
+          - FLEET_CONSENT_MISSING
+          - OEM_AUTH_DRIVER_IS_NOT_PRIMARY_USER
+          - OEM_DEVICE_NOT_FOUND
+          - OEM_VEHICLE_NOT_COMPATIBLE
+          - OEM_VEHICLE_UPDATE_REQUIRED
+          - DEVICE_LIMIT_REACHED
+          - NOT_PERMITTED
+          - VIN_UPLOAD_INVALID_FORMAT
+          - INVALID_VIN
+          - VIN_CHECK_NOT_SUPPORTED
+          - VEHICLE_ALREADY_ADDED_TO_ORGANIZATION
+          - VEHICLE_ALREADY_ADDED_CONNECTION_REQUIRED
+          - VEHICLE_ALREADY_ADDED_INCOMPATIBLE
+          - VEHICLE_ALREADY_ADDED_PENDING_CONNECTION
+          - VIN_UPLOAD_NOT_SUPPORTED
+          - VIN_BLACKLISTED
+          - SUBJECTS_NOT_ASSIGNABLE
+          title: Code
+          description: Error code
+        message:
+          type: string
+          title: Message
+          description: Error message
+        actionCategory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Actioncategory
+          description: 'Category indicating who must act on this error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW'
+      type: object
+      required:
+      - code
+      - message
+      title: VehicleInputResponseError
     ConnectVehicleRequest:
       properties:
         vin:
@@ -354,57 +514,6 @@ components:
       - make
       title: ConnectVehicleRequest
       description: Request model to connect a single VIN
-    VehicleInputGroupStatusEnum:
-      type: string
-      enum:
-      - CREATED
-      - PROCESSING
-      - COMPLETED
-      - FAILED
-      title: VehicleInputGroupStatusEnum
-    VehicleInputResponseError:
-      properties:
-        code:
-          type: string
-          enum:
-          - OEM_INCORRECT_REGION
-          - OEM_VEHICLE_OFFLINE
-          - OEM_VEHICLE_REMOTE_ACCESS_DISABLED
-          - OEM_VEHICLE_DATA_SHARING_DISABLED
-          - FLEET_CONSENT_MISSING
-          - OEM_AUTH_DRIVER_IS_NOT_PRIMARY_USER
-          - OEM_DEVICE_NOT_FOUND
-          - OEM_VEHICLE_NOT_COMPATIBLE
-          - OEM_VEHICLE_UPDATE_REQUIRED
-          - DEVICE_LIMIT_REACHED
-          - NOT_PERMITTED
-          - VIN_UPLOAD_INVALID_FORMAT
-          - INVALID_VIN
-          - VIN_CHECK_NOT_SUPPORTED
-          - VEHICLE_ALREADY_ADDED_TO_ORGANIZATION
-          - VEHICLE_ALREADY_ADDED_CONNECTION_REQUIRED
-          - VEHICLE_ALREADY_ADDED_INCOMPATIBLE
-          - VEHICLE_ALREADY_ADDED_PENDING_CONNECTION
-          - VIN_UPLOAD_NOT_SUPPORTED
-          - VIN_BLACKLISTED
-          - SUBJECTS_NOT_ASSIGNABLE
-          title: Code
-          description: Error code
-        message:
-          type: string
-          title: Message
-          description: Error message
-        actionCategory:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Actioncategory
-          description: 'Category indicating who must act on this error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW'
-      type: object
-      required:
-      - code
-      - message
-      title: VehicleInputResponseError
     BulkConnectVehicleResponse:
       properties:
         id:
@@ -423,134 +532,25 @@ components:
       - createdAt
       title: BulkConnectVehicleResponse
       description: Response for async bulk vehicle upload endpoint on connect-api
-    VehicleInputResponse:
-      properties:
-        vehicleId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Vehicleid
-          description: Vehicle ID of the connected vehicle. This will only be set if the vehicle was connected successfully
-        vehicleInputId:
-          type: string
-          title: Vehicleinputid
-          description: ID of the vehicle input (IE this specific attempt for the VIN upload).
-        status:
-          $ref: '#/components/schemas/APIVehicleUploadStatus'
-          description: 'Status of the vehicle connection attempt.
-
-            - `CONNECTED`: The vehicle was successfully connected.
-
-            - `PROCESSING`: The VIN is queued and waiting to be processed by the platform.
-
-            - `PENDING`: The VIN has been ingested and is being connected. Check the message field for any required actions (e.g. vehicle must be driven to complete connection).
-
-            - `CONNECTION_REQUIRED`: The vehicle owner needs to authenticate via our consent flow to complete the connection.
-
-            - `INCOMPATIBLE`: The VIN is not compatible with the OEM''s connected vehicle platform.
-
-            - `ERROR`: The connection failed — check the errors field for details.'
-        message:
-          type: string
-          title: Message
-          description: Message for the response.
-        errors:
-          items:
-            $ref: '#/components/schemas/VehicleInputResponseError'
-          type: array
-          title: Errors
-          description: Errors for the response, if any were raised
-          default: []
-        canRetry:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Canretry
-          description: Whether the client can retry the upload on error.
-        vin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Vin
-          description: The VIN
-        make:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Make
-          description: The vehicle make
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: The vehicle model
-        countryCode:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Countrycode
-          description: ISO two-character country code of the vehicle captured during upload, if provided.
-        registrationPlate:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Registrationplate
-          description: Vehicle registration plate captured during upload, if provided.
-        modelYear:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Modelyear
-          description: Vehicle model year captured during upload, if provided.
-        registrationDate:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Registrationdate
-          description: Vehicle registration date captured during upload, if provided.
-        owners:
-          items:
-            type: string
-          type: array
-          title: Owners
-          description: Owner identifiers (emails or group names) captured during upload.
-        tags:
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-          title: Tags
-          description: Tags provided during the upload.
-        wasAlreadyConnected:
-          type: boolean
-          title: Wasalreadyconnected
-          description: True when this row landed on a vehicle that was already enrolled — i.e. a re-upload that updated existing tags/owners/etc. False for a fresh enrolment. Always false unless the row completed successfully on an existing vehicle.
-          default: false
-      type: object
-      required:
-      - vehicleInputId
-      - status
-      - message
-      title: VehicleInputResponse
-    BulkConnectStatusResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-      type: object
-      required:
-      - id
-      - status
-      - createdAt
-      title: BulkConnectStatusResponse
-      description: Response for /connect/results/{id} endpoint
+    APIVehicleUploadStatus:
+      type: string
+      enum:
+      - CONNECTED
+      - PROCESSING
+      - PENDING
+      - CONNECTION_REQUIRED
+      - INCOMPATIBLE
+      - ERROR
+      title: APIVehicleUploadStatus
+      description: Status of a vehicle connection attempt.
+    VehicleInputGroupStatusEnum:
+      type: string
+      enum:
+      - CREATED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      title: VehicleInputGroupStatusEnum
     Tag:
       properties:
         key:

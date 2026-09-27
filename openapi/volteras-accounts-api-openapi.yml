@@ -219,6 +219,41 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
+    OEMRegion:
+      type: string
+      enum:
+      - NORTH_AMERICA
+      - EUROPE
+      title: OEMRegion
+    Page_OEMAccount_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/OEMAccount'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[OEMAccount]
+    ConsentFlowIntegration:
+      type: string
+      enum:
+      - BMW_ENERGY_API
+      title: ConsentFlowIntegration
     DeviceTypeEnum:
       type: string
       enum:
@@ -229,17 +264,90 @@ components:
       - HEAT_PUMP
       title: DeviceTypeEnum
       description: All supported device types
-    ConsentFlowIntegration:
+    MakeEnum:
       type: string
       enum:
-      - BMW_ENERGY_API
-      title: ConsentFlowIntegration
-    OEMRegion:
+      - ABARTH
+      - ALFA ROMEO
+      - AUDI
+      - BMW
+      - CHRYSLER
+      - CITROEN
+      - CUPRA
+      - DODGE
+      - DS AUTOMOBILES
+      - FIAT
+      - FORD
+      - HYUNDAI
+      - JEEP
+      - KIA
+      - LANCIA
+      - LEXUS
+      - MASERATI
+      - MERCEDES BENZ
+      - MINI
+      - NISSAN
+      - OPEL
+      - PEUGEOT
+      - POLESTAR
+      - RAM
+      - RENAULT
+      - SEAT
+      - SKODA
+      - TESLA
+      - TOYOTA
+      - VAUXHALL
+      - VOLKSWAGEN
+      - VOLVO
+      title: MakeEnum
+      description: "Implemented makes enum.\n\nInput normalization and aliases are handled via `from_input` / `_missing_`, so values like\n\"Mercedes\", \"MERCEDES-BENZ\", or \"MERCEDES_BENZ\" resolve to the canonical enum.\n\nOpenAPI exposure is filtered/normalized in `__get_pydantic_json_schema__`.\n\nWhen updating this enum you should also consider updating the public docs:\n    docs/public/connect-api/tools/mintlify/overview/supported-oems.mdx"
+    AccountConnect:
+      properties:
+        authenticationUrl:
+          type: string
+          title: Authenticationurl
+          description: The URL to redirect the user to for authentication through the connect flow.
+      type: object
+      required:
+      - authenticationUrl
+      title: AccountConnect
+    ScopeEnum:
       type: string
       enum:
-      - NORTH_AMERICA
-      - EUROPE
-      title: OEMRegion
+      - vehicle:all
+      - vehicle:charging_history
+      - vehicle:driving_behavior
+      - vehicle:location_history
+      - vehicle:telemetry
+      - vehicle:information
+      - vehicle:commands
+      - battery:all
+      - battery:telemetry
+      - geofences:all
+      - geofences:read
+      - geofences:write
+      title: ScopeEnum
+    ConsentFlowLocales:
+      type: string
+      enum:
+      - en-GB
+      - de-DE
+      - fr-FR
+      - nl-NL
+      title: ConsentFlowLocales
+    OEMAccount:
+      properties:
+        id:
+          type: string
+          title: Id
+        username:
+          type: string
+          title: Username
+      type: object
+      required:
+      - id
+      - username
+      title: OEMAccount
     AccountConnectPayload:
       properties:
         returnUrl:
@@ -341,114 +449,6 @@ components:
       - scopes
       - deviceTypes
       title: AccountConnectPayload
-    OEMAccount:
-      properties:
-        id:
-          type: string
-          title: Id
-        username:
-          type: string
-          title: Username
-      type: object
-      required:
-      - id
-      - username
-      title: OEMAccount
-    AccountConnect:
-      properties:
-        authenticationUrl:
-          type: string
-          title: Authenticationurl
-          description: The URL to redirect the user to for authentication through the connect flow.
-      type: object
-      required:
-      - authenticationUrl
-      title: AccountConnect
-    Page_OEMAccount_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/OEMAccount'
-          type: array
-          title: Results
-          description: Returned data from the listing query.
-        nextPageToken:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next page token
-          description: Next page token used for pagination.
-        totalResults:
-          type: integer
-          title: Total results
-          description: Total result count.
-      type: object
-      required:
-      - results
-      - nextPageToken
-      - totalResults
-      title: Page[OEMAccount]
-    ConsentFlowLocales:
-      type: string
-      enum:
-      - en-GB
-      - de-DE
-      - fr-FR
-      - nl-NL
-      title: ConsentFlowLocales
-    MakeEnum:
-      type: string
-      enum:
-      - ABARTH
-      - ALFA ROMEO
-      - AUDI
-      - BMW
-      - CHRYSLER
-      - CITROEN
-      - CUPRA
-      - DODGE
-      - DS AUTOMOBILES
-      - FIAT
-      - FORD
-      - HYUNDAI
-      - JEEP
-      - KIA
-      - LANCIA
-      - LEXUS
-      - MASERATI
-      - MERCEDES BENZ
-      - MINI
-      - NISSAN
-      - OPEL
-      - PEUGEOT
-      - POLESTAR
-      - RAM
-      - RENAULT
-      - SEAT
-      - SKODA
-      - TESLA
-      - TOYOTA
-      - VAUXHALL
-      - VOLKSWAGEN
-      - VOLVO
-      title: MakeEnum
-      description: "Implemented makes enum.\n\nInput normalization and aliases are handled via `from_input` / `_missing_`, so values like\n\"Mercedes\", \"MERCEDES-BENZ\", or \"MERCEDES_BENZ\" resolve to the canonical enum.\n\nOpenAPI exposure is filtered/normalized in `__get_pydantic_json_schema__`.\n\nWhen updating this enum you should also consider updating the public docs:\n    docs/public/connect-api/tools/mintlify/overview/supported-oems.mdx"
-    ScopeEnum:
-      type: string
-      enum:
-      - vehicle:all
-      - vehicle:charging_history
-      - vehicle:driving_behavior
-      - vehicle:location_history
-      - vehicle:telemetry
-      - vehicle:information
-      - vehicle:commands
-      - battery:all
-      - battery:telemetry
-      - geofences:all
-      - geofences:read
-      - geofences:write
-      title: ScopeEnum
   securitySchemes:
     HTTPBasic:
       type: http

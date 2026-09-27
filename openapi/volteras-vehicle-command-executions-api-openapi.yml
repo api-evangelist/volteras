@@ -1027,6 +1027,15 @@ paths:
       - COMMAND_ALREADY_IN_PROGRESS
 components:
   schemas:
+    SetChargeLimitPayload:
+      properties:
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - limit
+      title: SetChargeLimitPayload
     VehicleCommandEnum:
       type: string
       enum:
@@ -1053,6 +1062,27 @@ components:
       - WINDOW_HEATING_OFF
       title: VehicleCommandEnum
       description: Enum for available commands.
+    OEMDeviceCommandExecutionStatus:
+      type: string
+      enum:
+      - PENDING
+      - EXECUTED
+      - FAILED
+      title: OEMDeviceCommandExecutionStatus
+      description: Enum for command execution status.
+    SetTemperaturePayload:
+      properties:
+        driverTemperature:
+          type: number
+          title: Drivertemperature
+        passengerTemperature:
+          type: number
+          title: Passengertemperature
+      type: object
+      required:
+      - driverTemperature
+      - passengerTemperature
+      title: SetTemperaturePayload
     VehicleCommandExecution:
       properties:
         id:
@@ -1158,36 +1188,6 @@ components:
       - nextPageToken
       - totalResults
       title: Page[VehicleCommandExecution]
-    SetTemperaturePayload:
-      properties:
-        driverTemperature:
-          type: number
-          title: Drivertemperature
-        passengerTemperature:
-          type: number
-          title: Passengertemperature
-      type: object
-      required:
-      - driverTemperature
-      - passengerTemperature
-      title: SetTemperaturePayload
-    SetChargeLimitPayload:
-      properties:
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - limit
-      title: SetChargeLimitPayload
-    OEMDeviceCommandExecutionStatus:
-      type: string
-      enum:
-      - PENDING
-      - EXECUTED
-      - FAILED
-      title: OEMDeviceCommandExecutionStatus
-      description: Enum for command execution status.
   securitySchemes:
     HTTPBasic:
       type: http

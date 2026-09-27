@@ -67,26 +67,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    VehicleServices:
-      properties:
-        services:
-          items:
-            $ref: '#/components/schemas/VehicleService'
-          type: array
-          title: Services
-      type: object
-      required:
-      - services
-      title: VehicleServices
-      description: Service data for a vehicle and its components
-    ServiceType:
-      type: string
-      enum:
-      - FULL_SERVICE
-      - HEALTH_CHECK
-      - STATUTORY
-      - OIL_CHANGE
-      title: ServiceType
     VehicleService:
       properties:
         component:
@@ -204,6 +184,26 @@ components:
       - CHARGING_COUPLER
       - TRAILER
       title: AffectedComponent
+    ServiceType:
+      type: string
+      enum:
+      - FULL_SERVICE
+      - HEALTH_CHECK
+      - STATUTORY
+      - OIL_CHANGE
+      title: ServiceType
+    VehicleServices:
+      properties:
+        services:
+          items:
+            $ref: '#/components/schemas/VehicleService'
+          type: array
+          title: Services
+      type: object
+      required:
+      - services
+      title: VehicleServices
+      description: Service data for a vehicle and its components
     ServiceStatus:
       type: string
       enum:

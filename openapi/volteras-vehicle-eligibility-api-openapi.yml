@@ -108,6 +108,64 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
+    PageResults_SingleEligibilityResult_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SingleEligibilityResult'
+          type: array
+          title: Results
+          default: []
+        totalResults:
+          type: integer
+          title: Totalresults
+          default: 0
+      type: object
+      title: PageResults[SingleEligibilityResult]
+    EligibilityVinEntryStatusEnum:
+      type: string
+      enum:
+      - NOT_SUPPORTED
+      - VALIDATION_ERROR
+      - PENDING
+      - SUBMITTED
+      - INELIGIBLE_PENDING_FAILURE_REASON
+      - ELIGIBLE
+      - INELIGIBLE
+      - FAILED
+      title: EligibilityVinEntryStatusEnum
+    BulkVinEligibilityRequest:
+      properties:
+        vins:
+          items:
+            $ref: '#/components/schemas/SingleEligibilityEntry'
+          type: array
+          maxItems: 500
+          minItems: 1
+          title: Vins
+          description: List of vehicle identification numbers. Each VIN must be a 17-character alphanumeric string.
+      type: object
+      required:
+      - vins
+      title: BulkVinEligibilityRequest
+    BulkVinEligibilityResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkVinEligibilityResponse
+      description: Response for async bulk eligibility request on connect-api
     EligibilityUploadStatusEnum:
       type: string
       enum:
@@ -174,64 +232,6 @@ components:
       required:
       - countryCode
       title: SingleEligibilityEntry
-    BulkVinEligibilityRequest:
-      properties:
-        vins:
-          items:
-            $ref: '#/components/schemas/SingleEligibilityEntry'
-          type: array
-          maxItems: 500
-          minItems: 1
-          title: Vins
-          description: List of vehicle identification numbers. Each VIN must be a 17-character alphanumeric string.
-      type: object
-      required:
-      - vins
-      title: BulkVinEligibilityRequest
-    BulkVinEligibilityResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-      type: object
-      required:
-      - id
-      - status
-      - createdAt
-      title: BulkVinEligibilityResponse
-      description: Response for async bulk eligibility request on connect-api
-    PageResults_SingleEligibilityResult_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/SingleEligibilityResult'
-          type: array
-          title: Results
-          default: []
-        totalResults:
-          type: integer
-          title: Totalresults
-          default: 0
-      type: object
-      title: PageResults[SingleEligibilityResult]
-    EligibilityVinEntryStatusEnum:
-      type: string
-      enum:
-      - NOT_SUPPORTED
-      - VALIDATION_ERROR
-      - PENDING
-      - SUBMITTED
-      - INELIGIBLE_PENDING_FAILURE_REASON
-      - ELIGIBLE
-      - INELIGIBLE
-      - FAILED
-      title: EligibilityVinEntryStatusEnum
     SingleEligibilityResult:
       properties:
         rowId:

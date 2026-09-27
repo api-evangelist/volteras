@@ -52,110 +52,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    OEMAlert:
-      properties:
-        status:
-          $ref: '#/components/schemas/OEMAlertStatus'
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        oemCode:
-          type: string
-          title: Oemcode
-        oemMessage:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Oemmessage
-        mappedMessage:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mappedmessage
-        oemMetadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Oemmetadata
-        affectedComponent:
-          anyOf:
-          - $ref: '#/components/schemas/AffectedComponent'
-          - type: string
-          - type: 'null'
-          title: Affectedcomponent
-        recommendedAction:
-          anyOf:
-          - $ref: '#/components/schemas/OEMAlertAction'
-          - type: string
-          - type: 'null'
-          title: Recommendedaction
-        type:
-          anyOf:
-          - $ref: '#/components/schemas/OEMAlertType'
-          - type: string
-          - type: 'null'
-          title: Type
-        mappedCode:
-          anyOf:
-          - $ref: '#/components/schemas/MappedCode'
-          - type: string
-          - type: 'null'
-          title: Mappedcode
-        severity:
-          anyOf:
-          - $ref: '#/components/schemas/OEMAlertSeverity'
-          - type: 'null'
-      type: object
-      required:
-      - status
-      - timestamp
-      - oemCode
-      title: OEMAlert
-    OEMAlertAction:
-      type: string
-      enum:
-      - DO_NOT_DRIVE
-      - SERVICE_REQUIRED
-      - COMPLETE_ROUTINE_MAINTENANCE
-      - SERVICE_IF_ALERT_PERSISTS
-      - SHUT_DOORS
-      - SHUT_TRUNK
-      - CHECK_VEHICLE_SECURE
-      - COORDINATE_RETRIEVAL
-      - CHARGE_CAR
-      - REFUEL
-      - FASTEN_SEATBELTS
-      - SET_CLOCK
-      - SWITCH_IGNITION_ON
-      - SWITCH_ENGINE_ON
-      - DEPRESS_BRAKE
-      - DEPRESS_CLUTCH
-      - TURN_STEERING_WHEEL
-      - REPLACE_KEY_BATTERY
-      - REPLACE_BULB
-      - CHECK_BATTERY_TERMINALS
-      - CHECK_BATTERY_CONDITION
-      title: OEMAlertAction
-    OEMAlerts:
-      properties:
-        alerts:
-          items:
-            $ref: '#/components/schemas/OEMAlert'
-          type: array
-          title: Alerts
-          default: []
-      type: object
-      title: OEMAlerts
-    OEMAlertSeverity:
-      type: string
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      - CRITICAL
-      title: OEMAlertSeverity
     AffectedComponent:
       type: string
       enum:
@@ -226,15 +122,6 @@ components:
       - CHARGING_COUPLER
       - TRAILER
       title: AffectedComponent
-    OEMAlertType:
-      type: string
-      enum:
-      - FAULT
-      - WARNING
-      - INFO
-      - ROUTINE_MAINTENANCE
-      - TEMPORARY_FAULT
-      title: OEMAlertType
     OEMAlertStatus:
       type: string
       enum:
@@ -242,6 +129,14 @@ components:
       - RESOLVED
       - UNKNOWN
       title: OEMAlertStatus
+    OEMAlertSeverity:
+      type: string
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      - CRITICAL
+      title: OEMAlertSeverity
     MappedCode:
       type: string
       enum:
@@ -410,6 +305,111 @@ components:
       - ODOMETER_FAILURE
       - GENERAL_MALFUNCTION
       title: MappedCode
+    OEMAlertAction:
+      type: string
+      enum:
+      - DO_NOT_DRIVE
+      - SERVICE_REQUIRED
+      - COMPLETE_ROUTINE_MAINTENANCE
+      - SERVICE_IF_ALERT_PERSISTS
+      - SHUT_DOORS
+      - SHUT_TRUNK
+      - CHECK_VEHICLE_SECURE
+      - COORDINATE_RETRIEVAL
+      - CHARGE_CAR
+      - REFUEL
+      - FASTEN_SEATBELTS
+      - SET_CLOCK
+      - SWITCH_IGNITION_ON
+      - SWITCH_ENGINE_ON
+      - DEPRESS_BRAKE
+      - DEPRESS_CLUTCH
+      - TURN_STEERING_WHEEL
+      - REPLACE_KEY_BATTERY
+      - REPLACE_BULB
+      - CHECK_BATTERY_TERMINALS
+      - CHECK_BATTERY_CONDITION
+      title: OEMAlertAction
+    OEMAlert:
+      properties:
+        status:
+          $ref: '#/components/schemas/OEMAlertStatus'
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        oemCode:
+          type: string
+          title: Oemcode
+        oemMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Oemmessage
+        mappedMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mappedmessage
+        oemMetadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Oemmetadata
+        affectedComponent:
+          anyOf:
+          - $ref: '#/components/schemas/AffectedComponent'
+          - type: string
+          - type: 'null'
+          title: Affectedcomponent
+        recommendedAction:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertAction'
+          - type: string
+          - type: 'null'
+          title: Recommendedaction
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertType'
+          - type: string
+          - type: 'null'
+          title: Type
+        mappedCode:
+          anyOf:
+          - $ref: '#/components/schemas/MappedCode'
+          - type: string
+          - type: 'null'
+          title: Mappedcode
+        severity:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertSeverity'
+          - type: 'null'
+      type: object
+      required:
+      - status
+      - timestamp
+      - oemCode
+      title: OEMAlert
+    OEMAlerts:
+      properties:
+        alerts:
+          items:
+            $ref: '#/components/schemas/OEMAlert'
+          type: array
+          title: Alerts
+          default: []
+      type: object
+      title: OEMAlerts
+    OEMAlertType:
+      type: string
+      enum:
+      - FAULT
+      - WARNING
+      - INFO
+      - ROUTINE_MAINTENANCE
+      - TEMPORARY_FAULT
+      title: OEMAlertType
   securitySchemes:
     HTTPBasic:
       type: http
