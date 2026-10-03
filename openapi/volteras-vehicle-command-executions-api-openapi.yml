@@ -1027,15 +1027,19 @@ paths:
       - COMMAND_ALREADY_IN_PROGRESS
 components:
   schemas:
-    SetChargeLimitPayload:
+    SetTemperaturePayload:
       properties:
-        limit:
-          type: integer
-          title: Limit
+        driverTemperature:
+          type: number
+          title: Drivertemperature
+        passengerTemperature:
+          type: number
+          title: Passengertemperature
       type: object
       required:
-      - limit
-      title: SetChargeLimitPayload
+      - driverTemperature
+      - passengerTemperature
+      title: SetTemperaturePayload
     VehicleCommandEnum:
       type: string
       enum:
@@ -1062,27 +1066,6 @@ components:
       - WINDOW_HEATING_OFF
       title: VehicleCommandEnum
       description: Enum for available commands.
-    OEMDeviceCommandExecutionStatus:
-      type: string
-      enum:
-      - PENDING
-      - EXECUTED
-      - FAILED
-      title: OEMDeviceCommandExecutionStatus
-      description: Enum for command execution status.
-    SetTemperaturePayload:
-      properties:
-        driverTemperature:
-          type: number
-          title: Drivertemperature
-        passengerTemperature:
-          type: number
-          title: Passengertemperature
-      type: object
-      required:
-      - driverTemperature
-      - passengerTemperature
-      title: SetTemperaturePayload
     VehicleCommandExecution:
       properties:
         id:
@@ -1164,6 +1147,23 @@ components:
       - vehicleId
       - command
       title: VehicleCommandExecution
+    OEMDeviceCommandExecutionStatus:
+      type: string
+      enum:
+      - PENDING
+      - EXECUTED
+      - FAILED
+      title: OEMDeviceCommandExecutionStatus
+      description: Enum for command execution status.
+    SetChargeLimitPayload:
+      properties:
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - limit
+      title: SetChargeLimitPayload
     Page_VehicleCommandExecution_:
       properties:
         results:

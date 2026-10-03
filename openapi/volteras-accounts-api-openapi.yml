@@ -219,12 +219,11 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    OEMRegion:
+    ConsentFlowIntegration:
       type: string
       enum:
-      - NORTH_AMERICA
-      - EUROPE
-      title: OEMRegion
+      - BMW_ENERGY_API
+      title: ConsentFlowIntegration
     Page_OEMAccount_:
       properties:
         results:
@@ -249,21 +248,6 @@ components:
       - nextPageToken
       - totalResults
       title: Page[OEMAccount]
-    ConsentFlowIntegration:
-      type: string
-      enum:
-      - BMW_ENERGY_API
-      title: ConsentFlowIntegration
-    DeviceTypeEnum:
-      type: string
-      enum:
-      - VEHICLE
-      - BATTERY
-      - CHARGER
-      - INVERTER
-      - HEAT_PUMP
-      title: DeviceTypeEnum
-      description: All supported device types
     MakeEnum:
       type: string
       enum:
@@ -301,6 +285,19 @@ components:
       - VOLVO
       title: MakeEnum
       description: "Implemented makes enum.\n\nInput normalization and aliases are handled via `from_input` / `_missing_`, so values like\n\"Mercedes\", \"MERCEDES-BENZ\", or \"MERCEDES_BENZ\" resolve to the canonical enum.\n\nOpenAPI exposure is filtered/normalized in `__get_pydantic_json_schema__`.\n\nWhen updating this enum you should also consider updating the public docs:\n    docs/public/connect-api/tools/mintlify/overview/supported-oems.mdx"
+    OEMAccount:
+      properties:
+        id:
+          type: string
+          title: Id
+        username:
+          type: string
+          title: Username
+      type: object
+      required:
+      - id
+      - username
+      title: OEMAccount
     AccountConnect:
       properties:
         authenticationUrl:
@@ -311,6 +308,16 @@ components:
       required:
       - authenticationUrl
       title: AccountConnect
+    DeviceTypeEnum:
+      type: string
+      enum:
+      - VEHICLE
+      - BATTERY
+      - CHARGER
+      - INVERTER
+      - HEAT_PUMP
+      title: DeviceTypeEnum
+      description: All supported device types
     ScopeEnum:
       type: string
       enum:
@@ -327,27 +334,12 @@ components:
       - geofences:read
       - geofences:write
       title: ScopeEnum
-    ConsentFlowLocales:
+    OEMRegion:
       type: string
       enum:
-      - en-GB
-      - de-DE
-      - fr-FR
-      - nl-NL
-      title: ConsentFlowLocales
-    OEMAccount:
-      properties:
-        id:
-          type: string
-          title: Id
-        username:
-          type: string
-          title: Username
-      type: object
-      required:
-      - id
-      - username
-      title: OEMAccount
+      - NORTH_AMERICA
+      - EUROPE
+      title: OEMRegion
     AccountConnectPayload:
       properties:
         returnUrl:
@@ -449,6 +441,14 @@ components:
       - scopes
       - deviceTypes
       title: AccountConnectPayload
+    ConsentFlowLocales:
+      type: string
+      enum:
+      - en-GB
+      - de-DE
+      - fr-FR
+      - nl-NL
+      title: ConsentFlowLocales
   securitySchemes:
     HTTPBasic:
       type: http

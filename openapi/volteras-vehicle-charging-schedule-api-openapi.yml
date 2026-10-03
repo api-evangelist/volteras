@@ -96,39 +96,6 @@ paths:
                 $ref: '#/components/schemas/VehicleChargingWindows'
 components:
   schemas:
-    VehicleChargingWindows:
-      properties:
-        chargingWindows:
-          items:
-            $ref: '#/components/schemas/ChargingWindow'
-          type: array
-          title: Chargingwindows
-      type: object
-      required:
-      - chargingWindows
-      title: VehicleChargingWindows
-    VehicleDepartureTimes:
-      properties:
-        departureTimes:
-          items:
-            $ref: '#/components/schemas/DepartureTime'
-          type: array
-          title: Departuretimes
-      type: object
-      required:
-      - departureTimes
-      title: VehicleDepartureTimes
-    Weekdays:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-      title: Weekdays
     DepartureTime:
       properties:
         hour:
@@ -154,6 +121,30 @@ components:
       - daysOfWeek
       - localTimeOffset
       title: DepartureTime
+    VehicleChargingWindows:
+      properties:
+        chargingWindows:
+          items:
+            $ref: '#/components/schemas/ChargingWindow'
+          type: array
+          title: Chargingwindows
+      type: object
+      required:
+      - chargingWindows
+      title: VehicleChargingWindows
+    LatLngValue:
+      properties:
+        longitude:
+          type: number
+          title: Longitude
+        latitude:
+          type: number
+          title: Latitude
+      type: object
+      required:
+      - longitude
+      - latitude
+      title: LatLngValue
     ChargingWindow:
       properties:
         startHour:
@@ -191,19 +182,28 @@ components:
       - daysOfWeek
       - localTimeOffset
       title: ChargingWindow
-    LatLngValue:
+    VehicleDepartureTimes:
       properties:
-        longitude:
-          type: number
-          title: Longitude
-        latitude:
-          type: number
-          title: Latitude
+        departureTimes:
+          items:
+            $ref: '#/components/schemas/DepartureTime'
+          type: array
+          title: Departuretimes
       type: object
       required:
-      - longitude
-      - latitude
-      title: LatLngValue
+      - departureTimes
+      title: VehicleDepartureTimes
+    Weekdays:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+      title: Weekdays
   securitySchemes:
     HTTPBasic:
       type: http

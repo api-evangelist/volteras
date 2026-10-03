@@ -108,20 +108,24 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    PageResults_SingleEligibilityResult_:
+    BulkVinEligibilityResponse:
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/SingleEligibilityResult'
-          type: array
-          title: Results
-          default: []
-        totalResults:
-          type: integer
-          title: Totalresults
-          default: 0
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
       type: object
-      title: PageResults[SingleEligibilityResult]
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkVinEligibilityResponse
+      description: Response for async bulk eligibility request on connect-api
     EligibilityVinEntryStatusEnum:
       type: string
       enum:
@@ -148,32 +152,6 @@ components:
       required:
       - vins
       title: BulkVinEligibilityRequest
-    BulkVinEligibilityResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-      type: object
-      required:
-      - id
-      - status
-      - createdAt
-      title: BulkVinEligibilityResponse
-      description: Response for async bulk eligibility request on connect-api
-    EligibilityUploadStatusEnum:
-      type: string
-      enum:
-      - CREATED
-      - PROCESSING
-      - COMPLETED
-      - FAILED
-      title: EligibilityUploadStatusEnum
     SingleEligibilityEntry:
       properties:
         vin:
@@ -300,6 +278,28 @@ components:
       - status
       title: SingleEligibilityResult
       description: Results for a single vin sent in the bulk eligibility request
+    EligibilityUploadStatusEnum:
+      type: string
+      enum:
+      - CREATED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      title: EligibilityUploadStatusEnum
+    PageResults_SingleEligibilityResult_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SingleEligibilityResult'
+          type: array
+          title: Results
+          default: []
+        totalResults:
+          type: integer
+          title: Totalresults
+          default: 0
+      type: object
+      title: PageResults[SingleEligibilityResult]
   securitySchemes:
     HTTPBasic:
       type: http

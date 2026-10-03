@@ -88,6 +88,15 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
+    VehicleRangeStandardEnum:
+      type: string
+      enum:
+      - WLTP
+      - NEDC
+      - EPA
+      - UNKNOWN
+      title: VehicleRangeStandardEnum
+      description: Enum for standards applied to vehicle
     connect_models__schemas__vehicle__vehicle_range__VehicleRange:
       properties:
         vehicleId:
@@ -153,15 +162,6 @@ components:
       - nominal
       - score
       title: RangeDetail
-    VehicleRangeStandardEnum:
-      type: string
-      enum:
-      - WLTP
-      - NEDC
-      - EPA
-      - UNKNOWN
-      title: VehicleRangeStandardEnum
-      description: Enum for standards applied to vehicle
   securitySchemes:
     HTTPBasic:
       type: http

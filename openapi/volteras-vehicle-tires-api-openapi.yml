@@ -80,6 +80,16 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
+    VehicleTiresList:
+      properties:
+        tires:
+          items:
+            $ref: '#/components/schemas/VehicleTiresFormatted'
+          type: array
+          title: Tires
+          default: []
+      type: object
+      title: VehicleTiresList
     VehicleTiresFormatted:
       properties:
         frontLeft:
@@ -110,16 +120,6 @@ components:
       - rearRight
       - bucket
       title: VehicleTiresFormatted
-    VehicleTiresList:
-      properties:
-        tires:
-          items:
-            $ref: '#/components/schemas/VehicleTiresFormatted'
-          type: array
-          title: Tires
-          default: []
-      type: object
-      title: VehicleTiresList
   securitySchemes:
     HTTPBasic:
       type: http

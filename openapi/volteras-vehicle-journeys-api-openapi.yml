@@ -112,6 +112,30 @@ paths:
       - PAGE_SIZE_TOO_LARGE
 components:
   schemas:
+    PageWithEstimatedTotalResults_VehicleJourneyResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleJourneyResponse'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        estimatedTotalResults:
+          type: integer
+          title: Estimated total results
+          description: Estimated total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - estimatedTotalResults
+      title: PageWithEstimatedTotalResults[VehicleJourneyResponse]
     VehicleJourneyResponse:
       properties:
         id:
@@ -224,30 +248,6 @@ components:
       - vin
       title: VehicleJourneyResponse
       description: Journey response schema for API
-    PageWithEstimatedTotalResults_VehicleJourneyResponse_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/VehicleJourneyResponse'
-          type: array
-          title: Results
-          description: Returned data from the listing query.
-        nextPageToken:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next page token
-          description: Next page token used for pagination.
-        estimatedTotalResults:
-          type: integer
-          title: Estimated total results
-          description: Estimated total result count.
-      type: object
-      required:
-      - results
-      - nextPageToken
-      - estimatedTotalResults
-      title: PageWithEstimatedTotalResults[VehicleJourneyResponse]
   securitySchemes:
     HTTPBasic:
       type: http

@@ -67,6 +67,22 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
+    ServiceStatus:
+      type: string
+      enum:
+      - PENDING
+      - NO_SERVICE_DUE
+      - IN_SERVICE
+      - NOT_IN_SERVICE_UNKNOWN_IF_DUE
+      title: ServiceStatus
+    ServiceType:
+      type: string
+      enum:
+      - FULL_SERVICE
+      - HEALTH_CHECK
+      - STATUTORY
+      - OIL_CHANGE
+      title: ServiceType
     VehicleService:
       properties:
         component:
@@ -113,6 +129,18 @@ components:
       - component
       - type
       title: VehicleService
+      description: Service data for a vehicle and its components
+    VehicleServices:
+      properties:
+        services:
+          items:
+            $ref: '#/components/schemas/VehicleService'
+          type: array
+          title: Services
+      type: object
+      required:
+      - services
+      title: VehicleServices
       description: Service data for a vehicle and its components
     AffectedComponent:
       type: string
@@ -184,34 +212,6 @@ components:
       - CHARGING_COUPLER
       - TRAILER
       title: AffectedComponent
-    ServiceType:
-      type: string
-      enum:
-      - FULL_SERVICE
-      - HEALTH_CHECK
-      - STATUTORY
-      - OIL_CHANGE
-      title: ServiceType
-    VehicleServices:
-      properties:
-        services:
-          items:
-            $ref: '#/components/schemas/VehicleService'
-          type: array
-          title: Services
-      type: object
-      required:
-      - services
-      title: VehicleServices
-      description: Service data for a vehicle and its components
-    ServiceStatus:
-      type: string
-      enum:
-      - PENDING
-      - NO_SERVICE_DUE
-      - IN_SERVICE
-      - NOT_IN_SERVICE_UNKNOWN_IF_DUE
-      title: ServiceStatus
   securitySchemes:
     HTTPBasic:
       type: http

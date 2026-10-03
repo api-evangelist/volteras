@@ -88,6 +88,22 @@ paths:
       x-list-error-codes: []
 components:
   schemas:
+    APIAccess:
+      properties:
+        clientId:
+          type: string
+          title: Client ID
+          description: Your client ID.
+        organizationId:
+          type: string
+          title: Organization ID
+          description: ID of your organization.
+      type: object
+      required:
+      - clientId
+      - organizationId
+      title: APIAccess
+      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
     APIAccessToken:
       properties:
         access_token:
@@ -140,22 +156,6 @@ components:
           description: OAuth 2.0 grant type.
       type: object
       title: Body_auth_token_v1_oauth2_token_post
-    APIAccess:
-      properties:
-        clientId:
-          type: string
-          title: Client ID
-          description: Your client ID.
-        organizationId:
-          type: string
-          title: Organization ID
-          description: ID of your organization.
-      type: object
-      required:
-      - clientId
-      - organizationId
-      title: APIAccess
-      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
   securitySchemes:
     HTTPBasic:
       type: http

@@ -202,24 +202,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    BulkConnectStatusResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-      type: object
-      required:
-      - id
-      - status
-      - createdAt
-      title: BulkConnectStatusResponse
-      description: Response for /connect/results/{id} endpoint
     BulkConnectVehicleRequest:
       properties:
         vehicles:
@@ -248,6 +230,93 @@ components:
           default: 0
       type: object
       title: PageResults[VehicleInputResponse]
+    Tag:
+      properties:
+        key:
+          type: string
+          maxLength: 150
+          title: Key
+        value:
+          type: string
+          maxLength: 150
+          title: Value
+      type: object
+      required:
+      - key
+      - value
+      title: Tag
+    VehicleInputResponseError:
+      properties:
+        code:
+          type: string
+          enum:
+          - OEM_INCORRECT_REGION
+          - OEM_VEHICLE_OFFLINE
+          - OEM_VEHICLE_REMOTE_ACCESS_DISABLED
+          - OEM_VEHICLE_DATA_SHARING_DISABLED
+          - FLEET_CONSENT_MISSING
+          - OEM_AUTH_DRIVER_IS_NOT_PRIMARY_USER
+          - OEM_DEVICE_NOT_FOUND
+          - OEM_VEHICLE_NOT_COMPATIBLE
+          - OEM_VEHICLE_UPDATE_REQUIRED
+          - DEVICE_LIMIT_REACHED
+          - NOT_PERMITTED
+          - VIN_UPLOAD_INVALID_FORMAT
+          - INVALID_VIN
+          - VIN_CHECK_NOT_SUPPORTED
+          - VEHICLE_ALREADY_ADDED_TO_ORGANIZATION
+          - VEHICLE_ALREADY_ADDED_CONNECTION_REQUIRED
+          - VEHICLE_ALREADY_ADDED_INCOMPATIBLE
+          - VEHICLE_ALREADY_ADDED_PENDING_CONNECTION
+          - VIN_UPLOAD_NOT_SUPPORTED
+          - VIN_BLACKLISTED
+          - SUBJECTS_NOT_ASSIGNABLE
+          title: Code
+          description: Error code
+        message:
+          type: string
+          title: Message
+          description: Error message
+        actionCategory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Actioncategory
+          description: 'Category indicating who must act on this error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW'
+      type: object
+      required:
+      - code
+      - message
+      title: VehicleInputResponseError
+    APIVehicleUploadStatus:
+      type: string
+      enum:
+      - CONNECTED
+      - PROCESSING
+      - PENDING
+      - CONNECTION_REQUIRED
+      - INCOMPATIBLE
+      - ERROR
+      title: APIVehicleUploadStatus
+      description: Status of a vehicle connection attempt.
+    BulkConnectVehicleResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkConnectVehicleResponse
+      description: Response for async bulk vehicle upload endpoint on connect-api
     VehicleInputResponse:
       properties:
         vehicleId:
@@ -358,49 +427,6 @@ components:
       - status
       - message
       title: VehicleInputResponse
-    VehicleInputResponseError:
-      properties:
-        code:
-          type: string
-          enum:
-          - OEM_INCORRECT_REGION
-          - OEM_VEHICLE_OFFLINE
-          - OEM_VEHICLE_REMOTE_ACCESS_DISABLED
-          - OEM_VEHICLE_DATA_SHARING_DISABLED
-          - FLEET_CONSENT_MISSING
-          - OEM_AUTH_DRIVER_IS_NOT_PRIMARY_USER
-          - OEM_DEVICE_NOT_FOUND
-          - OEM_VEHICLE_NOT_COMPATIBLE
-          - OEM_VEHICLE_UPDATE_REQUIRED
-          - DEVICE_LIMIT_REACHED
-          - NOT_PERMITTED
-          - VIN_UPLOAD_INVALID_FORMAT
-          - INVALID_VIN
-          - VIN_CHECK_NOT_SUPPORTED
-          - VEHICLE_ALREADY_ADDED_TO_ORGANIZATION
-          - VEHICLE_ALREADY_ADDED_CONNECTION_REQUIRED
-          - VEHICLE_ALREADY_ADDED_INCOMPATIBLE
-          - VEHICLE_ALREADY_ADDED_PENDING_CONNECTION
-          - VIN_UPLOAD_NOT_SUPPORTED
-          - VIN_BLACKLISTED
-          - SUBJECTS_NOT_ASSIGNABLE
-          title: Code
-          description: Error code
-        message:
-          type: string
-          title: Message
-          description: Error message
-        actionCategory:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Actioncategory
-          description: 'Category indicating who must act on this error: CUSTOMER_ACTION, CONTACT_SUPPORT, or UNDER_REVIEW'
-      type: object
-      required:
-      - code
-      - message
-      title: VehicleInputResponseError
     ConnectVehicleRequest:
       properties:
         vin:
@@ -514,7 +540,15 @@ components:
       - make
       title: ConnectVehicleRequest
       description: Request model to connect a single VIN
-    BulkConnectVehicleResponse:
+    VehicleInputGroupStatusEnum:
+      type: string
+      enum:
+      - CREATED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      title: VehicleInputGroupStatusEnum
+    BulkConnectStatusResponse:
       properties:
         id:
           type: string
@@ -530,42 +564,8 @@ components:
       - id
       - status
       - createdAt
-      title: BulkConnectVehicleResponse
-      description: Response for async bulk vehicle upload endpoint on connect-api
-    APIVehicleUploadStatus:
-      type: string
-      enum:
-      - CONNECTED
-      - PROCESSING
-      - PENDING
-      - CONNECTION_REQUIRED
-      - INCOMPATIBLE
-      - ERROR
-      title: APIVehicleUploadStatus
-      description: Status of a vehicle connection attempt.
-    VehicleInputGroupStatusEnum:
-      type: string
-      enum:
-      - CREATED
-      - PROCESSING
-      - COMPLETED
-      - FAILED
-      title: VehicleInputGroupStatusEnum
-    Tag:
-      properties:
-        key:
-          type: string
-          maxLength: 150
-          title: Key
-        value:
-          type: string
-          maxLength: 150
-          title: Value
-      type: object
-      required:
-      - key
-      - value
-      title: Tag
+      title: BulkConnectStatusResponse
+      description: Response for /connect/results/{id} endpoint
   securitySchemes:
     HTTPBasic:
       type: http

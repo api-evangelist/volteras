@@ -178,30 +178,6 @@ paths:
       - PAGE_SIZE_TOO_LARGE
 components:
   schemas:
-    Page_VehicleListeningAuditEntry_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/VehicleListeningAuditEntry'
-          type: array
-          title: Results
-          description: Returned data from the listing query.
-        nextPageToken:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next page token
-          description: Next page token used for pagination.
-        totalResults:
-          type: integer
-          title: Total results
-          description: Total result count.
-      type: object
-      required:
-      - results
-      - nextPageToken
-      - totalResults
-      title: Page[VehicleListeningAuditEntry]
     VehicleListeningAuditEntry:
       properties:
         vehicleId:
@@ -254,6 +230,30 @@ components:
       required:
       - isListening
       title: VehicleListeningRequest
+    Page_VehicleListeningAuditEntry_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleListeningAuditEntry'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleListeningAuditEntry]
   securitySchemes:
     HTTPBasic:
       type: http
