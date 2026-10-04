@@ -62,6 +62,7 @@ tags:
 - Energy
 - Mobility
 - Fleet Management
+- Telematics
 apis:
 - aid: volteras:volteras-accounts-api
   name: Volteras Accounts API
