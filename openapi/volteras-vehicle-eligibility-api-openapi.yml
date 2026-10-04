@@ -108,108 +108,28 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    BulkVinEligibilityResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-      type: object
-      required:
-      - id
-      - status
-      - createdAt
-      title: BulkVinEligibilityResponse
-      description: Response for async bulk eligibility request on connect-api
-    EligibilityVinEntryStatusEnum:
+    EligibilityUploadStatusEnum:
       type: string
       enum:
-      - NOT_SUPPORTED
-      - VALIDATION_ERROR
-      - PENDING
-      - SUBMITTED
-      - INELIGIBLE_PENDING_FAILURE_REASON
-      - ELIGIBLE
-      - INELIGIBLE
+      - CREATED
+      - PROCESSING
+      - COMPLETED
       - FAILED
-      title: EligibilityVinEntryStatusEnum
-    BulkVinEligibilityRequest:
+      title: EligibilityUploadStatusEnum
+    PageResults_SingleEligibilityResult_:
       properties:
-        vins:
+        results:
           items:
-            $ref: '#/components/schemas/SingleEligibilityEntry'
+            $ref: '#/components/schemas/SingleEligibilityResult'
           type: array
-          maxItems: 500
-          minItems: 1
-          title: Vins
-          description: List of vehicle identification numbers. Each VIN must be a 17-character alphanumeric string.
+          title: Results
+          default: []
+        totalResults:
+          type: integer
+          title: Totalresults
+          default: 0
       type: object
-      required:
-      - vins
-      title: BulkVinEligibilityRequest
-    SingleEligibilityEntry:
-      properties:
-        vin:
-          type: string
-          maxLength: 17
-          minLength: 17
-          pattern: ^[A-Z0-9]*$
-          title: Vin
-          description: Vehicle identification number (VIN).
-        make:
-          type: string
-          enum:
-          - ABARTH
-          - ALFA ROMEO
-          - AUDI
-          - BMW
-          - CHRYSLER
-          - CITROEN
-          - CUPRA
-          - DODGE
-          - DS AUTOMOBILES
-          - FIAT
-          - FORD
-          - HYUNDAI
-          - JEEP
-          - KIA
-          - LANCIA
-          - LEXUS
-          - MASERATI
-          - MERCEDES BENZ
-          - MINI
-          - NISSAN
-          - OPEL
-          - PEUGEOT
-          - POLESTAR
-          - RAM
-          - RENAULT
-          - SEAT
-          - SKODA
-          - TESLA
-          - TOYOTA
-          - VAUXHALL
-          - VOLKSWAGEN
-          - VOLVO
-          title: MakeEnum
-          description: Manufacturer of the vehicle
-        countryCode:
-          anyOf:
-          - type: string
-            maxLength: 2
-            minLength: 2
-          - type: 'null'
-          title: Countrycode
-          description: ISO two-character country code for the VIN being checked.
-      type: object
-      required:
-      - countryCode
-      title: SingleEligibilityEntry
+      title: PageResults[SingleEligibilityResult]
     SingleEligibilityResult:
       properties:
         rowId:
@@ -278,28 +198,108 @@ components:
       - status
       title: SingleEligibilityResult
       description: Results for a single vin sent in the bulk eligibility request
-    EligibilityUploadStatusEnum:
+    SingleEligibilityEntry:
+      properties:
+        vin:
+          type: string
+          maxLength: 17
+          minLength: 17
+          pattern: ^[A-Z0-9]*$
+          title: Vin
+          description: Vehicle identification number (VIN).
+        make:
+          type: string
+          enum:
+          - ABARTH
+          - ALFA ROMEO
+          - AUDI
+          - BMW
+          - CHRYSLER
+          - CITROEN
+          - CUPRA
+          - DODGE
+          - DS AUTOMOBILES
+          - FIAT
+          - FORD
+          - HYUNDAI
+          - JEEP
+          - KIA
+          - LANCIA
+          - LEXUS
+          - MASERATI
+          - MERCEDES BENZ
+          - MINI
+          - NISSAN
+          - OPEL
+          - PEUGEOT
+          - POLESTAR
+          - RAM
+          - RENAULT
+          - SEAT
+          - SKODA
+          - TESLA
+          - TOYOTA
+          - VAUXHALL
+          - VOLKSWAGEN
+          - VOLVO
+          title: MakeEnum
+          description: Manufacturer of the vehicle
+        countryCode:
+          anyOf:
+          - type: string
+            maxLength: 2
+            minLength: 2
+          - type: 'null'
+          title: Countrycode
+          description: ISO two-character country code for the VIN being checked.
+      type: object
+      required:
+      - countryCode
+      title: SingleEligibilityEntry
+    BulkVinEligibilityResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkVinEligibilityResponse
+      description: Response for async bulk eligibility request on connect-api
+    EligibilityVinEntryStatusEnum:
       type: string
       enum:
-      - CREATED
-      - PROCESSING
-      - COMPLETED
+      - NOT_SUPPORTED
+      - VALIDATION_ERROR
+      - PENDING
+      - SUBMITTED
+      - INELIGIBLE_PENDING_FAILURE_REASON
+      - ELIGIBLE
+      - INELIGIBLE
       - FAILED
-      title: EligibilityUploadStatusEnum
-    PageResults_SingleEligibilityResult_:
+      title: EligibilityVinEntryStatusEnum
+    BulkVinEligibilityRequest:
       properties:
-        results:
+        vins:
           items:
-            $ref: '#/components/schemas/SingleEligibilityResult'
+            $ref: '#/components/schemas/SingleEligibilityEntry'
           type: array
-          title: Results
-          default: []
-        totalResults:
-          type: integer
-          title: Totalresults
-          default: 0
+          maxItems: 500
+          minItems: 1
+          title: Vins
+          description: List of vehicle identification numbers. Each VIN must be a 17-character alphanumeric string.
       type: object
-      title: PageResults[SingleEligibilityResult]
+      required:
+      - vins
+      title: BulkVinEligibilityRequest
   securitySchemes:
     HTTPBasic:
       type: http

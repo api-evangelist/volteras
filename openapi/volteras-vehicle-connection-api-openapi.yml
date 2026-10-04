@@ -202,20 +202,119 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    BulkConnectVehicleRequest:
+    ConnectVehicleRequest:
       properties:
-        vehicles:
-          items:
-            $ref: '#/components/schemas/ConnectVehicleRequest'
-          type: array
-          maxItems: 100
-          title: Vehicles
-          description: The vehicles to connect
+        vin:
+          type: string
+          title: Vin
+          description: Vehicle identification number. Unique identifier for the vehicle.
+        make:
+          type: string
+          enum:
+          - ABARTH
+          - ALFA ROMEO
+          - AUDI
+          - BMW
+          - CHRYSLER
+          - CITROEN
+          - CUPRA
+          - DODGE
+          - DS AUTOMOBILES
+          - FIAT
+          - FORD
+          - HYUNDAI
+          - JEEP
+          - KIA
+          - LANCIA
+          - LEXUS
+          - MASERATI
+          - MERCEDES BENZ
+          - MINI
+          - NISSAN
+          - OPEL
+          - PEUGEOT
+          - POLESTAR
+          - RAM
+          - RENAULT
+          - SEAT
+          - SKODA
+          - TESLA
+          - TOYOTA
+          - VAUXHALL
+          - VOLKSWAGEN
+          - VOLVO
+          title: MakeEnum
+          description: Manufacturer of the vehicle
+        countryCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countrycode
+          description: ISO two-character country code (ISO 3166-1 alpha-2, e.g. 'US', 'GB', 'FR') of the vehicle, used for retrieving vehicle specifications data. If not populated, will use the default setting (if set).
+        registrationPlate:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Registrationplate
+          description: Vehicle registration plate
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Vehicle model
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+          description: Vehicle model year (the year the model was released, not the year of manufacture)
+        batteryCapacity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacity
+          description: Nominal (IE when manufactured) battery capacity in kWh of the vehicle
+        horsepower:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Horsepower
+          description: Vehicle horsepower
+        generation:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Generation
+          description: Vehicle generation
+        wltpRange:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Wltprange
+          description: WLTP range of the vehicle in km
+        registrationDate:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Registrationdate
+          description: Vehicle registration date (ISO 8601, day granularity). Must be on or before today. Used as the date-axis baseline for the service-interval cycle when the `DERIVED_SERVICING_REMINDER` setting is enabled for the organization.
+        tags:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Tag'
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Tags to associate with the vehicle, for example IDs you want to associate with it, that will then be returned when you fetch the vehicle and can be used to filter vehicles in the list vehicle endpoint.
       type: object
       required:
-      - vehicles
-      title: BulkConnectVehicleRequest
-      description: Request model to connect multiple VINs
+      - countryCode
+      - vin
+      - make
+      title: ConnectVehicleRequest
+      description: Request model to connect a single VIN
     PageResults_VehicleInputResponse_:
       properties:
         results:
@@ -230,21 +329,20 @@ components:
           default: 0
       type: object
       title: PageResults[VehicleInputResponse]
-    Tag:
+    BulkConnectVehicleRequest:
       properties:
-        key:
-          type: string
-          maxLength: 150
-          title: Key
-        value:
-          type: string
-          maxLength: 150
-          title: Value
+        vehicles:
+          items:
+            $ref: '#/components/schemas/ConnectVehicleRequest'
+          type: array
+          maxItems: 100
+          title: Vehicles
+          description: The vehicles to connect
       type: object
       required:
-      - key
-      - value
-      title: Tag
+      - vehicles
+      title: BulkConnectVehicleRequest
+      description: Request model to connect multiple VINs
     VehicleInputResponseError:
       properties:
         code:
@@ -288,17 +386,24 @@ components:
       - code
       - message
       title: VehicleInputResponseError
-    APIVehicleUploadStatus:
-      type: string
-      enum:
-      - CONNECTED
-      - PROCESSING
-      - PENDING
-      - CONNECTION_REQUIRED
-      - INCOMPATIBLE
-      - ERROR
-      title: APIVehicleUploadStatus
-      description: Status of a vehicle connection attempt.
+    BulkConnectStatusResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkConnectStatusResponse
+      description: Response for /connect/results/{id} endpoint
     BulkConnectVehicleResponse:
       properties:
         id:
@@ -427,119 +532,32 @@ components:
       - status
       - message
       title: VehicleInputResponse
-    ConnectVehicleRequest:
+    APIVehicleUploadStatus:
+      type: string
+      enum:
+      - CONNECTED
+      - PROCESSING
+      - PENDING
+      - CONNECTION_REQUIRED
+      - INCOMPATIBLE
+      - ERROR
+      title: APIVehicleUploadStatus
+      description: Status of a vehicle connection attempt.
+    Tag:
       properties:
-        vin:
+        key:
           type: string
-          title: Vin
-          description: Vehicle identification number. Unique identifier for the vehicle.
-        make:
+          maxLength: 150
+          title: Key
+        value:
           type: string
-          enum:
-          - ABARTH
-          - ALFA ROMEO
-          - AUDI
-          - BMW
-          - CHRYSLER
-          - CITROEN
-          - CUPRA
-          - DODGE
-          - DS AUTOMOBILES
-          - FIAT
-          - FORD
-          - HYUNDAI
-          - JEEP
-          - KIA
-          - LANCIA
-          - LEXUS
-          - MASERATI
-          - MERCEDES BENZ
-          - MINI
-          - NISSAN
-          - OPEL
-          - PEUGEOT
-          - POLESTAR
-          - RAM
-          - RENAULT
-          - SEAT
-          - SKODA
-          - TESLA
-          - TOYOTA
-          - VAUXHALL
-          - VOLKSWAGEN
-          - VOLVO
-          title: MakeEnum
-          description: Manufacturer of the vehicle
-        countryCode:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Countrycode
-          description: ISO two-character country code (ISO 3166-1 alpha-2, e.g. 'US', 'GB', 'FR') of the vehicle, used for retrieving vehicle specifications data. If not populated, will use the default setting (if set).
-        registrationPlate:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Registrationplate
-          description: Vehicle registration plate
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: Vehicle model
-        modelYear:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Modelyear
-          description: Vehicle model year (the year the model was released, not the year of manufacture)
-        batteryCapacity:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Batterycapacity
-          description: Nominal (IE when manufactured) battery capacity in kWh of the vehicle
-        horsepower:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Horsepower
-          description: Vehicle horsepower
-        generation:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Generation
-          description: Vehicle generation
-        wltpRange:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Wltprange
-          description: WLTP range of the vehicle in km
-        registrationDate:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Registrationdate
-          description: Vehicle registration date (ISO 8601, day granularity). Must be on or before today. Used as the date-axis baseline for the service-interval cycle when the `DERIVED_SERVICING_REMINDER` setting is enabled for the organization.
-        tags:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Tag'
-            type: array
-          - type: 'null'
-          title: Tags
-          description: Tags to associate with the vehicle, for example IDs you want to associate with it, that will then be returned when you fetch the vehicle and can be used to filter vehicles in the list vehicle endpoint.
+          maxLength: 150
+          title: Value
       type: object
       required:
-      - countryCode
-      - vin
-      - make
-      title: ConnectVehicleRequest
-      description: Request model to connect a single VIN
+      - key
+      - value
+      title: Tag
     VehicleInputGroupStatusEnum:
       type: string
       enum:
@@ -548,24 +566,6 @@ components:
       - COMPLETED
       - FAILED
       title: VehicleInputGroupStatusEnum
-    BulkConnectStatusResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/VehicleInputGroupStatusEnum'
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-      type: object
-      required:
-      - id
-      - status
-      - createdAt
-      title: BulkConnectStatusResponse
-      description: Response for /connect/results/{id} endpoint
   securitySchemes:
     HTTPBasic:
       type: http

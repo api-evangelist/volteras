@@ -178,27 +178,30 @@ paths:
       - PAGE_SIZE_TOO_LARGE
 components:
   schemas:
-    VehicleListeningAuditEntry:
+    Page_VehicleListeningAuditEntry_:
       properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-          description: Unique identifier of the vehicle.
-        isListening:
-          type: boolean
-          title: Islistening
-          description: Listening state at the recorded time.
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-          description: When this listening state entry was recorded (UTC).
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleListeningAuditEntry'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
       type: object
       required:
-      - vehicleId
-      - isListening
-      - timestamp
-      title: VehicleListeningAuditEntry
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleListeningAuditEntry]
     VehicleListeningResponse:
       properties:
         vehicleId:
@@ -230,30 +233,27 @@ components:
       required:
       - isListening
       title: VehicleListeningRequest
-    Page_VehicleListeningAuditEntry_:
+    VehicleListeningAuditEntry:
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/VehicleListeningAuditEntry'
-          type: array
-          title: Results
-          description: Returned data from the listing query.
-        nextPageToken:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next page token
-          description: Next page token used for pagination.
-        totalResults:
-          type: integer
-          title: Total results
-          description: Total result count.
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier of the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Listening state at the recorded time.
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+          description: When this listening state entry was recorded (UTC).
       type: object
       required:
-      - results
-      - nextPageToken
-      - totalResults
-      title: Page[VehicleListeningAuditEntry]
+      - vehicleId
+      - isListening
+      - timestamp
+      title: VehicleListeningAuditEntry
   securitySchemes:
     HTTPBasic:
       type: http

@@ -88,36 +88,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    VehicleRangeStandardEnum:
-      type: string
-      enum:
-      - WLTP
-      - NEDC
-      - EPA
-      - UNKNOWN
-      title: VehicleRangeStandardEnum
-      description: Enum for standards applied to vehicle
-    connect_models__schemas__vehicle__vehicle_range__VehicleRange:
-      properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-        unit:
-          type: string
-          title: Unit
-        calculationDate:
-          type: string
-          format: date
-          title: Calculationdate
-        range:
-          $ref: '#/components/schemas/RangeDetail'
-      type: object
-      required:
-      - vehicleId
-      - unit
-      - calculationDate
-      - range
-      title: VehicleRange
     RangeDetail:
       properties:
         real:
@@ -162,6 +132,36 @@ components:
       - nominal
       - score
       title: RangeDetail
+    VehicleRangeStandardEnum:
+      type: string
+      enum:
+      - WLTP
+      - NEDC
+      - EPA
+      - UNKNOWN
+      title: VehicleRangeStandardEnum
+      description: Enum for standards applied to vehicle
+    connect_models__schemas__vehicle__vehicle_range__VehicleRange:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+        unit:
+          type: string
+          title: Unit
+        calculationDate:
+          type: string
+          format: date
+          title: Calculationdate
+        range:
+          $ref: '#/components/schemas/RangeDetail'
+      type: object
+      required:
+      - vehicleId
+      - unit
+      - calculationDate
+      - range
+      title: VehicleRange
   securitySchemes:
     HTTPBasic:
       type: http

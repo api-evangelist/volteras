@@ -88,48 +88,6 @@ paths:
       x-list-error-codes: []
 components:
   schemas:
-    APIAccess:
-      properties:
-        clientId:
-          type: string
-          title: Client ID
-          description: Your client ID.
-        organizationId:
-          type: string
-          title: Organization ID
-          description: ID of your organization.
-      type: object
-      required:
-      - clientId
-      - organizationId
-      title: APIAccess
-      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
-    APIAccessToken:
-      properties:
-        access_token:
-          type: string
-          title: Access token
-          description: The access token used for authenticated requests.
-        token_type:
-          type: string
-          title: Token type
-          description: Type of the token.
-        expires_in:
-          type: integer
-          title: Expires in
-          description: Integer with the seconds that the access token will be expired in.
-        refresh_token:
-          type: string
-          title: Refresh token
-          description: The token used to refresh the authentication and retrieve a new access token.
-      type: object
-      required:
-      - access_token
-      - token_type
-      - expires_in
-      - refresh_token
-      title: APIAccessToken
-      description: Schema of the APIAccessToken, returned by the authentication or refresh token
     Body_auth_token_v1_oauth2_token_post:
       properties:
         client_id:
@@ -156,6 +114,48 @@ components:
           description: OAuth 2.0 grant type.
       type: object
       title: Body_auth_token_v1_oauth2_token_post
+    APIAccessToken:
+      properties:
+        access_token:
+          type: string
+          title: Access token
+          description: The access token used for authenticated requests.
+        token_type:
+          type: string
+          title: Token type
+          description: Type of the token.
+        expires_in:
+          type: integer
+          title: Expires in
+          description: Integer with the seconds that the access token will be expired in.
+        refresh_token:
+          type: string
+          title: Refresh token
+          description: The token used to refresh the authentication and retrieve a new access token.
+      type: object
+      required:
+      - access_token
+      - token_type
+      - expires_in
+      - refresh_token
+      title: APIAccessToken
+      description: Schema of the APIAccessToken, returned by the authentication or refresh token
+    APIAccess:
+      properties:
+        clientId:
+          type: string
+          title: Client ID
+          description: Your client ID.
+        organizationId:
+          type: string
+          title: Organization ID
+          description: ID of your organization.
+      type: object
+      required:
+      - clientId
+      - organizationId
+      title: APIAccess
+      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
   securitySchemes:
     HTTPBasic:
       type: http

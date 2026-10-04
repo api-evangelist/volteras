@@ -1027,19 +1027,39 @@ paths:
       - COMMAND_ALREADY_IN_PROGRESS
 components:
   schemas:
-    SetTemperaturePayload:
+    SetChargeLimitPayload:
       properties:
-        driverTemperature:
-          type: number
-          title: Drivertemperature
-        passengerTemperature:
-          type: number
-          title: Passengertemperature
+        limit:
+          type: integer
+          title: Limit
       type: object
       required:
-      - driverTemperature
-      - passengerTemperature
-      title: SetTemperaturePayload
+      - limit
+      title: SetChargeLimitPayload
+    Page_VehicleCommandExecution_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleCommandExecution'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleCommandExecution]
     VehicleCommandEnum:
       type: string
       enum:
@@ -1147,6 +1167,19 @@ components:
       - vehicleId
       - command
       title: VehicleCommandExecution
+    SetTemperaturePayload:
+      properties:
+        driverTemperature:
+          type: number
+          title: Drivertemperature
+        passengerTemperature:
+          type: number
+          title: Passengertemperature
+      type: object
+      required:
+      - driverTemperature
+      - passengerTemperature
+      title: SetTemperaturePayload
     OEMDeviceCommandExecutionStatus:
       type: string
       enum:
@@ -1155,39 +1188,6 @@ components:
       - FAILED
       title: OEMDeviceCommandExecutionStatus
       description: Enum for command execution status.
-    SetChargeLimitPayload:
-      properties:
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - limit
-      title: SetChargeLimitPayload
-    Page_VehicleCommandExecution_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/VehicleCommandExecution'
-          type: array
-          title: Results
-          description: Returned data from the listing query.
-        nextPageToken:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next page token
-          description: Next page token used for pagination.
-        totalResults:
-          type: integer
-          title: Total results
-          description: Total result count.
-      type: object
-      required:
-      - results
-      - nextPageToken
-      - totalResults
-      title: Page[VehicleCommandExecution]
   securitySchemes:
     HTTPBasic:
       type: http

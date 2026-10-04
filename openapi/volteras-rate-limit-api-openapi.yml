@@ -65,13 +65,11 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    RateLimitKey:
+    RateLimitDomain:
       type: string
       enum:
-      - BMW_ENERGY_API_COMMANDS
-      - BMW_ENERGY_API_STOP_COMMANDS
-      - BMW_ENERGY_API_COMMANDS_AND_FETCH_STATE
-      title: RateLimitKey
+      - VEHICLE
+      title: RateLimitDomain
     RateLimit:
       properties:
         remainingRequests:
@@ -105,11 +103,13 @@ components:
       - objectId
       - key
       title: RateLimit
-    RateLimitDomain:
+    RateLimitKey:
       type: string
       enum:
-      - VEHICLE
-      title: RateLimitDomain
+      - BMW_ENERGY_API_COMMANDS
+      - BMW_ENERGY_API_STOP_COMMANDS
+      - BMW_ENERGY_API_COMMANDS_AND_FETCH_STATE
+      title: RateLimitKey
   securitySchemes:
     HTTPBasic:
       type: http

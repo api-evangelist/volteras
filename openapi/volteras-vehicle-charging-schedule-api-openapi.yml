@@ -96,31 +96,6 @@ paths:
                 $ref: '#/components/schemas/VehicleChargingWindows'
 components:
   schemas:
-    DepartureTime:
-      properties:
-        hour:
-          type: integer
-          title: Hour
-        minute:
-          type: integer
-          title: Minute
-        daysOfWeek:
-          items:
-            $ref: '#/components/schemas/Weekdays'
-          type: array
-          title: Daysofweek
-          description: The days of the week that the departure time is valid for. If no values in the array, the departure time is valid for all days of the week.
-        localTimeOffset:
-          type: integer
-          title: Localtimeoffset
-          description: The local time offset (vs. UTC) of the start and end times, in minutes. For example, if the vehicle was in UTC+1, this would be 60.
-      type: object
-      required:
-      - hour
-      - minute
-      - daysOfWeek
-      - localTimeOffset
-      title: DepartureTime
     VehicleChargingWindows:
       properties:
         chargingWindows:
@@ -132,6 +107,17 @@ components:
       required:
       - chargingWindows
       title: VehicleChargingWindows
+    Weekdays:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+      title: Weekdays
     LatLngValue:
       properties:
         longitude:
@@ -145,6 +131,17 @@ components:
       - longitude
       - latitude
       title: LatLngValue
+    VehicleDepartureTimes:
+      properties:
+        departureTimes:
+          items:
+            $ref: '#/components/schemas/DepartureTime'
+          type: array
+          title: Departuretimes
+      type: object
+      required:
+      - departureTimes
+      title: VehicleDepartureTimes
     ChargingWindow:
       properties:
         startHour:
@@ -182,28 +179,31 @@ components:
       - daysOfWeek
       - localTimeOffset
       title: ChargingWindow
-    VehicleDepartureTimes:
+    DepartureTime:
       properties:
-        departureTimes:
+        hour:
+          type: integer
+          title: Hour
+        minute:
+          type: integer
+          title: Minute
+        daysOfWeek:
           items:
-            $ref: '#/components/schemas/DepartureTime'
+            $ref: '#/components/schemas/Weekdays'
           type: array
-          title: Departuretimes
+          title: Daysofweek
+          description: The days of the week that the departure time is valid for. If no values in the array, the departure time is valid for all days of the week.
+        localTimeOffset:
+          type: integer
+          title: Localtimeoffset
+          description: The local time offset (vs. UTC) of the start and end times, in minutes. For example, if the vehicle was in UTC+1, this would be 60.
       type: object
       required:
-      - departureTimes
-      title: VehicleDepartureTimes
-    Weekdays:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-      title: Weekdays
+      - hour
+      - minute
+      - daysOfWeek
+      - localTimeOffset
+      title: DepartureTime
   securitySchemes:
     HTTPBasic:
       type: http

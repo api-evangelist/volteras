@@ -174,26 +174,18 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    PublicTagEntityTypes:
-      type: string
-      enum:
-      - DEVICE
-      title: PublicTagEntityTypes
-    Tag:
+    TagsList:
       properties:
-        key:
-          type: string
-          maxLength: 150
-          title: Key
-        value:
-          type: string
-          maxLength: 150
-          title: Value
+        tags:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          title: Tags
+          description: List of tags
       type: object
       required:
-      - key
-      - value
-      title: Tag
+      - tags
+      title: TagsList
     PublicTagCreate:
       properties:
         key:
@@ -218,18 +210,26 @@ components:
       - objectType
       - objectId
       title: PublicTagCreate
-    TagsList:
+    Tag:
       properties:
-        tags:
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-          title: Tags
-          description: List of tags
+        key:
+          type: string
+          maxLength: 150
+          title: Key
+        value:
+          type: string
+          maxLength: 150
+          title: Value
       type: object
       required:
-      - tags
-      title: TagsList
+      - key
+      - value
+      title: Tag
+    PublicTagEntityTypes:
+      type: string
+      enum:
+      - DEVICE
+      title: PublicTagEntityTypes
   securitySchemes:
     HTTPBasic:
       type: http

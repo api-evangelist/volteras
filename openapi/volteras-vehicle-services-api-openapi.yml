@@ -67,14 +67,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    ServiceStatus:
-      type: string
-      enum:
-      - PENDING
-      - NO_SERVICE_DUE
-      - IN_SERVICE
-      - NOT_IN_SERVICE_UNKNOWN_IF_DUE
-      title: ServiceStatus
     ServiceType:
       type: string
       enum:
@@ -83,65 +75,6 @@ components:
       - STATUTORY
       - OIL_CHANGE
       title: ServiceType
-    VehicleService:
-      properties:
-        component:
-          $ref: '#/components/schemas/AffectedComponent'
-          description: Component of the vehicle that requires service, for example BRAKE_FLUID. One of the options is VEHICLE, which means it is a full vehicle service.
-        type:
-          $ref: '#/components/schemas/ServiceType'
-          description: Type of service, for example FULL_SERVICE (a full, thorough check is required for the component) or HEALTH_CHECK (a quick check is required for the component)
-        kmToNextService:
-          anyOf:
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          - type: 'null'
-          title: Kmtonextservice
-          description: Vehicle kilometers until this service is due
-        dateOfNextServiceAt:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Dateofnextserviceat
-          description: Date when this service is next due
-        dateOfLastServiceAt:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Dateoflastserviceat
-          description: Date when this service was last performed
-        odometerKmAtLastService:
-          anyOf:
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          - type: 'null'
-          title: Odometerkmatlastservice
-          description: Odometer reading when this service was last performed
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/ServiceStatus'
-          - type: 'null'
-          description: Status of the service. Currently can only be PENDING (IE service is upcoming) or NO_SERVICE_DUE, but in future may be expanded to include when the service is in progress
-      type: object
-      required:
-      - component
-      - type
-      title: VehicleService
-      description: Service data for a vehicle and its components
-    VehicleServices:
-      properties:
-        services:
-          items:
-            $ref: '#/components/schemas/VehicleService'
-          type: array
-          title: Services
-      type: object
-      required:
-      - services
-      title: VehicleServices
-      description: Service data for a vehicle and its components
     AffectedComponent:
       type: string
       enum:
@@ -212,6 +145,73 @@ components:
       - CHARGING_COUPLER
       - TRAILER
       title: AffectedComponent
+    ServiceStatus:
+      type: string
+      enum:
+      - PENDING
+      - NO_SERVICE_DUE
+      - IN_SERVICE
+      - NOT_IN_SERVICE_UNKNOWN_IF_DUE
+      title: ServiceStatus
+    VehicleServices:
+      properties:
+        services:
+          items:
+            $ref: '#/components/schemas/VehicleService'
+          type: array
+          title: Services
+      type: object
+      required:
+      - services
+      title: VehicleServices
+      description: Service data for a vehicle and its components
+    VehicleService:
+      properties:
+        component:
+          $ref: '#/components/schemas/AffectedComponent'
+          description: Component of the vehicle that requires service, for example BRAKE_FLUID. One of the options is VEHICLE, which means it is a full vehicle service.
+        type:
+          $ref: '#/components/schemas/ServiceType'
+          description: Type of service, for example FULL_SERVICE (a full, thorough check is required for the component) or HEALTH_CHECK (a quick check is required for the component)
+        kmToNextService:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Kmtonextservice
+          description: Vehicle kilometers until this service is due
+        dateOfNextServiceAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Dateofnextserviceat
+          description: Date when this service is next due
+        dateOfLastServiceAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Dateoflastserviceat
+          description: Date when this service was last performed
+        odometerKmAtLastService:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Odometerkmatlastservice
+          description: Odometer reading when this service was last performed
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/ServiceStatus'
+          - type: 'null'
+          description: Status of the service. Currently can only be PENDING (IE service is upcoming) or NO_SERVICE_DUE, but in future may be expanded to include when the service is in progress
+      type: object
+      required:
+      - component
+      - type
+      title: VehicleService
+      description: Service data for a vehicle and its components
   securitySchemes:
     HTTPBasic:
       type: http

@@ -52,15 +52,179 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    OEMAlertType:
+    OEMAlertAction:
       type: string
       enum:
-      - FAULT
-      - WARNING
-      - INFO
-      - ROUTINE_MAINTENANCE
-      - TEMPORARY_FAULT
-      title: OEMAlertType
+      - DO_NOT_DRIVE
+      - SERVICE_REQUIRED
+      - COMPLETE_ROUTINE_MAINTENANCE
+      - SERVICE_IF_ALERT_PERSISTS
+      - SHUT_DOORS
+      - SHUT_TRUNK
+      - CHECK_VEHICLE_SECURE
+      - COORDINATE_RETRIEVAL
+      - CHARGE_CAR
+      - REFUEL
+      - FASTEN_SEATBELTS
+      - SET_CLOCK
+      - SWITCH_IGNITION_ON
+      - SWITCH_ENGINE_ON
+      - DEPRESS_BRAKE
+      - DEPRESS_CLUTCH
+      - TURN_STEERING_WHEEL
+      - REPLACE_KEY_BATTERY
+      - REPLACE_BULB
+      - CHECK_BATTERY_TERMINALS
+      - CHECK_BATTERY_CONDITION
+      title: OEMAlertAction
+    AffectedComponent:
+      type: string
+      enum:
+      - VEHICLE
+      - ENGINE
+      - TRANSMISSION
+      - DRIVE_TRAIN
+      - MOTOR
+      - BRAKES
+      - BRAKE_FRONT
+      - BRAKE_REAR
+      - BRAKE_FLUID
+      - STEERING
+      - SUSPENSION
+      - ELECTRIC_POWER_STEERING
+      - BATTERY
+      - AUXILIARY_BATTERY
+      - ELECTRICAL_SYSTEM
+      - HYBRID_SYSTEM
+      - ENGINE_OIL
+      - COOLING
+      - FUEL
+      - EXHAUST_SYSTEM
+      - EMISSIONS_SYSTEM
+      - TIRES
+      - TIRE_PRESSURE_MONITORING_SYSTEM
+      - AIRBAGS
+      - AIRBAG
+      - SEATBELTS
+      - CRASH_DETECTION_SYSTEM
+      - CRASH_SAFETY_SYSTEM
+      - AUTOMATIC_BRAKING_SYSTEM
+      - EMERGENCY_BRAKING_SYSTEM
+      - PEDESTRIAN_PROTECTION_SYSTEM
+      - LANE_DEPARTURE_WARNING_SYSTEM
+      - HILL_START_SYSTEM
+      - AUTOPILOT
+      - CRUISE_CONTROL
+      - PARKING_SENSORS
+      - CAMERAS
+      - SENSORS
+      - TRACTION_SYSTEM
+      - ELECTRONIC_STABILITY_CONTROL
+      - HEADLIGHTS
+      - SIDE_LIGHTS
+      - BRAKE_LIGHTS
+      - REAR_LIGHTS
+      - REVERSE_LIGHTS
+      - SIGNAL_LIGHTS
+      - NUMBER_PLATE_LIGHTS
+      - TRAILER_LIGHTS
+      - ADAPTIVE_LIGHTING_SYSTEM
+      - LIGHTS
+      - BODY
+      - DOORS
+      - TRUNK
+      - ROOF
+      - WINDOWS
+      - LOCKS
+      - KEYS
+      - SECURITY_SYSTEM
+      - WASHER_LIQUID
+      - WIPERS
+      - CLOCK
+      - ODOMETER
+      - EXTERNAL_CHARGING_EQUIPMENT
+      - VEHICLE_CHARGING_PORT
+      - CHARGING_COUPLER
+      - TRAILER
+      title: AffectedComponent
+    OEMAlerts:
+      properties:
+        alerts:
+          items:
+            $ref: '#/components/schemas/OEMAlert'
+          type: array
+          title: Alerts
+          default: []
+      type: object
+      title: OEMAlerts
+    OEMAlertStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - RESOLVED
+      - UNKNOWN
+      title: OEMAlertStatus
+    OEMAlert:
+      properties:
+        status:
+          $ref: '#/components/schemas/OEMAlertStatus'
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        oemCode:
+          type: string
+          title: Oemcode
+        oemMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Oemmessage
+        mappedMessage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mappedmessage
+        oemMetadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Oemmetadata
+        affectedComponent:
+          anyOf:
+          - $ref: '#/components/schemas/AffectedComponent'
+          - type: string
+          - type: 'null'
+          title: Affectedcomponent
+        recommendedAction:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertAction'
+          - type: string
+          - type: 'null'
+          title: Recommendedaction
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertType'
+          - type: string
+          - type: 'null'
+          title: Type
+        mappedCode:
+          anyOf:
+          - $ref: '#/components/schemas/MappedCode'
+          - type: string
+          - type: 'null'
+          title: Mappedcode
+        severity:
+          anyOf:
+          - $ref: '#/components/schemas/OEMAlertSeverity'
+          - type: 'null'
+      type: object
+      required:
+      - status
+      - timestamp
+      - oemCode
+      title: OEMAlert
     MappedCode:
       type: string
       enum:
@@ -237,179 +401,15 @@ components:
       - HIGH
       - CRITICAL
       title: OEMAlertSeverity
-    OEMAlerts:
-      properties:
-        alerts:
-          items:
-            $ref: '#/components/schemas/OEMAlert'
-          type: array
-          title: Alerts
-          default: []
-      type: object
-      title: OEMAlerts
-    OEMAlert:
-      properties:
-        status:
-          $ref: '#/components/schemas/OEMAlertStatus'
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        oemCode:
-          type: string
-          title: Oemcode
-        oemMessage:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Oemmessage
-        mappedMessage:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mappedmessage
-        oemMetadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Oemmetadata
-        affectedComponent:
-          anyOf:
-          - $ref: '#/components/schemas/AffectedComponent'
-          - type: string
-          - type: 'null'
-          title: Affectedcomponent
-        recommendedAction:
-          anyOf:
-          - $ref: '#/components/schemas/OEMAlertAction'
-          - type: string
-          - type: 'null'
-          title: Recommendedaction
-        type:
-          anyOf:
-          - $ref: '#/components/schemas/OEMAlertType'
-          - type: string
-          - type: 'null'
-          title: Type
-        mappedCode:
-          anyOf:
-          - $ref: '#/components/schemas/MappedCode'
-          - type: string
-          - type: 'null'
-          title: Mappedcode
-        severity:
-          anyOf:
-          - $ref: '#/components/schemas/OEMAlertSeverity'
-          - type: 'null'
-      type: object
-      required:
-      - status
-      - timestamp
-      - oemCode
-      title: OEMAlert
-    AffectedComponent:
+    OEMAlertType:
       type: string
       enum:
-      - VEHICLE
-      - ENGINE
-      - TRANSMISSION
-      - DRIVE_TRAIN
-      - MOTOR
-      - BRAKES
-      - BRAKE_FRONT
-      - BRAKE_REAR
-      - BRAKE_FLUID
-      - STEERING
-      - SUSPENSION
-      - ELECTRIC_POWER_STEERING
-      - BATTERY
-      - AUXILIARY_BATTERY
-      - ELECTRICAL_SYSTEM
-      - HYBRID_SYSTEM
-      - ENGINE_OIL
-      - COOLING
-      - FUEL
-      - EXHAUST_SYSTEM
-      - EMISSIONS_SYSTEM
-      - TIRES
-      - TIRE_PRESSURE_MONITORING_SYSTEM
-      - AIRBAGS
-      - AIRBAG
-      - SEATBELTS
-      - CRASH_DETECTION_SYSTEM
-      - CRASH_SAFETY_SYSTEM
-      - AUTOMATIC_BRAKING_SYSTEM
-      - EMERGENCY_BRAKING_SYSTEM
-      - PEDESTRIAN_PROTECTION_SYSTEM
-      - LANE_DEPARTURE_WARNING_SYSTEM
-      - HILL_START_SYSTEM
-      - AUTOPILOT
-      - CRUISE_CONTROL
-      - PARKING_SENSORS
-      - CAMERAS
-      - SENSORS
-      - TRACTION_SYSTEM
-      - ELECTRONIC_STABILITY_CONTROL
-      - HEADLIGHTS
-      - SIDE_LIGHTS
-      - BRAKE_LIGHTS
-      - REAR_LIGHTS
-      - REVERSE_LIGHTS
-      - SIGNAL_LIGHTS
-      - NUMBER_PLATE_LIGHTS
-      - TRAILER_LIGHTS
-      - ADAPTIVE_LIGHTING_SYSTEM
-      - LIGHTS
-      - BODY
-      - DOORS
-      - TRUNK
-      - ROOF
-      - WINDOWS
-      - LOCKS
-      - KEYS
-      - SECURITY_SYSTEM
-      - WASHER_LIQUID
-      - WIPERS
-      - CLOCK
-      - ODOMETER
-      - EXTERNAL_CHARGING_EQUIPMENT
-      - VEHICLE_CHARGING_PORT
-      - CHARGING_COUPLER
-      - TRAILER
-      title: AffectedComponent
-    OEMAlertStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - RESOLVED
-      - UNKNOWN
-      title: OEMAlertStatus
-    OEMAlertAction:
-      type: string
-      enum:
-      - DO_NOT_DRIVE
-      - SERVICE_REQUIRED
-      - COMPLETE_ROUTINE_MAINTENANCE
-      - SERVICE_IF_ALERT_PERSISTS
-      - SHUT_DOORS
-      - SHUT_TRUNK
-      - CHECK_VEHICLE_SECURE
-      - COORDINATE_RETRIEVAL
-      - CHARGE_CAR
-      - REFUEL
-      - FASTEN_SEATBELTS
-      - SET_CLOCK
-      - SWITCH_IGNITION_ON
-      - SWITCH_ENGINE_ON
-      - DEPRESS_BRAKE
-      - DEPRESS_CLUTCH
-      - TURN_STEERING_WHEEL
-      - REPLACE_KEY_BATTERY
-      - REPLACE_BULB
-      - CHECK_BATTERY_TERMINALS
-      - CHECK_BATTERY_CONDITION
-      title: OEMAlertAction
+      - FAULT
+      - WARNING
+      - INFO
+      - ROUTINE_MAINTENANCE
+      - TEMPORARY_FAULT
+      title: OEMAlertType
   securitySchemes:
     HTTPBasic:
       type: http
