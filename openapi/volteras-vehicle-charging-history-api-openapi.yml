@@ -179,30 +179,6 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    Page_VehicleChargingSession_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/VehicleChargingSession'
-          type: array
-          title: Results
-          description: Returned data from the listing query.
-        nextPageToken:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next page token
-          description: Next page token used for pagination.
-        totalResults:
-          type: integer
-          title: Total results
-          description: Total result count.
-      type: object
-      required:
-      - results
-      - nextPageToken
-      - totalResults
-      title: Page[VehicleChargingSession]
     VehicleChargingSession:
       properties:
         id:
@@ -282,6 +258,30 @@ components:
       - externalTemperature
       - kwMedian
       title: VehicleChargingSession
+    Page_VehicleChargingSession_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/VehicleChargingSession'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[VehicleChargingSession]
   securitySchemes:
     HTTPBasic:
       type: http

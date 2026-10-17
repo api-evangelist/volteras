@@ -178,6 +178,48 @@ paths:
       - PAGE_SIZE_TOO_LARGE
 components:
   schemas:
+    VehicleListeningResponse:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier of the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Reflects the requested listening state.
+        lastUpdated:
+          type: string
+          format: date-time
+          title: Lastupdated
+          description: Timestamp (UTC) representing when the listening state was last updated.
+      type: object
+      required:
+      - vehicleId
+      - isListening
+      - lastUpdated
+      title: VehicleListeningResponse
+    VehicleListeningAuditEntry:
+      properties:
+        vehicleId:
+          type: string
+          title: Vehicleid
+          description: Unique identifier of the vehicle.
+        isListening:
+          type: boolean
+          title: Islistening
+          description: Listening state at the recorded time.
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+          description: When this listening state entry was recorded (UTC).
+      type: object
+      required:
+      - vehicleId
+      - isListening
+      - timestamp
+      title: VehicleListeningAuditEntry
     Page_VehicleListeningAuditEntry_:
       properties:
         results:
@@ -202,27 +244,6 @@ components:
       - nextPageToken
       - totalResults
       title: Page[VehicleListeningAuditEntry]
-    VehicleListeningResponse:
-      properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-          description: Unique identifier of the vehicle.
-        isListening:
-          type: boolean
-          title: Islistening
-          description: Reflects the requested listening state.
-        lastUpdated:
-          type: string
-          format: date-time
-          title: Lastupdated
-          description: Timestamp (UTC) representing when the listening state was last updated.
-      type: object
-      required:
-      - vehicleId
-      - isListening
-      - lastUpdated
-      title: VehicleListeningResponse
     VehicleListeningRequest:
       properties:
         isListening:
@@ -233,27 +254,6 @@ components:
       required:
       - isListening
       title: VehicleListeningRequest
-    VehicleListeningAuditEntry:
-      properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-          description: Unique identifier of the vehicle.
-        isListening:
-          type: boolean
-          title: Islistening
-          description: Listening state at the recorded time.
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-          description: When this listening state entry was recorded (UTC).
-      type: object
-      required:
-      - vehicleId
-      - isListening
-      - timestamp
-      title: VehicleListeningAuditEntry
   securitySchemes:
     HTTPBasic:
       type: http

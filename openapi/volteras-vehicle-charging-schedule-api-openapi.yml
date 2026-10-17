@@ -96,28 +96,6 @@ paths:
                 $ref: '#/components/schemas/VehicleChargingWindows'
 components:
   schemas:
-    VehicleChargingWindows:
-      properties:
-        chargingWindows:
-          items:
-            $ref: '#/components/schemas/ChargingWindow'
-          type: array
-          title: Chargingwindows
-      type: object
-      required:
-      - chargingWindows
-      title: VehicleChargingWindows
-    Weekdays:
-      type: string
-      enum:
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-      title: Weekdays
     LatLngValue:
       properties:
         longitude:
@@ -131,6 +109,17 @@ components:
       - longitude
       - latitude
       title: LatLngValue
+    Weekdays:
+      type: string
+      enum:
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+      title: Weekdays
     VehicleDepartureTimes:
       properties:
         departureTimes:
@@ -204,6 +193,17 @@ components:
       - daysOfWeek
       - localTimeOffset
       title: DepartureTime
+    VehicleChargingWindows:
+      properties:
+        chargingWindows:
+          items:
+            $ref: '#/components/schemas/ChargingWindow'
+          type: array
+          title: Chargingwindows
+      type: object
+      required:
+      - chargingWindows
+      title: VehicleChargingWindows
   securitySchemes:
     HTTPBasic:
       type: http

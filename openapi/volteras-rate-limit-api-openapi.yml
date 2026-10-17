@@ -70,6 +70,13 @@ components:
       enum:
       - VEHICLE
       title: RateLimitDomain
+    RateLimitKey:
+      type: string
+      enum:
+      - BMW_ENERGY_API_COMMANDS
+      - BMW_ENERGY_API_STOP_COMMANDS
+      - BMW_ENERGY_API_COMMANDS_AND_FETCH_STATE
+      title: RateLimitKey
     RateLimit:
       properties:
         remainingRequests:
@@ -103,13 +110,6 @@ components:
       - objectId
       - key
       title: RateLimit
-    RateLimitKey:
-      type: string
-      enum:
-      - BMW_ENERGY_API_COMMANDS
-      - BMW_ENERGY_API_STOP_COMMANDS
-      - BMW_ENERGY_API_COMMANDS_AND_FETCH_STATE
-      title: RateLimitKey
   securitySchemes:
     HTTPBasic:
       type: http

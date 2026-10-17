@@ -108,14 +108,94 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
-    EligibilityUploadStatusEnum:
+    EligibilityVinEntryStatusEnum:
       type: string
       enum:
-      - CREATED
-      - PROCESSING
-      - COMPLETED
+      - NOT_SUPPORTED
+      - VALIDATION_ERROR
+      - PENDING
+      - SUBMITTED
+      - INELIGIBLE_PENDING_FAILURE_REASON
+      - ELIGIBLE
+      - INELIGIBLE
       - FAILED
-      title: EligibilityUploadStatusEnum
+      title: EligibilityVinEntryStatusEnum
+    SingleEligibilityEntry:
+      properties:
+        vin:
+          type: string
+          maxLength: 17
+          minLength: 17
+          pattern: ^[A-Z0-9]*$
+          title: Vin
+          description: Vehicle identification number (VIN).
+        make:
+          type: string
+          enum:
+          - ABARTH
+          - ALFA ROMEO
+          - AUDI
+          - BMW
+          - CHRYSLER
+          - CITROEN
+          - CUPRA
+          - DODGE
+          - DS AUTOMOBILES
+          - FIAT
+          - FORD
+          - HYUNDAI
+          - JEEP
+          - KIA
+          - LANCIA
+          - LEXUS
+          - MASERATI
+          - MERCEDES BENZ
+          - MINI
+          - NISSAN
+          - OPEL
+          - PEUGEOT
+          - POLESTAR
+          - RAM
+          - RENAULT
+          - SEAT
+          - SKODA
+          - TESLA
+          - TOYOTA
+          - VAUXHALL
+          - VOLKSWAGEN
+          - VOLVO
+          title: MakeEnum
+          description: Manufacturer of the vehicle
+        countryCode:
+          anyOf:
+          - type: string
+            maxLength: 2
+            minLength: 2
+          - type: 'null'
+          title: Countrycode
+          description: ISO two-character country code for the VIN being checked.
+      type: object
+      required:
+      - countryCode
+      title: SingleEligibilityEntry
+    BulkVinEligibilityResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+      type: object
+      required:
+      - id
+      - status
+      - createdAt
+      title: BulkVinEligibilityResponse
+      description: Response for async bulk eligibility request on connect-api
     PageResults_SingleEligibilityResult_:
       properties:
         results:
@@ -198,94 +278,6 @@ components:
       - status
       title: SingleEligibilityResult
       description: Results for a single vin sent in the bulk eligibility request
-    SingleEligibilityEntry:
-      properties:
-        vin:
-          type: string
-          maxLength: 17
-          minLength: 17
-          pattern: ^[A-Z0-9]*$
-          title: Vin
-          description: Vehicle identification number (VIN).
-        make:
-          type: string
-          enum:
-          - ABARTH
-          - ALFA ROMEO
-          - AUDI
-          - BMW
-          - CHRYSLER
-          - CITROEN
-          - CUPRA
-          - DODGE
-          - DS AUTOMOBILES
-          - FIAT
-          - FORD
-          - HYUNDAI
-          - JEEP
-          - KIA
-          - LANCIA
-          - LEXUS
-          - MASERATI
-          - MERCEDES BENZ
-          - MINI
-          - NISSAN
-          - OPEL
-          - PEUGEOT
-          - POLESTAR
-          - RAM
-          - RENAULT
-          - SEAT
-          - SKODA
-          - TESLA
-          - TOYOTA
-          - VAUXHALL
-          - VOLKSWAGEN
-          - VOLVO
-          title: MakeEnum
-          description: Manufacturer of the vehicle
-        countryCode:
-          anyOf:
-          - type: string
-            maxLength: 2
-            minLength: 2
-          - type: 'null'
-          title: Countrycode
-          description: ISO two-character country code for the VIN being checked.
-      type: object
-      required:
-      - countryCode
-      title: SingleEligibilityEntry
-    BulkVinEligibilityResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/EligibilityUploadStatusEnum'
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-      type: object
-      required:
-      - id
-      - status
-      - createdAt
-      title: BulkVinEligibilityResponse
-      description: Response for async bulk eligibility request on connect-api
-    EligibilityVinEntryStatusEnum:
-      type: string
-      enum:
-      - NOT_SUPPORTED
-      - VALIDATION_ERROR
-      - PENDING
-      - SUBMITTED
-      - INELIGIBLE_PENDING_FAILURE_REASON
-      - ELIGIBLE
-      - INELIGIBLE
-      - FAILED
-      title: EligibilityVinEntryStatusEnum
     BulkVinEligibilityRequest:
       properties:
         vins:
@@ -300,6 +292,14 @@ components:
       required:
       - vins
       title: BulkVinEligibilityRequest
+    EligibilityUploadStatusEnum:
+      type: string
+      enum:
+      - CREATED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      title: EligibilityUploadStatusEnum
   securitySchemes:
     HTTPBasic:
       type: http

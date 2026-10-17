@@ -88,32 +88,22 @@ paths:
       x-list-error-codes: []
 components:
   schemas:
-    Body_auth_token_v1_oauth2_token_post:
+    APIAccess:
       properties:
-        client_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Id
-          description: Your client ID.
-        client_secret:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Secret
-          description: Your client secret.
-        refresh_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Refresh Token
-          description: The refresh token acquired during authentication with the `client_credentials` `grant_type`.
-        grant_type:
+        clientId:
           type: string
-          title: Grant Type
-          description: OAuth 2.0 grant type.
+          title: Client ID
+          description: Your client ID.
+        organizationId:
+          type: string
+          title: Organization ID
+          description: ID of your organization.
       type: object
-      title: Body_auth_token_v1_oauth2_token_post
+      required:
+      - clientId
+      - organizationId
+      title: APIAccess
+      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
     APIAccessToken:
       properties:
         access_token:
@@ -140,22 +130,32 @@ components:
       - refresh_token
       title: APIAccessToken
       description: Schema of the APIAccessToken, returned by the authentication or refresh token
-    APIAccess:
+    Body_auth_token_v1_oauth2_token_post:
       properties:
-        clientId:
-          type: string
-          title: Client ID
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
           description: Your client ID.
-        organizationId:
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+          description: Your client secret.
+        refresh_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refresh Token
+          description: The refresh token acquired during authentication with the `client_credentials` `grant_type`.
+        grant_type:
           type: string
-          title: Organization ID
-          description: ID of your organization.
+          title: Grant Type
+          description: OAuth 2.0 grant type.
       type: object
-      required:
-      - clientId
-      - organizationId
-      title: APIAccess
-      description: Schema of APIAccess. Contains info about the authenticated APIAccess.
+      title: Body_auth_token_v1_oauth2_token_post
   securitySchemes:
     HTTPBasic:
       type: http

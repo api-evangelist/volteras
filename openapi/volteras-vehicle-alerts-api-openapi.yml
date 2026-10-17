@@ -85,124 +85,18 @@ paths:
       - PAGE_SIZE_TOO_LARGE
 components:
   schemas:
-    AlertStepDefinition:
-      properties:
-        id:
-          type: string
-          title: Id
-        description:
-          type: string
-          title: Description
-        order:
-          type: integer
-          title: Order
-      type: object
-      required:
-      - id
-      - description
-      - order
-      title: AlertStepDefinition
     AlertStepStatus:
       type: string
       enum:
       - PENDING
       - COMPLETED
       title: AlertStepStatus
-    AlertResolutionDefinition:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-      type: object
-      required:
-      - id
-      - name
-      - description
-      title: AlertResolutionDefinition
-    AlertResolutionStatus:
-      type: string
-      enum:
-      - PENDING
-      - COMPLETED
-      title: AlertResolutionStatus
-    AlertSeverity:
-      type: string
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      - CRITICAL
-      title: AlertSeverity
     AlertStatus:
       type: string
       enum:
       - ACTIVE
       - RESOLVED
       title: AlertStatus
-    AlertCategory:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - id
-      - name
-      - description
-      title: AlertCategory
-    AlertMetadata:
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          title: Createdat
-        updatedAt:
-          type: string
-          format: date-time
-          title: Updatedat
-      type: object
-      required:
-      - createdAt
-      - updatedAt
-      title: AlertMetadata
-    AlertDefinitionBase:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        message:
-          type: string
-          title: Message
-        category:
-          $ref: '#/components/schemas/AlertCategory'
-      type: object
-      required:
-      - id
-      - name
-      - description
-      - message
-      - category
-      title: AlertDefinitionBase
     Page_VehicleAlertResponse_:
       properties:
         results:
@@ -227,6 +121,148 @@ components:
       - nextPageToken
       - totalResults
       title: Page[VehicleAlertResponse]
+    AlertResolutionStatus:
+      type: string
+      enum:
+      - PENDING
+      - COMPLETED
+      title: AlertResolutionStatus
+    AlertSeverity:
+      type: string
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      - CRITICAL
+      title: AlertSeverity
+    AlertStepInstance:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/AlertStepStatus'
+        definition:
+          $ref: '#/components/schemas/AlertStepDefinition'
+      type: object
+      required:
+      - id
+      - status
+      - definition
+      title: AlertStepInstance
+    AlertCategory:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - id
+      - name
+      - description
+      title: AlertCategory
+    AlertDefinitionBase:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        message:
+          type: string
+          title: Message
+        category:
+          $ref: '#/components/schemas/AlertCategory'
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - message
+      - category
+      title: AlertDefinitionBase
+    AlertResolutionDefinition:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+      type: object
+      required:
+      - id
+      - name
+      - description
+      title: AlertResolutionDefinition
+    AlertMetadata:
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+        updatedAt:
+          type: string
+          format: date-time
+          title: Updatedat
+      type: object
+      required:
+      - createdAt
+      - updatedAt
+      title: AlertMetadata
+    AlertResolutionInstanceSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        definition:
+          $ref: '#/components/schemas/AlertResolutionDefinition'
+        status:
+          $ref: '#/components/schemas/AlertResolutionStatus'
+        steps:
+          items:
+            $ref: '#/components/schemas/AlertStepInstance'
+          type: array
+          title: Steps
+      type: object
+      required:
+      - id
+      - definition
+      - status
+      - steps
+      title: AlertResolutionInstanceSchema
+    AlertStepDefinition:
+      properties:
+        id:
+          type: string
+          title: Id
+        description:
+          type: string
+          title: Description
+        order:
+          type: integer
+          title: Order
+      type: object
+      required:
+      - id
+      - description
+      - order
+      title: AlertStepDefinition
     VehicleAlertResponse:
       properties:
         id:
@@ -288,42 +324,6 @@ components:
       - definition
       - metadata
       title: VehicleAlertResponse
-    AlertResolutionInstanceSchema:
-      properties:
-        id:
-          type: string
-          title: Id
-        definition:
-          $ref: '#/components/schemas/AlertResolutionDefinition'
-        status:
-          $ref: '#/components/schemas/AlertResolutionStatus'
-        steps:
-          items:
-            $ref: '#/components/schemas/AlertStepInstance'
-          type: array
-          title: Steps
-      type: object
-      required:
-      - id
-      - definition
-      - status
-      - steps
-      title: AlertResolutionInstanceSchema
-    AlertStepInstance:
-      properties:
-        id:
-          type: string
-          title: Id
-        status:
-          $ref: '#/components/schemas/AlertStepStatus'
-        definition:
-          $ref: '#/components/schemas/AlertStepDefinition'
-      type: object
-      required:
-      - id
-      - status
-      - definition
-      title: AlertStepInstance
   securitySchemes:
     HTTPBasic:
       type: http

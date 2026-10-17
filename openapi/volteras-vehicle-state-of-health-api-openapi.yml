@@ -94,6 +94,25 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
+    BatteryCapacity:
+      properties:
+        nominal:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Nominal
+        real:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Real
+      type: object
+      required:
+      - nominal
+      - real
+      title: BatteryCapacity
     VehicleStateOfHealth:
       properties:
         vehicleId:
@@ -118,25 +137,6 @@ components:
       - stateOfHealth
       - batteryCapacity
       title: VehicleStateOfHealth
-    BatteryCapacity:
-      properties:
-        nominal:
-          anyOf:
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          - type: 'null'
-          title: Nominal
-        real:
-          anyOf:
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          - type: 'null'
-          title: Real
-      type: object
-      required:
-      - nominal
-      - real
-      title: BatteryCapacity
   securitySchemes:
     HTTPBasic:
       type: http

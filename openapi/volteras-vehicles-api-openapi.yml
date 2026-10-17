@@ -311,6 +311,162 @@ paths:
       - RESOURCE_NOT_FOUND
 components:
   schemas:
+    VehicleConfig:
+      properties:
+        exteriorColor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Exteriorcolor
+        chargePortType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chargeporttype
+        driverAssist:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Driverassist
+        efficiencyPackage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Efficiencypackage
+        hasAirSuspension:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hasairsuspension
+        hasLudicrousMode:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hasludicrousmode
+        hasSeatCooling:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hasseatcooling
+        headlampType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Headlamptype
+        interiorTrimType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Interiortrimtype
+        motorizedChargePort:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Motorizedchargeport
+        rearDriveUnit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reardriveunit
+        rhd:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Rhd
+        spoilerType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Spoilertype
+        wheelType:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wheeltype
+      type: object
+      title: VehicleConfig
+    Page_Vehicle_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Vehicle'
+          type: array
+          title: Results
+          description: Returned data from the listing query.
+        nextPageToken:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next page token
+          description: Next page token used for pagination.
+        totalResults:
+          type: integer
+          title: Total results
+          description: Total result count.
+      type: object
+      required:
+      - results
+      - nextPageToken
+      - totalResults
+      title: Page[Vehicle]
+    VehicleUpdateRegistration:
+      properties:
+        registrationPlate:
+          anyOf:
+          - type: string
+            maxLength: 50
+            minLength: 1
+          - type: 'null'
+          title: Registrationplate
+      type: object
+      required:
+      - registrationPlate
+      title: VehicleUpdateRegistration
+    VehicleSpecifications:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+        make:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Make
+        modelYear:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Modelyear
+        batteryCapacity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacity
+        batteryCapacityNet:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Batterycapacitynet
+        standardEvr:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Standardevr
+        allElectricRange:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Allelectricrange
+        allElectricRangeMin:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Allelectricrangemin
+      type: object
+      title: VehicleSpecifications
+      description: Vehicle specifications schema
     VehicleMetaData:
       properties:
         lastSeenAt:
@@ -345,19 +501,6 @@ components:
       - consentId
       - accountId
       title: VehicleMetaData
-    VehicleUpdateRegistration:
-      properties:
-        registrationPlate:
-          anyOf:
-          - type: string
-            maxLength: 50
-            minLength: 1
-          - type: 'null'
-          title: Registrationplate
-      type: object
-      required:
-      - registrationPlate
-      title: VehicleUpdateRegistration
     Option:
       properties:
         code:
@@ -372,48 +515,6 @@ components:
       required:
       - code
       title: Option
-    Page_Vehicle_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Vehicle'
-          type: array
-          title: Results
-          description: Returned data from the listing query.
-        nextPageToken:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next page token
-          description: Next page token used for pagination.
-        totalResults:
-          type: integer
-          title: Total results
-          description: Total result count.
-      type: object
-      required:
-      - results
-      - nextPageToken
-      - totalResults
-      title: Page[Vehicle]
-    VehicleOptions:
-      properties:
-        vehicleId:
-          type: string
-          title: Vehicleid
-        vehicleConfig:
-          $ref: '#/components/schemas/VehicleConfig'
-        options:
-          items:
-            $ref: '#/components/schemas/Option'
-          type: array
-          title: Options
-      type: object
-      required:
-      - vehicleId
-      - vehicleConfig
-      - options
-      title: VehicleOptions
     Vehicle:
       properties:
         make:
@@ -511,125 +612,24 @@ components:
       - id
       - metadata
       title: Vehicle
-    VehicleSpecifications:
+    VehicleOptions:
       properties:
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-        make:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Make
-        modelYear:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Modelyear
-        batteryCapacity:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Batterycapacity
-        batteryCapacityNet:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Batterycapacitynet
-        standardEvr:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Standardevr
-        allElectricRange:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Allelectricrange
-        allElectricRangeMin:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Allelectricrangemin
+        vehicleId:
+          type: string
+          title: Vehicleid
+        vehicleConfig:
+          $ref: '#/components/schemas/VehicleConfig'
+        options:
+          items:
+            $ref: '#/components/schemas/Option'
+          type: array
+          title: Options
       type: object
-      title: VehicleSpecifications
-      description: Vehicle specifications schema
-    VehicleConfig:
-      properties:
-        exteriorColor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Exteriorcolor
-        chargePortType:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chargeporttype
-        driverAssist:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Driverassist
-        efficiencyPackage:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Efficiencypackage
-        hasAirSuspension:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Hasairsuspension
-        hasLudicrousMode:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Hasludicrousmode
-        hasSeatCooling:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Hasseatcooling
-        headlampType:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Headlamptype
-        interiorTrimType:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Interiortrimtype
-        motorizedChargePort:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Motorizedchargeport
-        rearDriveUnit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reardriveunit
-        rhd:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Rhd
-        spoilerType:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Spoilertype
-        wheelType:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wheeltype
-      type: object
-      title: VehicleConfig
+      required:
+      - vehicleId
+      - vehicleConfig
+      - options
+      title: VehicleOptions
   securitySchemes:
     HTTPBasic:
       type: http
