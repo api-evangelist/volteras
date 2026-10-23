@@ -166,3 +166,9 @@ components:
         clientCredentials:
           scopes: {}
           tokenUrl: /v1/oauth2/token
+x-provenance:
+  method: harvested
+  publisher: Volteras
+  source: https://docs.volteras.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
